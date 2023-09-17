@@ -1,30 +1,53 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import NavMenu from './components/NavMenu.vue'
+import Footer from './components/Footer.vue'
+import HelloWorld from './components/HelloWorld.vue';
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <el-container>
+    <el-header>Header</el-header> 
+    <el-container> 
+      <el-aside width="200px">
+        <NavMenu></NavMenu>
+      </el-aside> 
+      <el-container>  
+          <router-view>
+            router-view
+          </router-view>
+      </el-container>
+    </el-container>
+      <el-footer>
+        <Footer></Footer>
+      </el-footer>
+    </el-container>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<style>
+* {
+  margin: 0;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.el-header {
+  background-color: #409eff;
+  color: #333;
+  text-align: center;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.el-footer {
+  padding: 0;
+}
+
+.el-aside {
+  color: #333;
+}
+
+.el-main {
+  background-color: #e9eef3;
+  color: #333;
+}
+
+body>.el-container {
+  margin-bottom: 40px;
 }
 </style>

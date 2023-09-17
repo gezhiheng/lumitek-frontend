@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "element3": "^0.0.40",
     "vue": "^3.3.4"
   },
   "devDependencies": {
