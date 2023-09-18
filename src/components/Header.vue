@@ -1,7 +1,6 @@
 <template>
   <div class="header">
     <img src="../assets/lumitek-logo.jpg">
-    <span class="greeting">早上好，henry，準備開始一天的工作了嗎</span>
   </div>
 </template>
 

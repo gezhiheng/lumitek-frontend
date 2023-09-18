@@ -2,7 +2,6 @@
 import NavMenu from './components/NavMenu.vue'
 import Footer from './components/Footer.vue'
 import Header from './components/Header.vue';
-import HelloWorld from './components/HelloWorld.vue';
 </script>
 
 <template>
@@ -32,7 +31,7 @@ import HelloWorld from './components/HelloWorld.vue';
 }
 
 .main {
-  max-width: 60%;
+  max-width: 65%;
   margin: 0 auto;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
