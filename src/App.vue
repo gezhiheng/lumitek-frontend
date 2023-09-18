@@ -26,6 +26,8 @@ import HelloWorld from './components/HelloWorld.vue';
 <style>
 * {
   margin: 0;
+  overflow: scroll;
+  overflow: hidden;
 }
 
 .el-header {
@@ -39,7 +41,7 @@ import HelloWorld from './components/HelloWorld.vue';
 }
 
 .el-aside {
-  color: #333;
+  color: #ffff;
 }
 
 .el-main {
