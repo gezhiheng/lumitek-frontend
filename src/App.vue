@@ -1,12 +1,15 @@
 <script setup>
 import NavMenu from './components/NavMenu.vue'
 import Footer from './components/Footer.vue'
+import Header from './components/Header.vue';
 import HelloWorld from './components/HelloWorld.vue';
 </script>
 
 <template>
   <el-container>
-    <el-header>Header</el-header> 
+    <el-header>
+      <Header></Header>
+    </el-header> 
     <el-container> 
       <el-aside width="200px">
         <NavMenu></NavMenu>
@@ -31,9 +34,9 @@ import HelloWorld from './components/HelloWorld.vue';
 }
 
 .el-header {
-  background-color: #409eff;
+  background-color: white;
+  padding: 0;
   color: #333;
-  text-align: center;
 }
 
 .el-footer {
