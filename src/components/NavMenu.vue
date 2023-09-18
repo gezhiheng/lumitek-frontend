@@ -5,46 +5,46 @@
         :default-openeds="defaultOpeneds">
         <el-submenu index="1">
           <template v-slot:title>
-            <i class="el-icon-location"></i>
-            <span>导航一</span>
+            <span>MF-製造管理</span>
           </template>
-          <el-menu-item-group>
-            <template v-slot:title>分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template v-slot:title>选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
+          <el-submenu index="1-1">
+            <template v-slot:title>选项1</template>
+            <el-menu-item index="1-1-1">选项1</el-menu-item>
+            <el-menu-item index="1-1-2">选项2</el-menu-item>
+            <el-menu-item index="1-1-3">选项3</el-menu-item>
+            <el-menu-item index="1-1-4">选项4</el-menu-item>
+            <el-menu-item index="1-1-5">选项5</el-menu-item>
+          </el-submenu>
+          <el-submenu index="1-2">
+            <template v-slot:title>选项2</template>
+            <el-menu-item index="1-2-1">选项1</el-menu-item>
+            <el-menu-item index="1-2-2">选项2</el-menu-item>
+            <el-menu-item index="1-2-3">选项3</el-menu-item>
+            <el-menu-item index="1-2-4">选项4</el-menu-item>
+            <el-menu-item index="1-2-5">选项5</el-menu-item>
           </el-submenu>
         </el-submenu>
-        <el-menu-item index="2">
-          <i class="el-icon-menu"></i>
+        <el-submenu index="2">
           <template v-slot:title>
-            <span>导航二</span>
+            <span>MF-製造管理</span>
           </template>
-        </el-menu-item>
-        <el-menu-item index="3" disabled>
-          <i class="el-icon-document"></i>
-          <template v-slot:title>
-            <span>导航三</span>
-          </template>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <template v-slot:title>
-            <span>导航四</span>
-          </template>
-        </el-menu-item>
+          <el-submenu index="2-1">
+            <template v-slot:title>选项1</template>
+            <el-menu-item index="2-1-1">选项1</el-menu-item>
+            <el-menu-item index="2-1-2">选项2</el-menu-item>
+            <el-menu-item index="2-1-3">选项3</el-menu-item>
+            <el-menu-item index="2-1-4">选项4</el-menu-item>
+            <el-menu-item index="2-1-5">选项5</el-menu-item>
+          </el-submenu>
+          <el-submenu index="2-2">
+            <template v-slot:title>选项2</template>
+            <el-menu-item index="2-2-1">选项1</el-menu-item>
+            <el-menu-item index="2-2-2">选项2</el-menu-item>
+            <el-menu-item index="2-2-3">选项3</el-menu-item>
+            <el-menu-item index="2-2-4">选项4</el-menu-item>
+            <el-menu-item index="2-2-5">选项5</el-menu-item>
+          </el-submenu>
+        </el-submenu>
       </el-menu>
     </el-col>
   </el-row>
