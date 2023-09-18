@@ -72,5 +72,7 @@ export default {
 <style scoped>
 * {
   width: 100%;
+  overflow: scroll;
+  overflow: hidden;
 }
 </style>

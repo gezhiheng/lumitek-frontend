@@ -6,7 +6,7 @@ import HelloWorld from './components/HelloWorld.vue';
 </script>
 
 <template>
-  <el-container>
+  <el-container class="main">
     <el-header>
       <Header></Header>
     </el-header> 
@@ -15,7 +15,7 @@ import HelloWorld from './components/HelloWorld.vue';
         <NavMenu></NavMenu>
       </el-aside> 
       <el-container>  
-          <router-view>
+          <router-view style="height: 962px;">
             router-view
           </router-view>
       </el-container>
@@ -29,14 +29,19 @@ import HelloWorld from './components/HelloWorld.vue';
 <style>
 * {
   margin: 0;
-  overflow: scroll;
-  overflow: hidden;
+}
+
+.main {
+  max-width: 60%;
+  margin: 0 auto;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
 .el-header {
   background-color: white;
   padding: 0;
   color: #333;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .el-footer {
