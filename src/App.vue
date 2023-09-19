@@ -28,12 +28,14 @@ import Header from './components/Header.vue';
 <style>
 * {
   margin: 0;
+  background-color: #F9FAFC;
 }
 
 .main {
   max-width: 65%;
   margin: 0 auto;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background-color: #E5E9F2;
 }
 
 .el-header {

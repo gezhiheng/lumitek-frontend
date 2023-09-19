@@ -1,6 +1,6 @@
-import 'element3/lib/theme-chalk/index.css'
-import Element3 from 'element3'
+import 'element-plus/dist/index.css'
+import ElementPlus from 'element-plus'
 import { createApp } from 'vue'
 import App from './App.vue'
 
-createApp(App).use(Element3).mount('#app')
+createApp(App).use(ElementPlus).mount('#app')

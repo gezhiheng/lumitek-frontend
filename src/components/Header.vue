@@ -1,7 +1,5 @@
 <template>
-  <div class="header">
-    <img src="../assets/lumitek-logo.jpg">
-  </div>
+    <img src="../assets/lumitek.jpg">
 </template>
 
 <script setup>
@@ -9,14 +7,16 @@
 </script>
 
 <style scoped>
-.header {
-  display: flex;
-  align-items: center;
+template {
+  height: 60px;
+  width: 65%;
+  background-color: white;
 }
 
 img {
-  padding-left: 20px;
-  margin-top: 12px;
+  width: 120px;
+  margin-left: 20px;
+  margin-top: 8px;
 }
 
 .greeting {

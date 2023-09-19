@@ -1,8 +1,7 @@
 <template>
   <el-row class="tac">
     <el-col :span="12">
-      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
-        :default-openeds="defaultOpeneds">
+      <el-menu default-active="2" class="el-menu-vertical-demo">
         <el-submenu index="1">
           <template v-slot:title>
             <span>MF-製造管理</span>
@@ -52,27 +51,24 @@
 
 
 <script>
-import { ref } from 'vue'
-export default {
-  setup() {
-    let defaultOpeneds = ref(['1', '1-4'])
 
-    function handleOpen(key, keyPath) {
-      console.log(key, keyPath)
-    }
-    function handleClose(key, keyPath) {
-      console.log(key, keyPath)
-    }
-
-    return { defaultOpeneds, handleOpen, handleClose }
-  }
-}
 </script>
 
 <style scoped>
 * {
   width: 100%;
-  overflow: scroll;
-  overflow: hidden;
+  /* overflow: scroll;
+  overflow: hidden; */
+}
+.scrollbar-demo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 4px;
+  background: var(--el-color-primary-light-9);
+  color: var(--el-color-primary);
 }
 </style>
