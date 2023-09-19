@@ -6,36 +6,26 @@ import Header from './components/Header.vue';
 
 <template>
   <el-container class="main">
-    <el-header>
-      <Header></Header>
-    </el-header> 
-    <el-container> 
-      <el-aside width="200px">
-        <NavMenu></NavMenu>
-      </el-aside> 
-      <el-container>  
-          <router-view style="height: 962px;">
-            router-view
-          </router-view>
-      </el-container>
+    <el-header><Header></Header></el-header>
+    <el-container>
+      <el-aside width="200px"><NavMenu></NavMenu></el-aside>
+      <el-main><router-view></router-view></el-main>
     </el-container>
-      <el-footer>
-        <Footer></Footer>
-      </el-footer>
-    </el-container>
+    <el-footer><Footer></Footer></el-footer>
+  </el-container>
 </template>
 
 <style>
 * {
   margin: 0;
-  background-color: #F9FAFC;
+  padding: 0;
+  /* background-color: #e9eef3; */
 }
 
 .main {
-  max-width: 65%;
+  width: 70%;
   margin: 0 auto;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background-color: #E5E9F2;
+  /* box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1); */
 }
 
 .el-header {
@@ -47,18 +37,16 @@ import Header from './components/Header.vue';
 
 .el-footer {
   padding: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+
 }
 
 .el-aside {
-  color: #ffff;
+  height: 100vh;
+  width: 220px;
 }
 
 .el-main {
-  background-color: #e9eef3;
   color: #333;
-}
-
-body>.el-container {
-  margin-bottom: 40px;
 }
 </style>

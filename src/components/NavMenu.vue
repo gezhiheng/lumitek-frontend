@@ -1,74 +1,89 @@
 <template>
   <el-row class="tac">
     <el-col :span="12">
-      <el-menu default-active="2" class="el-menu-vertical-demo">
-        <el-submenu index="1">
-          <template v-slot:title>
-            <span>MF-製造管理</span>
+      <el-menu
+        default-active="2"
+        class="el-menu-vertical-demo"
+        @open="handleOpen"
+        @close="handleClose"
+        :default-active="activeMenu" 
+        @select="handleSelect"
+      >
+        <el-sub-menu index="1" style="background-color: white;">
+          <template #title>
+            <span>MF製造管理</span>
           </template>
-          <el-submenu index="1-1">
-            <template v-slot:title>选项1</template>
-            <el-menu-item index="1-1-1">选项1</el-menu-item>
-            <el-menu-item index="1-1-2">选项2</el-menu-item>
-            <el-menu-item index="1-1-3">选项3</el-menu-item>
-            <el-menu-item index="1-1-4">选项4</el-menu-item>
-            <el-menu-item index="1-1-5">选项5</el-menu-item>
-          </el-submenu>
-          <el-submenu index="1-2">
-            <template v-slot:title>选项2</template>
-            <el-menu-item index="1-2-1">选项1</el-menu-item>
-            <el-menu-item index="1-2-2">选项2</el-menu-item>
-            <el-menu-item index="1-2-3">选项3</el-menu-item>
-            <el-menu-item index="1-2-4">选项4</el-menu-item>
-            <el-menu-item index="1-2-5">选项5</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-        <el-submenu index="2">
-          <template v-slot:title>
-            <span>MF-製造管理</span>
+            <el-menu-item index="1-1">item one</el-menu-item>
+            <el-menu-item index="1-2">item two</el-menu-item>
+            <el-menu-item index="1-3">item three</el-menu-item>
+          <el-sub-menu index="1-4">
+            <template #title>MFB進貨派工作業</template>
+            <el-menu-item index="mfb01">MFB01-晶圓進貨資料</el-menu-item>
+            <el-menu-item index="1-4-2">item one</el-menu-item>
+          </el-sub-menu>
+        </el-sub-menu>
+
+        <el-sub-menu index="2" style="background-color: white;">
+          <template #title>
+            <span>Navigator Two</span>
           </template>
-          <el-submenu index="2-1">
-            <template v-slot:title>选项1</template>
-            <el-menu-item index="2-1-1">选项1</el-menu-item>
-            <el-menu-item index="2-1-2">选项2</el-menu-item>
-            <el-menu-item index="2-1-3">选项3</el-menu-item>
-            <el-menu-item index="2-1-4">选项4</el-menu-item>
-            <el-menu-item index="2-1-5">选项5</el-menu-item>
-          </el-submenu>
-          <el-submenu index="2-2">
-            <template v-slot:title>选项2</template>
-            <el-menu-item index="2-2-1">选项1</el-menu-item>
-            <el-menu-item index="2-2-2">选项2</el-menu-item>
-            <el-menu-item index="2-2-3">选项3</el-menu-item>
-            <el-menu-item index="2-2-4">选项4</el-menu-item>
-            <el-menu-item index="2-2-5">选项5</el-menu-item>
-          </el-submenu>
-        </el-submenu>
+            <el-menu-item index="2-1">item one</el-menu-item>
+            <el-menu-item index="2-2">item two</el-menu-item>
+            <el-menu-item index="2-3">item three</el-menu-item>
+          <el-sub-menu index="2-4">
+            <template #title>item four</template>
+            <el-menu-item index="2-4-1">item one</el-menu-item>
+            <el-menu-item index="2-4-2">item one</el-menu-item>
+          </el-sub-menu>
+        </el-sub-menu>
+
+        <el-sub-menu index="3" style="background-color: white;">
+          <template #title>
+            <span>Navigator Three</span>
+          </template>
+            <el-menu-item index="3-1">item one</el-menu-item>
+            <el-menu-item index="3-2">item two</el-menu-item>
+            <el-menu-item index="3-3">item three</el-menu-item>
+          <el-sub-menu index="3-4">
+            <template #title>item four</template>
+            <el-menu-item index="3-4-1">item one</el-menu-item>
+            <el-menu-item index="3-4-2">item one</el-menu-item>
+          </el-sub-menu>
+        </el-sub-menu>
+
       </el-menu>
     </el-col>
   </el-row>
 </template>
 
+<script setup>
+import { ref } from 'vue'
+import router from '../router/router'
 
-<script>
+const pages = {
+  "OA-辦公系統" : {
+    "OAA-行政類" : ["OAA02-用印申請單", "OAA03-機票申請單"],
+    "OAB-人事類" : ["OAB01-加班申請單", "OAB02-請假申請單"]
+  },
+}
+
+const activeMenu = ref('')
+const handleSelect = (index) => {
+  switch(index) {
+    case 'mfb01':
+      router.push('/mfb01')
+      break
+    default:
+      router.push('/')
+  }
+}
 
 </script>
 
 <style scoped>
 * {
-  width: 100%;
-  /* overflow: scroll;
-  overflow: hidden; */
-}
-.scrollbar-demo-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 50px;
-  margin: 10px;
-  text-align: center;
-  border-radius: 4px;
-  background: var(--el-color-primary-light-9);
-  color: var(--el-color-primary);
+  padding: 0;
+  margin: 0;
+  width: 200px;
 }
 </style>
