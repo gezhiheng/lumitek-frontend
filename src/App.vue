@@ -46,7 +46,4 @@ import Header from './components/Header.vue';
   width: 220px;
 }
 
-.el-main {
-  color: #333;
-}
 </style>

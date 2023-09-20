@@ -59,12 +59,15 @@
 <script setup>
 import { ref } from 'vue'
 import router from '../router/router'
+import defaultFeatureList from '../assets/default-feature-list'
 
-const pages = {
-  "OA-辦公系統" : {
-    "OAA-行政類" : ["OAA02-用印申請單", "OAA03-機票申請單"],
-    "OAB-人事類" : ["OAB01-加班申請單", "OAB02-請假申請單"]
-  },
+const featrueList = [];
+
+function setFeatureList(featureListObj, featureList) {
+  let level = 0
+  for (const key in featureListObj) {
+      
+  }
 }
 
 const activeMenu = ref('')
