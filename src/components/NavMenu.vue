@@ -1,55 +1,33 @@
 <template>
-  <el-row class="tac">
+  <el-row>
     <el-col :span="12">
       <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
-        @open="handleOpen"
-        @close="handleClose"
+        default-active="1"
         :default-active="activeMenu" 
         @select="handleSelect"
       >
-        <el-sub-menu index="1" style="background-color: white;">
+        <!-- <el-sub-menu 
+          default-active="1"
+          style="background-color: white;"
+          :index="firstFeature" 
+          v-for="firstFeature in feats1stLevel"
+        >
           <template #title>
-            <span>MF製造管理</span>
+            <span>{{ firstFeature }}</span>
           </template>
-            <el-menu-item index="1-1">item one</el-menu-item>
-            <el-menu-item index="1-2">item two</el-menu-item>
-            <el-menu-item index="1-3">item three</el-menu-item>
+
+          <el-menu-item 
+            :index="secondFeature" 
+            v-for="secondFeature in feats2ndLevel"
+          >
+            {{ secondFeature }}
+          </el-menu-item>
           <el-sub-menu index="1-4">
             <template #title>MFB進貨派工作業</template>
             <el-menu-item index="mfb01">MFB01-晶圓進貨資料</el-menu-item>
             <el-menu-item index="1-4-2">item one</el-menu-item>
           </el-sub-menu>
-        </el-sub-menu>
-
-        <el-sub-menu index="2" style="background-color: white;">
-          <template #title>
-            <span>Navigator Two</span>
-          </template>
-            <el-menu-item index="2-1">item one</el-menu-item>
-            <el-menu-item index="2-2">item two</el-menu-item>
-            <el-menu-item index="2-3">item three</el-menu-item>
-          <el-sub-menu index="2-4">
-            <template #title>item four</template>
-            <el-menu-item index="2-4-1">item one</el-menu-item>
-            <el-menu-item index="2-4-2">item one</el-menu-item>
-          </el-sub-menu>
-        </el-sub-menu>
-
-        <el-sub-menu index="3" style="background-color: white;">
-          <template #title>
-            <span>Navigator Three</span>
-          </template>
-            <el-menu-item index="3-1">item one</el-menu-item>
-            <el-menu-item index="3-2">item two</el-menu-item>
-            <el-menu-item index="3-3">item three</el-menu-item>
-          <el-sub-menu index="3-4">
-            <template #title>item four</template>
-            <el-menu-item index="3-4-1">item one</el-menu-item>
-            <el-menu-item index="3-4-2">item one</el-menu-item>
-          </el-sub-menu>
-        </el-sub-menu>
+        </el-sub-menu> -->
 
       </el-menu>
     </el-col>
@@ -59,15 +37,36 @@
 <script setup>
 import { ref } from 'vue'
 import router from '../router/router'
-import defaultFeatureList from '../assets/default-feature-list'
+import defaultFeatures from '../assets/default-feature-list'
 
-const featrueList = [];
+const feats1stLevel = []
+const feats2ndLevel = []
+const feats3rdLevel = []
+function setFeatures(features) {
+  for (const feats1st in features) {
+    let feats1index = 0
+    feats1stLevel.push(feats1st)
+    const data2Level = features[feats1st]
+    for (const feats2nd in data2Level) {
+      let feats2Index = 0
+      const map = new Map()
+      map.set(feats1index++, feats2nd)
+      feats2ndLevel.push(map)
+      for (const feads3rd in data2Level[feats2nd]) {
+        const map = new Map()
+        map.set(feats2Index++, feads3rd)
+        feats3rdLevel.push(map)
+      }
+    }
+  }  
+}
+setFeatures(defaultFeatures)
+console.log(feats1stLevel);
+console.log(feats2ndLevel);
+console.log(feats3rdLevel);
 
-function setFeatureList(featureListObj, featureList) {
-  let level = 0
-  for (const key in featureListObj) {
-      
-  }
+function isObjEmpty(obj) {
+  return Object.keys(obj) === 0
 }
 
 const activeMenu = ref('')
