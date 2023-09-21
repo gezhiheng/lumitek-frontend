@@ -1,9 +1,3 @@
-<script setup>
-import NavMenu from './components/NavMenu.vue'
-import Footer from './components/Footer.vue'
-import Header from './components/Header.vue';
-</script>
-
 <template>
   <el-container class="main">
     <el-header><Header></Header></el-header>
@@ -15,35 +9,14 @@ import Header from './components/Header.vue';
   </el-container>
 </template>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  /* background-color: #e9eef3; */
-}
+<script setup>
+import NavMenu from './components/NavMenu.vue'
+import Footer from './components/Footer.vue'
+import Header from './components/Header.vue'
+import { useRouter } from 'vue-router'
 
-.main {
-  width: 70%;
-  margin: 0 auto;
-  /* box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1); */
-}
+const router = useRouter()
+console.log('router',router.currentRoute.value.fullpath);
+</script>
 
-.el-header {
-  background-color: white;
-  padding: 0;
-  color: #333;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.el-footer {
-  padding: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-
-}
-
-.el-aside {
-  height: 100vh;
-  width: 200px;
-}
-
-</style>
+<style src="../src/style/app.css"></style>

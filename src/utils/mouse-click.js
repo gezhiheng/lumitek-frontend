@@ -1,7 +1,7 @@
 (function () {
   var a_idx = 0;
   window.onclick = function (event) {
-      var a = new Array("琉明","光電","Lumitek");
+      var a = new Array("琉明","光電","Lumitek","❤");
 
       var heart = document.createElement("b"); //创建b元素
       heart.onselectstart = new Function('event.returnValue=false'); //防止拖动
