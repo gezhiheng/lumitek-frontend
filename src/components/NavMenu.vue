@@ -6,29 +6,32 @@
         :default-active="activeMenu" 
         @select="handleSelect"
       >
-        <!-- <el-sub-menu 
+        <el-sub-menu 
           default-active="1"
           style="background-color: white;"
-          :index="firstFeature" 
-          v-for="firstFeature in feats1stLevel"
+          :index="feat1st" 
+          v-for="(feat1st, feat1stIndex) in feats1stLevel"
         >
           <template #title>
-            <span>{{ firstFeature }}</span>
+            <span style="font-weight: bolder">{{ feat1st }}</span>
           </template>
-
-          <el-menu-item 
-            :index="secondFeature" 
-            v-for="secondFeature in feats2ndLevel"
-          >
-            {{ secondFeature }}
-          </el-menu-item>
-          <el-sub-menu index="1-4">
-            <template #title>MFB進貨派工作業</template>
-            <el-menu-item index="mfb01">MFB01-晶圓進貨資料</el-menu-item>
-            <el-menu-item index="1-4-2">item one</el-menu-item>
-          </el-sub-menu>
-        </el-sub-menu> -->
-
+            <div v-for="(feat2nd, feat2Index) in feats2ndLevel">
+            <el-sub-menu 
+              v-if="feat2nd.index === feat1stIndex" 
+              :index="feat2nd.value"  
+            >
+              <template #title>{{ feat2nd.value }}</template>
+              <div v-for="feads3rd in feats3rdLevel">
+                <el-menu-item 
+                  v-if="feads3rd.index === feat2Index"
+                  :index="feads3rd.value" 
+                >
+                  {{ feads3rd.value }}
+                </el-menu-item>
+              </div>
+            </el-sub-menu>
+          </div>
+        </el-sub-menu>
       </el-menu>
     </el-col>
   </el-row>
@@ -43,36 +46,33 @@ const feats1stLevel = []
 const feats2ndLevel = []
 const feats3rdLevel = []
 function setFeatures(features) {
+  let feats1index = 0
+  let feats2Index = 0
   for (const feats1st in features) {
-    let feats1index = 0
     feats1stLevel.push(feats1st)
     const data2Level = features[feats1st]
     for (const feats2nd in data2Level) {
-      let feats2Index = 0
-      const map = new Map()
-      map.set(feats1index++, feats2nd)
-      feats2ndLevel.push(map)
+      feats2ndLevel.push({
+        index: feats1index,
+        value: feats2nd
+      })
       for (const feads3rd in data2Level[feats2nd]) {
-        const map = new Map()
-        map.set(feats2Index++, feads3rd)
-        feats3rdLevel.push(map)
+        feats3rdLevel.push({
+          index: feats2Index,
+          value: feads3rd
+        })
       }
+      feats2Index++
     }
+    feats1index++
   }  
 }
 setFeatures(defaultFeatures)
-console.log(feats1stLevel);
-console.log(feats2ndLevel);
-console.log(feats3rdLevel);
-
-function isObjEmpty(obj) {
-  return Object.keys(obj) === 0
-}
 
 const activeMenu = ref('')
 const handleSelect = (index) => {
   switch(index) {
-    case 'mfb01':
+    case 'MFB01-晶圓進貨資料':
       router.push('/mfb01')
       break
     default:

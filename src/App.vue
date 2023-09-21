@@ -43,7 +43,7 @@ import Header from './components/Header.vue';
 
 .el-aside {
   height: 100vh;
-  width: 220px;
+  width: 200px;
 }
 
 </style>
