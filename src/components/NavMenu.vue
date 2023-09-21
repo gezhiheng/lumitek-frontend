@@ -16,19 +16,19 @@
             <span style="font-weight: bolder">{{ feat1st }}</span>
           </template>
             <div v-for="(feat2nd, feat2Index) in feats2ndLevel">
-            <el-sub-menu 
-              v-if="feat2nd.index === feat1stIndex" 
-              :index="feat2nd.value"  
-            >
-              <template #title>{{ feat2nd.value }}</template>
-              <div v-for="feads3rd in feats3rdLevel">
-                <el-menu-item 
-                  v-if="feads3rd.index === feat2Index"
-                  :index="feads3rd.value" 
-                >
-                  {{ feads3rd.value }}
-                </el-menu-item>
-              </div>
+              <el-sub-menu 
+                v-if="feat2nd.index === feat1stIndex" 
+                :index="feat2nd.value"  
+              >
+                <template #title>{{ feat2nd.value }}</template>
+                  <div v-for="feads3rd in feats3rdLevel">
+                    <el-menu-item 
+                      v-if="feads3rd.index === feat2Index"
+                      :index="feads3rd.value" 
+                    >
+                      {{ feads3rd.value }}
+                    </el-menu-item>
+                  </div>
             </el-sub-menu>
           </div>
         </el-sub-menu>
