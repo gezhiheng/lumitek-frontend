@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <el-row class="main">
     <el-col :span="12">
       <el-menu
         default-active="1"
@@ -16,6 +16,7 @@
             <span style="font-weight: bolder">{{ feat1st }}</span>
           </template>
             <div v-for="(feat2nd, feat2Index) in feats2ndLevel">
+
               <el-sub-menu 
                 v-if="feat2nd.index === feat1stIndex" 
                 :index="feat2nd.value"  
@@ -41,10 +42,24 @@
 import { ref } from 'vue'
 import router from '../router/router'
 import defaultFeatures from '../assets/default-feature-list'
+import axios from 'axios'
 
 const feats1stLevel = []
 const feats2ndLevel = []
 const feats3rdLevel = []
+setFeatures(defaultFeatures)
+await axios.get('http://10.1.10.133:8000/feature')
+  .then(async function (response) {
+    if (response) {
+      feats1stLevel.length = 0
+      feats2ndLevel.length = 0
+      feats3rdLevel.length = 0
+      setFeatures(response.data)
+    }
+  })
+  .catch(() => {
+})
+
 function setFeatures(features) {
   let feats1index = 0
   let feats2Index = 0
@@ -67,7 +82,6 @@ function setFeatures(features) {
     feats1index++
   }  
 }
-setFeatures(defaultFeatures)
 
 const activeMenu = ref('')
 const handleSelect = (index) => {
@@ -86,6 +100,6 @@ const handleSelect = (index) => {
 * {
   padding: 0;
   margin: 0;
-  width: 200px;
+  width: 230px;
 }
 </style>
