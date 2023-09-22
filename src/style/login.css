@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+  margin-top: 180px;
+}
+
+img {
+  margin: 90px 50px 50px 50px;
+  width: 400px;
+}
+
+.staffNoInput {
+  margin-left: 50px;
+  margin-bottom: 10px;
+  width: 400px;
+}
+
+.pwdInput {
+  margin-left: 50px;
+  margin-bottom: 10px;
+  width: 400px;
+}
+
+.loginBtn {
+  margin-left: 50px;
+  width: 400px;
+}
