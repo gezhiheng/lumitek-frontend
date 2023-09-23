@@ -1,26 +1,11 @@
 <template>
-    <img src="../assets/lumitek.jpg">
+  <div class="container">
+    <Menu :features="defaultFeatures"></Menu>
+  </div>
 </template>
 
 <script setup>
+import Menu from './Menu.vue'
+import defaultFeatures from '../assets/default-features'
 
 </script>
-
-<style scoped>
-template {
-  height: 60px;
-  width: 65%;
-  background-color: white;
-}
-
-img {
-  width: 120px;
-  margin-left: 20px;
-  margin-top: 8px;
-}
-
-.greeting {
-  margin-top: 15px;
-  margin-left: 50px;
-}
-</style>
