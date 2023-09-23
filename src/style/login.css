@@ -3,16 +3,22 @@
   padding: 0;
 }
 
+.main {
+  display: grid;
+  place-items: center; /* 居中元素 */
+  height: 100vh; /* 设置容器的高度，以确保垂直居中占据整个视口 */
+}
+
 .box {
   width: 500px;
   height: 500px;
   margin: 0 auto;
-  margin-top: 180px;
 }
 
 img {
-  margin: 90px 50px 50px 50px;
-  width: 400px;
+  margin: 140px 0px 10px 150px;
+  width: 200px;
+  height: 60px;
 }
 
 .staffNoInput {
