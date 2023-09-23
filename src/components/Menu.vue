@@ -1,8 +1,5 @@
 <template>
-  <el-menu
-    mode="horizontal"
-    :ellipsis="false"
-  >
+  <el-menu mode="horizontal" :ellipsis="false">
     <el-menu-item index="0"><img src="../assets/lumitek.jpg" alt="lumitek"></el-menu-item>
     <div class="flex-grow" />
     <el-sub-menu :index="feat1.value" v-for="(feat1, feat1Index) in feats1Level" :disabled="feat1.isEmpty">
