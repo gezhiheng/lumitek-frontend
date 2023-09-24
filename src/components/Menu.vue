@@ -67,7 +67,7 @@ setFeatures(features)
 }
 
 img {
-  height: 45px;
-  margin-top: 5px;
+  height: 40px;
+  margin-top: 8px;
 }
 </style>

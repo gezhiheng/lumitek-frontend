@@ -2,7 +2,6 @@
   <el-container class="main">
     <el-header><Header></Header></el-header>
     <el-container>
-      <el-aside width="200px"></el-aside>
       <el-main><router-view></router-view></el-main>
     </el-container>
     <el-footer><Footer></Footer></el-footer>
