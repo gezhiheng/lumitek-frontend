@@ -11,6 +11,16 @@
 <script setup>
 import Footer from '../components/Footer.vue'
 import Header from '../components/Header.vue'
+import { ElNotification } from 'element-plus'
+
+const username = window.sessionStorage.getItem('username')
+if (username) {
+  ElNotification.success({
+    title: '登錄成功',
+    message: `${username}，歡迎`,
+    offset: 100,
+  })
+}
 </script>
 
 <style src="../style/home.css" scoped></style>
