@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <Menu :features="features"></Menu>
+    
+    <Menu v-if="config.useBackendData" :features="features"></Menu>
+    <Menu v-else :features="defaultFeatures"></Menu>
   </div>
 </template>
 
@@ -8,9 +10,14 @@
 import Menu from './Menu.vue'
 import defaultFeatures from '../assets/default-features'
 import { getFeatures }  from '../service/user'
+import config from '../config/config'
 
 const staffNo = window.sessionStorage.getItem('staffNo')
-const features = await getFeatures(staffNo).then((resolve, reject) => {
-  return resolve.data
-})
+let features = {}
+if (config.useBackendData) {
+  features = await getFeatures(staffNo).then((resolve, reject) => {
+    return resolve.data
+  })
+}
+
 </script>
