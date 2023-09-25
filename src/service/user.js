@@ -1,9 +1,9 @@
 import axios from "axios"
 
-export function getFeatures() {
-  return axios.get('')
+export async function getFeatures(staffNo) {
+  return await axios.get(`http://10.1.10.133:8000/features/${staffNo}`)
 }
 
-export function login(params) {
-  return axios.post('/login', params)
+export async function login(params) {
+  return await axios.post('http://10.1.10.133:8000/login/', params)
 }

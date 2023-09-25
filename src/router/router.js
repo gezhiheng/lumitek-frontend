@@ -28,7 +28,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const token = window.sessionStorage.getItem('staffNo')
+  const token = window.sessionStorage.getItem('username')
   if(to.path !== '/login' && !token) {
     return next('/login')
   } else {
