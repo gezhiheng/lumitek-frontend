@@ -6,16 +6,11 @@
 
 .main {
   width: 70%;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
 }
 
 .el-footer {
   padding: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.el-aside {
-  height: 100vh;
-  width: 230px;
 }
