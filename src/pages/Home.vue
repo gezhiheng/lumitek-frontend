@@ -1,6 +1,6 @@
 <template>
   <el-container class="main">
-    <el-header><Header></Header></el-header>
+    <el-header><Suspense><Header></Header></Suspense></el-header>
     <el-container>
       <el-main><router-view></router-view></el-main>
     </el-container>
