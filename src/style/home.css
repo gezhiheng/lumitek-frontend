@@ -5,7 +5,8 @@
 }
 
 .main {
-  /* width: 70%; */
+  width: 70%;
+  height: 100vh;
   margin: 0 auto;
 }
 

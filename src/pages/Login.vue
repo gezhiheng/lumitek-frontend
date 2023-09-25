@@ -51,14 +51,18 @@ const submit = async (formEl) => {
   if (!formEl) return
   await formEl.validate(async (valid, fields) => {
     if (valid) {   
-      const username = await login({
+      const data = await login({
         staffNo: ruleForm.staffNo,
         password: ruleForm.password
       }).then((resolve, reject) => {
-        return resolve.data.name
+        return {
+          staffNo: resolve.data.staffNo,
+          username: resolve.data.username
+        }
       })
-      if(username) {
-        window.sessionStorage.setItem('username', username)
+      if(data.username) {
+        window.sessionStorage.setItem('username', data.username)
+        window.sessionStorage.setItem('staffNo', data.staffNo)
         router.push({name: 'mfb01'})
       } else {
         swal("登錄失敗", "工號或密碼錯誤", "error");

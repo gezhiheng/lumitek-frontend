@@ -9,8 +9,8 @@ import Menu from './Menu.vue'
 import defaultFeatures from '../assets/default-features'
 import { getFeatures }  from '../service/user'
 
-
-const features = await getFeatures('admin').then((resolve, reject) => {
+const staffNo = window.sessionStorage.getItem('staffNo')
+const features = await getFeatures(staffNo).then((resolve, reject) => {
   return resolve.data
 })
 </script>
