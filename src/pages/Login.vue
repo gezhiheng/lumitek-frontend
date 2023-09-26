@@ -4,7 +4,7 @@
       <div class="box" style="box-shadow: var(--el-box-shadow-dark);">
         <img src="../assets/lumitek.jpg" alt="lumitek">
         <el-form-item prop="staffNo" class="staffNoInput">
-          <el-input class="w-50 m-2" placeholder="請輸入工號" v-model="ruleForm.staffNo" autocapitalize="off">
+          <el-input class="w-50 m-2" placeholder="請輸入工號" v-model="ruleForm.staffNo" autocomplete="new-password">
             <template #prefix>
               <el-icon class="el-input__icon">
                 <UserFilled />
@@ -13,7 +13,7 @@
           </el-input>
         </el-form-item>
         <el-form-item prop="password" class="pwdInput">
-          <el-input type="password" placeholder="請輸入密碼" show-password v-model="ruleForm.password" autocapitalize="off">
+          <el-input type="password" placeholder="請輸入密碼" show-password v-model="ruleForm.password" autocomplete="new-password">
             <template #prefix>
               <el-icon class="el-input__icon">
                 <Lock />

@@ -1,31 +1,36 @@
 <template>
   <header>
-    <h1>MFB01-晶圓進貨資料</h1>
+    <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">MFB01-晶圓進貨資料</h1>
     <span>
       <el-switch 
         class="switch" 
         size="large" 
         style="--el-switch-on-color: #409eff; --el-switch-off-color: #dcdfe6" 
-        v-model="horizontalLayoutFlag" 
-        inline-prompt active-text="水平展示" 
-        inactive-text="垂直展示 "/>
+        v-model="verticalLayoutFlag" 
+        inline-prompt active-text="垂直展示" 
+        inactive-text="水平展示 "/>
     </span>
   </header>
-  <div v-if="horizontalLayoutFlag" class="container-horizontal">
+  
+  <div v-if="verticalLayoutFlag" class="container-vertical">
+    <form-card class="form-card-vertical" :vertical-layout-flag="verticalLayoutFlag"></form-card>
+    <table-card class="table-card-vertical"></table-card>
+  </div>
+  <div v-else  class="container-horizontal">
     <form-card class="form-card-horizontal"></form-card>
     <table-card class="table-card-horizontal"></table-card>
   </div>
-  <div v-else class="container-vertical">
-    <form-card class="form-card-vertical"></form-card>
-    <table-card class="table-card-vertical"></table-card>
+  <div style="margin: 20px 12px 0 12px;">
+    <el-slider v-model="value1" />
   </div>
+  
 </template>
 <script setup>
 import { ref } from 'vue';
-import FormCard from '../components/mfb01/formCard.vue'
+import FormCard from '../components/mfb01/FormCard.vue'
 import TableCard from '../components/mfb01/tableCard.vue'
 
-let horizontalLayoutFlag = ref(true)
+let verticalLayoutFlag = ref(false)
 
 </script>
 

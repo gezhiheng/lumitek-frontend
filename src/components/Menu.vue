@@ -68,7 +68,7 @@ setFeatures(features)
 
 img {
   height: 40px;
-  margin: 8px 0 0 1.5em;
+  margin: 6px 0 0 1.5em;
 }
 
 .el-menu {

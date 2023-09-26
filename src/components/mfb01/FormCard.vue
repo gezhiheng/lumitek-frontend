@@ -17,19 +17,19 @@
         </el-select>
       </el-form-item>
       <el-form-item label="客戶訂單編號">
-        <el-input v-model="form.name" class="input" />
+        <el-input v-model="form.name" :class="{ input: verticalLayoutFlag }" />
       </el-form-item>
       <el-form-item label="單號">
-        <el-input v-model="form.name" class="input" placeholder="系統產生" disabled />
+        <el-input v-model="form.name" :class="{ input: verticalLayoutFlag }" placeholder="系統產生" disabled />
       </el-form-item>
       <el-form-item label="進貨日期">
-        <el-input v-model="form.name" class="input" disabled />
+        <el-input v-model="form.name" :class="{ input: verticalLayoutFlag }" disabled />
       </el-form-item>
       <el-form-item label="製程別">
-        <el-input v-model="form.name" class="input" disabled />
+        <el-input v-model="form.name" :class="{ input: verticalLayoutFlag }" disabled />
       </el-form-item>
       <el-form-item label="總晶圓數">
-        <el-input v-model="form.name" class="input" disabled />
+        <el-input v-model="form.name" :class="{ input: verticalLayoutFlag }" disabled />
       </el-form-item>
       <el-form-item label="件別">
         <el-radio-group v-model="form.resource" disabled>
@@ -38,14 +38,18 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="備註">
-        <el-input v-model="form.desc" class="input" type="textarea" />
+        <el-input v-model="form.desc" :class="{ input: verticalLayoutFlag }" type="textarea" />
       </el-form-item>
     </el-form>
   </el-card>
 </template>
 
 <script setup> 
-import { reactive } from 'vue';
+import { reactive } from 'vue'
+
+const props = defineProps({
+  verticalLayoutFlag: Boolean
+})
 
 const form = reactive({
   name: '',
