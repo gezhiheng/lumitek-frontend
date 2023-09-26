@@ -12,6 +12,7 @@
 import Footer from '../components/Footer.vue'
 import Header from '../components/Header.vue'
 import { ElNotification } from 'element-plus'
+import router from '../router/router'
 
 const username = window.sessionStorage.getItem('username')
 if (username) {
@@ -21,6 +22,9 @@ if (username) {
     offset: 100,
   })
 }
+
+// 因为暂时只有一个页面所以默认登录成功后跳转到mfb01这个页面
+router.push('/mfb01')
 </script>
 
 <style src="../style/home.css" scoped></style>
