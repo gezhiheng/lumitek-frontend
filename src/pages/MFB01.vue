@@ -20,8 +20,8 @@
     <form-card class="form-card-horizontal"></form-card>
     <table-card class="table-card-horizontal"></table-card>
   </div>
-  <div style="margin: 20px 12px 0 12px;">
-    <el-slider v-model="value1" />
+  <div style="margin: 20px 20px 0 20px;">
+    <el-slider v-model="value1" :max="1000"/>
   </div>
   
 </template>
@@ -31,6 +31,8 @@ import FormCard from '../components/mfb01/FormCard.vue'
 import TableCard from '../components/mfb01/tableCard.vue'
 
 let verticalLayoutFlag = ref(false)
+
+const value1 = ref(10)
 
 </script>
 

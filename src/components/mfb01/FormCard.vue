@@ -2,11 +2,18 @@
   <el-card>
     <template #header>
       <div class="card-header">
-        <span>Card name</span>
-        <el-button class="button" el-icon="DocumentAdd">Operation button</el-button>
-        <el-icon>
-          <DocumentAdd />
-        </el-icon>
+        <el-button plain type="primary">
+          <el-icon><DocumentAdd/></el-icon>
+          <span>新增</span>
+        </el-button>
+        <el-button plain type="primary">
+          <el-icon><Search/></el-icon>
+          <span>查询</span>
+        </el-button>
+        <el-button plain type="primary">
+          <el-icon><FolderOpened/></el-icon>
+          <span>资料汇入</span>
+        </el-button>
       </div>
     </template>
     <el-form :model="form" label-width="120px">
@@ -46,6 +53,7 @@
 
 <script setup> 
 import { reactive } from 'vue'
+import { DocumentAdd, Search, FolderOpened } from '@element-plus/icons-vue'
 
 const props = defineProps({
   verticalLayoutFlag: Boolean
