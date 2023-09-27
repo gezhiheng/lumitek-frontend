@@ -3,7 +3,8 @@ import { createRouter, createWebHistory } from "vue-router"
 import MFB01 from '../pages/MFB01.vue'
 import Login from '../pages/Login.vue'
 import Home from '../pages/Home.vue'
-import config from "../config/config"
+import config from '../config/config'
+import Empty from '../pages/Empty.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -17,6 +18,11 @@ const router = createRouter({
           path: '/mfb01',
           name: 'mfb01',
           component: MFB01
+        },
+        {
+          path: '/empty',
+          name: 'empty',
+          component: Empty
         }
       ] 
     },

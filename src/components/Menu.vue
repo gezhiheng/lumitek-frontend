@@ -1,5 +1,5 @@
 <template>
-  <el-menu mode="horizontal" :ellipsis="false" class="el-menu">
+  <el-menu mode="horizontal" :ellipsis="false" class="el-menu" @Select="handleSelect">
     <img src="../assets/lumitek.jpg" alt="lumitek">
     <div class="flex-grow" />
     <el-sub-menu :index="feat1.value" v-for="(feat1, feat1Index) in feats1Level" :disabled="feat1.isEmpty">
@@ -22,6 +22,8 @@
 </template>
 
 <script setup>
+import router from '../router/router';
+
 const props = defineProps({
   features: Object
 })
@@ -59,6 +61,17 @@ function setFeatures(features) {
   }
 }
 setFeatures(features)
+
+const handleSelect = (index) => {
+  switch(index) {
+    case 'MFB01-晶圓進貨資料':
+      router.push({ name: 'mfb01' })
+      break
+    default:
+      router.push({ name: 'empty' })
+      break
+  }
+}
 </script>
 
 <style scoped>

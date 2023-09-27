@@ -14,29 +14,34 @@
   
   <div v-if="verticalLayoutFlag" class="container-vertical">
     <form-card class="form-card-vertical" :vertical-layout-flag="verticalLayoutFlag"></form-card>
-    <table-card class="table-card-vertical"></table-card>
+    <table-card :vertical-layout-flag="verticalLayoutFlag" class="table-card-vertical"></table-card>
   </div>
   <div v-else  class="container-horizontal">
     <form-card class="form-card-horizontal"></form-card>
     <table-card class="table-card-horizontal"></table-card>
   </div>
-  <div style="margin: 20px 20px 0 20px;">
-    <el-slider v-model="value1" :max="1000"/>
+  
+  <div style="margin: 20px 20px 50px 20px;">
+    <el-slider v-model="value1" :max="10"/>
   </div>
   
 </template>
 <script setup>
 import { ref } from 'vue';
 import FormCard from '../components/mfb01/FormCard.vue'
-import TableCard from '../components/mfb01/tableCard.vue'
+import TableCard from '../components/mfb01/TableCard.vue'
 
 let verticalLayoutFlag = ref(false)
 
-const value1 = ref(10)
+const value1 = ref(5)
 
 </script>
 
 <style scoped>
+* {
+  overflow: hi;
+}
+
 h1 {
   display: inline-block;
   line-height: 40px;
