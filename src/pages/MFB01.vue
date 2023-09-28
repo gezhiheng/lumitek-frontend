@@ -30,10 +30,17 @@
 import { ref } from 'vue';
 import FormCard from '../components/mfb01/FormCard.vue'
 import TableCard from '../components/mfb01/TableCard.vue'
+import { query } from '../service/mfb01'
 
 let verticalLayoutFlag = ref(false)
 
 const value1 = ref(5)
+
+const data = await query({
+  "dataNo": 10
+}).then((resolve, reject) => {
+  console.log(resolve.data);
+})
 
 </script>
 
