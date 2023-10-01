@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    
-    <Menu v-if="config.useBackendData" :features="features"></Menu>
+    <Menu v-if="useBackendDataFlag" :features="features"></Menu>
     <Menu v-else :features="defaultFeatures"></Menu>
   </div>
 </template>
@@ -10,11 +9,12 @@
 import Menu from './Menu.vue'
 import defaultFeatures from '../assets/default-features'
 import { getFeatures }  from '../service/user'
-import config from '../config/config'
+
+const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
 
 const staffNo = window.sessionStorage.getItem('staffNo')
 let features = {}
-if (config.useBackendData) {
+if (useBackendDataFlag) {
   features = await getFeatures(staffNo).then((resolve, reject) => {
     return resolve.data
   })

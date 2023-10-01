@@ -59,6 +59,8 @@ const submit = async (formEl) => {
           staffNo: resolve.data.staffNo,
           username: resolve.data.username
         }
+      }).catch(err => {
+        swal("登錄失敗", "網絡或服務器錯誤", "error")
       })
       if(data.username) {
         window.sessionStorage.setItem('username', data.username)

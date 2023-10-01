@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from "vue-router"
 import MFB01 from '../pages/MFB01.vue'
 import Login from '../pages/Login.vue'
 import Home from '../pages/Home.vue'
-import config from '../config/config'
 import Empty from '../pages/Empty.vue'
 
 const router = createRouter({
@@ -34,7 +33,10 @@ const router = createRouter({
   ]
 })
 
-if (config.useBackendData) {
+const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
+
+if (useBackendDataFlag) {
+  console.log(useBackendDataFlag);
   router.beforeEach((to, from, next) => {
     const token = window.sessionStorage.getItem('username')
     if(to.path !== '/login' && !token) {
