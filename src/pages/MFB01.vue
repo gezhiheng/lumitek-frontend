@@ -7,8 +7,8 @@
         size="large" 
         style="--el-switch-on-color: #409eff; --el-switch-off-color: #dcdfe6" 
         v-model="verticalLayoutFlag" 
-        inline-prompt active-text="垂直展示" 
-        inactive-text="水平展示 "/>
+        inline-prompt active-text="水平展示" 
+        inactive-text="垂直展示 "/>
     </span>
   </header>
   
@@ -20,11 +20,6 @@
     <form-card class="form-card-horizontal"></form-card>
     <table-card class="table-card-horizontal"></table-card>
   </div>
-  
-  <div style="margin: 20px 20px 50px 20px;">
-    <el-slider v-model="value1" :max="10"/>
-  </div>
-  
 </template>
 <script setup>
 import { ref } from 'vue';
