@@ -20,6 +20,10 @@
     <form-card class="form-card-horizontal"></form-card>
     <table-card class="table-card-horizontal"></table-card>
   </div>
+  
+  <div style="margin: 20px 12px 0 12px;">
+    <el-slider v-model="value1" />
+  </div>
 </template>
 <script setup>
 import { ref } from 'vue';
