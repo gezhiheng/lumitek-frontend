@@ -20,9 +20,9 @@
     <form-card class="form-card-horizontal"></form-card>
     <table-card class="table-card-horizontal"></table-card>
   </div>
-  
-  <div style="margin: 20px 12px 0 12px;">
-    <el-slider v-model="value1" />
+
+  <div style="display: flex; align-items: center; margin: 20px 0 50px 0;">
+    <el-slider v-model="value1" show-input style="padding-left: 12px;"/>
   </div>
 </template>
 <script setup>
@@ -49,7 +49,7 @@ if(useBackendDataFlag) {
 
 <style scoped>
 * {
-  overflow: hi;
+  overflow: hidden;
 }
 
 h1 {
