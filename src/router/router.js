@@ -36,7 +36,6 @@ const router = createRouter({
 const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
 
 if (useBackendDataFlag) {
-  console.log(useBackendDataFlag);
   router.beforeEach((to, from, next) => {
     const token = window.sessionStorage.getItem('username')
     if(to.path !== '/login' && !token) {
