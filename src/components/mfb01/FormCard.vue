@@ -118,7 +118,6 @@ const props = defineProps({
 })
 
 const formStore = useMFB01FormStore()
-console.log(formStore.processType)
 
 const dialogFormVisible = ref(false)
 
@@ -132,6 +131,8 @@ const queryForm = reactive({
   WIPID: '',
   orderNo: '',
 })
+
+formStore.setData({queryForm})
 
 const form = reactive({
   custNo: formStore.custNo,

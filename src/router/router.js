@@ -33,17 +33,13 @@ const router = createRouter({
   ]
 })
 
-const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
-
-if (useBackendDataFlag) {
-  router.beforeEach((to, from, next) => {
-    const token = window.sessionStorage.getItem('username')
-    if(to.path !== '/login' && !token) {
-      return next('/login')
-    } else {
-      next()
-    }
-  })
-}
+router.beforeEach((to, from, next) => {
+  const token = window.sessionStorage.getItem('username')
+  if(to.path !== '/login' && !token) {
+    return next('/login')
+  } else {
+    next()
+  }
+})
 
 export default router

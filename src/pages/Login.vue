@@ -21,7 +21,8 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-button class="loginBtn" type="primary" @click="submit(ruleFormRef)">Login</el-button>
+        <el-button v-if="useBackendDataFlag" class="loginBtn" type="primary" @click="submit(ruleFormRef)">Login</el-button>
+        <el-button v-else  class="loginBtn" type="primary" @click="submitNoBackend">Login</el-button>
       </div>
     </el-form>
   </div>
@@ -31,6 +32,7 @@
 import { UserFilled, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import swal from 'sweetalert'
+import { ElNotification } from 'element-plus'
 import { login }  from '../service/user'
 import router from '../router/router'
 
@@ -75,6 +77,23 @@ const submit = async (formEl) => {
   })
 }
 
+const submitNoBackend = () => {
+  if (ruleForm.staffNo === 'admin' && ruleForm.password === '123') {
+    window.sessionStorage.setItem('username', '系統管理員')
+    window.sessionStorage.setItem('staffNo', 'admin')
+    router.push({name: 'home'})
+  } else {
+    swal("登錄失敗", "工號或密碼錯誤", "error");
+  }
+}
+const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
+if (!useBackendDataFlag) {
+  ElNotification.warning({
+    title: '注意',
+    message: '當前沒有使用後台數據',
+    offset: 100,
+  })
+}
 </script>
 
 <style src="../style/login.css" scoped></style>
