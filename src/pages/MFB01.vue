@@ -29,22 +29,10 @@
 import { ref } from 'vue';
 import FormCard from '../components/mfb01/FormCard.vue'
 import TableCard from '../components/mfb01/TableCard.vue'
-import { query } from '../service/mfb01'
 
-let data
 let verticalLayoutFlag = ref(false)
 
 const value1 = ref(5)
-
-const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
-if(useBackendDataFlag) {
-  data = await query({
-    "dataNo": 10
-  }).then((resolve, reject) => {
-    console.log(resolve.data);
-  })
-}
-
 </script>
 
 <style scoped>
@@ -81,15 +69,7 @@ header {
   margin-left: 8px;
 }
 
-.container-vertical {
-  
-}
-
 .form-card-vertical {
   margin-bottom: 16px;
-}
-
-.table-card-vertical {
-
 }
 </style>
