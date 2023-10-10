@@ -1,9 +1,9 @@
 <template>
   <el-card type="border-card">
-    <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" model-value="first">
+    <el-tabs class="demo-tabs" model-value="first">
 
       <el-tab-pane label="總表" name="first">
-        <el-table :data="tableData" style="width: 100%; margin-bottom: 15px;">
+        <el-table style="width: 100%; margin-bottom: 15px;">
           <el-table-column fixed prop="date" label="Date" width="150" />
           <el-table-column prop="name" label="Name" width="120" />
           <el-table-column prop="state" label="State" width="120" />
@@ -12,7 +12,7 @@
           <el-table-column prop="zip" label="Zip" width="120" />
           <el-table-column label="Operations" width="120">
             <template #default>
-              <el-button link type="primary" size="small" @click="handleClick">Detail</el-button>
+              <el-button link type="primary" size="small">Detail</el-button>
               <el-button link type="primary" size="small">Edit</el-button>
             </template>
           </el-table-column>
@@ -36,7 +36,7 @@
       </el-tab-pane>
 
       <el-tab-pane label="明細" name="second">
-        <el-table :data="tableData" style="width: 100%">
+        <el-table style="width: 100%">
           <el-table-column prop="date" label="Date" width="150" />
           <el-table-column prop="name" label="Name" width="120" />
           <el-table-column prop="state" label="State" width="120" />
@@ -45,15 +45,15 @@
           <el-table-column prop="zip" label="Zip" width="120" />
           <el-table-column label="Operations" width="120">
             <template #default>
-              <el-button link type="primary" size="small" @click="handleClick">Detail</el-button>
-              <el-button link type="primary" size="small">Edit</el-button>
+              <el-button link type="primary" size="small" >Detail</el-button>
+              <el-button link type="primary" size="small" >Edit</el-button>
             </template>
           </el-table-column>
         </el-table>
       </el-tab-pane>
 
       <el-tab-pane label="附件" name="third">
-        <el-table :data="tableData" style="width: 100%; margin-bottom: 15px;">
+        <el-table style="width: 100%; margin-bottom: 15px;">
           <el-table-column fixed prop="date" label="Date" width="150" />
           <el-table-column prop="name" label="Name" width="120" />
           <el-table-column prop="state" label="State" width="120" />
@@ -62,7 +62,7 @@
           <el-table-column prop="zip" label="Zip" width="120" />
           <el-table-column label="Operations" width="120">
             <template #default>
-              <el-button link type="primary" size="small" @click="handleClick">Detail</el-button>
+              <el-button link type="primary" size="small">Detail</el-button>
               <el-button link type="primary" size="small">Edit</el-button>
             </template>
           </el-table-column>
