@@ -42,7 +42,9 @@ const { mfb01Data, setMFB01Data } = useMFB01FormStore()
 let verticalLayoutFlag = ref(false)
 
 const change = async function(index) {
-  console.log('slider change');
+  if (mfb01Data.dataSize < 1) {
+    return
+  }
   await setMFB01Data({
     dataIndex: index
   })

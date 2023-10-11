@@ -52,6 +52,7 @@
         <el-table 
           :data="mfb01Data.tbAttachment"
           style="width: 100%; margin-bottom: 15px;" 
+          :max-height="verticalLayoutFlag ? 750 : 500"
         >
           <el-table-column label="" width="30"/>
           <el-table-column label="檔案名稱" prop="fileName" width="200"/>

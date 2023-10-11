@@ -1,5 +1,5 @@
 <template>
-  <el-menu mode="horizontal" :ellipsis="false" class="el-menu" @Select="handleSelect">
+  <el-menu mode="horizontal" :ellipsis="false" class="el-menu" @Select="handleSelect" default-active="MFB01-晶圓進貨資料">
     <img src="../assets/lumitek.jpg" alt="lumitek">
     <div class="flex-grow" />
     <el-sub-menu :index="feat1.value" v-for="(feat1, feat1Index) in feats1Level" :disabled="feat1.isEmpty">
@@ -28,7 +28,6 @@ const props = defineProps({
   features: Object
 })
 const features = props.features
-console.log("🚀 ~ file: Menu.vue:31 ~ features:", features)
 const feats1Level = []
 const feats2Level = []
 const feats3Level = []

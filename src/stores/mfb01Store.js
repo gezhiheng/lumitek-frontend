@@ -22,3 +22,5 @@ export const useMFB01FormStore = defineStore('mfb01Form', () => {
   }
   return { mfb01Data, setMFB01Data }
 })
+
+// TODO 增加MFB01查询表单的store
