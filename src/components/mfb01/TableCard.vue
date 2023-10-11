@@ -8,7 +8,7 @@
           style="width: 100%; 
           margin-bottom: 15px;
           padding: 0;" 
-          :data="mfb01Data.tbDetail"
+          :data="formTableData.tbDetail"
           :max-height="verticalLayoutFlag ? 750 : 500"
         >
           <el-table-column
@@ -35,7 +35,7 @@
 
       <el-tab-pane label="明細" name="second">
         <el-table 
-          :data="mfb01Data.tbDetailDetail" 
+          :data="formTableData.tbDetailDetail" 
           :max-height="verticalLayoutFlag ? 750 : 500"
           style="width: 100%"
         >
@@ -50,7 +50,7 @@
 
       <el-tab-pane label="附件" name="third">
         <el-table 
-          :data="mfb01Data.tbAttachment"
+          :data="formTableData.tbAttachment"
           style="width: 100%; margin-bottom: 15px;" 
           :max-height="verticalLayoutFlag ? 750 : 500"
         >
@@ -103,9 +103,9 @@
 
 <script setup>
 import { Check, Close, SuccessFilled, CircleCloseFilled, CirclePlusFilled, RemoveFilled, UploadFilled } from '@element-plus/icons-vue'
-import { useMFB01FormStore } from '../../stores/mfb01Store'
+import { useFormTableStore } from '../../stores/mfb01/form_table_store'
 
-const { mfb01Data, setMFB01Data } = useMFB01FormStore()
+const { formTableData } = useFormTableStore()
 
 /**
  * '晶圓大小', '退貨重工', '客戶批號', '到期日', '固定BIN', '機群', '方片對角線', '包裝方式', 'pad grade', 'Sort Fail Bin', 'Life Pickup', 'ESD', 'electricCurrent', 'status', '專案代碼', 'Approval', 'KEA', 'AProject', '抽測有效顆粒數', 'Tape可抽測顆粒數', '回貨資訊', '工程驗證', '圓片有效顆數ratio', '方片抽測比例', 'blockSize', '專案代碼blockSize', 'projectName']

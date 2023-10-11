@@ -7,7 +7,7 @@
 
 <script setup>
 import Menu from './Menu.vue'
-import defaultFeatures from '../assets/default-features'
+import defaultFeatures from '../assets/default_features'
 import { getFeatures }  from '../service/user'
 
 const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
