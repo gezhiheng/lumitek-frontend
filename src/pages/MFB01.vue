@@ -25,6 +25,7 @@
     <suspense>
       <el-slider 
         v-model="slider" 
+        show-input
         style="padding-left: 12px;" 
         :max="mfb01Data.dataSize"
         @change="change"

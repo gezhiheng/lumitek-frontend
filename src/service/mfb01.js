@@ -9,5 +9,9 @@ export async function queryMFB01(params) {
     swal('注意', '没有使用后台数据', 'warning')
     return
   }
-  return await axios.post(`${apiBaseUrl}mfb01/query/`, params)
+  try {
+    return await axios.post(`${apiBaseUrl}mfb01/query/`, params)
+  } catch(err) {
+    swal('錯誤', '獲取數據時發生異常', 'error')
+  }
 }
