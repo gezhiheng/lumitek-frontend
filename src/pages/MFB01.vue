@@ -47,7 +47,7 @@ const change = async function(index) {
   
   const debouncedSetMFB01Data = debounce(async () => {
     await setMFB01Data({ dataIndex: index })
-  }, 100)
+  }, 300)
   debouncedSetMFB01Data()
 }
 const slider = ref(0)
