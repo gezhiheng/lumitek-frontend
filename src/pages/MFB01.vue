@@ -22,23 +22,36 @@
   </div>
 
   <div style="display: flex; align-items: center; margin: 20px 0 50px 0;">
-    <el-slider v-model="value1" show-input style="padding-left: 12px;"/>
-  </div>
+    <suspense>
+      <el-slider 
+        v-model="slider" 
+        show-input 
+        style="padding-left: 12px;" 
+        :max="mfb01Data.dataSize"
+        @change="change"
+      />
+    </suspense></div>
 </template>
 <script setup>
 import { ref } from 'vue';
 import FormCard from '../components/mfb01/FormCard.vue'
 import TableCard from '../components/mfb01/TableCard.vue'
+import { useMFB01FormStore } from '../stores/mfb01Store'
 
+const { mfb01Data, setMFB01Data } = useMFB01FormStore()
 let verticalLayoutFlag = ref(false)
 
-const value1 = ref(5)
+const change = async function(index) {
+  console.log('slider change');
+  await setMFB01Data({
+    dataIndex: index
+  })
+}
+const slider = ref(0)
 </script>
 
 <style scoped>
-* {
-  overflow: hidden;
-}
+
 
 h1 {
   display: inline-block;

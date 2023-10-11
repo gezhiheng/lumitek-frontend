@@ -31,7 +31,7 @@
               </el-select>
             </el-form-item>
             <el-form-item label="單號">
-              <el-input v-model="form.name" />
+              <el-input />
             </el-form-item>
             
             <el-form-item label="日期">
@@ -58,7 +58,7 @@
               <el-input v-model="queryForm.orderNo" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="onSubmit">查詢</el-button>
+              <el-button type="primary" @click="querySubmit" v-loading.fullscreen.lock="fullscreenLoading">查詢</el-button>
               <el-button @click="dialogFormVisible = false">取消</el-button>
             </el-form-item>
           </el-form>
@@ -74,35 +74,35 @@
         </span>
       </div>
     </template>
-    <el-form :model="form" label-width="120px">
+    <el-form label-width="120px">
       <el-form-item label="客戶簡碼">
-        <el-select v-model="form.custNo">
+        <el-select v-model="mfb01Data.form.custNo">
           <el-option v-for="custNo in custNos" :label="custNo.label" :value="custNo.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="客戶訂單編號">
-        <el-input v-model="form.orderNo" :class="{ input: verticalLayoutFlag }" />
+        <el-input v-model="mfb01Data.form.orderNo" :class="{ input: verticalLayoutFlag }" />
       </el-form-item>
       <el-form-item label="單號">
-        <el-input v-model="form.applyNo" :class="{ input: verticalLayoutFlag }" placeholder="系統產生" disabled />
+        <el-input v-model="mfb01Data.form.applyNo" :class="{ input: verticalLayoutFlag }" placeholder="系統產生" disabled />
       </el-form-item>
       <el-form-item label="進貨日期">
-        <el-input v-model="form.issueDate" :class="{ input: verticalLayoutFlag }" disabled />
+        <el-input v-model="mfb01Data.form.issueDate" :class="{ input: verticalLayoutFlag }" disabled />
       </el-form-item>
       <el-form-item label="製程別">
-        <el-input v-model="form.processType" :class="{ input: verticalLayoutFlag }" disabled />
+        <el-input v-model="mfb01Data.form.processType" :class="{ input: verticalLayoutFlag }" disabled />
       </el-form-item>
       <el-form-item label="總晶圓數">
-        <el-input v-model="form.totWaferQty" :class="{ input: verticalLayoutFlag }" disabled />
+        <el-input v-model="mfb01Data.form.totWaferQty" :class="{ input: verticalLayoutFlag }" disabled />
       </el-form-item>
       <el-form-item label="件別">
-        <el-radio-group v-model="form.degree" disabled>
+        <el-radio-group v-model="mfb01Data.form.degree" disabled>
           <el-radio label="Y">急件</el-radio>
           <el-radio label="N">一般</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="備註">
-        <el-input v-model="form.remark" :class="{ input: verticalLayoutFlag }" type="textarea" />
+        <el-input v-model="mfb01Data.form.remark" :class="{ input: verticalLayoutFlag }" type="textarea" />
       </el-form-item>
     </el-form>
   </el-card>
@@ -117,11 +117,11 @@ const props = defineProps({
   verticalLayoutFlag: Boolean
 })
 
-const formStore = useMFB01FormStore()
-
+const fullscreenLoading = ref(false)
 const dialogFormVisible = ref(false)
 
 const queryForm = reactive({
+  dataIndex: 0,
   custNo: '',
   applyNo: '',
   startTime: '',
@@ -132,18 +132,13 @@ const queryForm = reactive({
   orderNo: '',
 })
 
-formStore.setData({queryForm})
-
-const form = reactive({
-  custNo: formStore.custNo,
-  orderNo: formStore.orderNo,
-  applyNo: formStore.applyNo,
-  issueDate: formStore.issueDate,
-  processType: formStore.processType,
-  totWaferQty: formStore.totWaferQty,
-  degree: formStore.degree,
-  remark: formStore.remark
-})
+const { mfb01Data, setMFB01Data } = useMFB01FormStore()
+const querySubmit = async () => {
+  fullscreenLoading.value = true
+  await setMFB01Data(queryForm)
+  dialogFormVisible.value = false
+  fullscreenLoading.value = false
+}
 
 const custNos = [
   {

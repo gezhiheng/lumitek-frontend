@@ -28,9 +28,11 @@ const props = defineProps({
   features: Object
 })
 const features = props.features
+console.log("🚀 ~ file: Menu.vue:31 ~ features:", features)
 const feats1Level = []
 const feats2Level = []
 const feats3Level = []
+
 function setFeatures(features) {
   let feats1index = 0
   let feats2Index = 0

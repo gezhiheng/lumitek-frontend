@@ -63,6 +63,7 @@ const submit = async (formEl) => {
         }
       }).catch(err => {
         swal("登錄失敗", "網絡或服務器錯誤", "error")
+        return
       })
       if(data.username) {
         window.sessionStorage.setItem('username', data.username)
