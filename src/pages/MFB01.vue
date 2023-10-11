@@ -25,7 +25,6 @@
     <suspense>
       <el-slider 
         v-model="slider" 
-        show-input 
         style="padding-left: 12px;" 
         :max="mfb01Data.dataSize"
         @change="change"
@@ -37,7 +36,7 @@ import { ref } from 'vue';
 import FormCard from '../components/mfb01/FormCard.vue'
 import TableCard from '../components/mfb01/TableCard.vue'
 import { useMFB01FormStore } from '../stores/mfb01Store'
-
+import { debounce } from 'lodash-es'
 const { mfb01Data, setMFB01Data } = useMFB01FormStore()
 let verticalLayoutFlag = ref(false)
 
@@ -45,9 +44,11 @@ const change = async function(index) {
   if (mfb01Data.dataSize < 1) {
     return
   }
-  await setMFB01Data({
-    dataIndex: index
-  })
+  
+  const debouncedSetMFB01Data = debounce(async () => {
+    await setMFB01Data({ dataIndex: index })
+  }, 100)
+  debouncedSetMFB01Data()
 }
 const slider = ref(0)
 </script>

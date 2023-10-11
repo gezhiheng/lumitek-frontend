@@ -134,10 +134,15 @@ const queryForm = reactive({
 
 const { mfb01Data, setMFB01Data } = useMFB01FormStore()
 const querySubmit = async () => {
-  fullscreenLoading.value = true
-  await setMFB01Data(queryForm)
-  dialogFormVisible.value = false
-  fullscreenLoading.value = false
+  try {
+    fullscreenLoading.value = true
+    await setMFB01Data(queryForm)
+    dialogFormVisible.value = false
+    fullscreenLoading.value = false
+  } catch (err) {
+    fullscreenLoading.value = false
+  }
+  
 }
 
 const custNos = [
