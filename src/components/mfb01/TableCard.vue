@@ -107,10 +107,6 @@ import { useFormTableStore } from '../../stores/mfb01/form_table_store'
 
 const { formTableData } = useFormTableStore()
 
-/**
- * '晶圓大小', '退貨重工', '客戶批號', '到期日', '固定BIN', '機群', '方片對角線', '包裝方式', 'pad grade', 'Sort Fail Bin', 'Life Pickup', 'ESD', 'electricCurrent', 'status', '專案代碼', 'Approval', 'KEA', 'AProject', '抽測有效顆粒數', 'Tape可抽測顆粒數', '回貨資訊', '工程驗證', '圓片有效顆數ratio', '方片抽測比例', 'blockSize', '專案代碼blockSize', 'projectName']
-   还有上面这些栏位的值没有放到tbDetailColumns，太麻烦了
- */
 const tbDetailColumns = [
   ['項次', 'orderItemNo'], 
   ['出廠別', 'custSite'], 
