@@ -11,13 +11,24 @@
         inactive-text="垂直展示 "/>
     </span>
   </header>
-  
-  <div v-if="verticalLayoutFlag" class="container-vertical">
-    <form-card class="form-card-vertical" :vertical-layout-flag="verticalLayoutFlag"></form-card>
-    <table-card :vertical-layout-flag="verticalLayoutFlag" class="table-card-vertical"></table-card>
+
+  <div v-if="verticalLayoutFlag">
+    <form-card class="form-card-vertical" 
+      :vertical-layout-flag="verticalLayoutFlag" 
+      :slider="slider" 
+      @changeSlider="changeSlider"
+    ></form-card>
+    <table-card 
+      class="table-card-vertical"
+      :vertical-layout-flag="verticalLayoutFlag" 
+    ></table-card>
   </div>
   <div v-else  class="container-horizontal">
-    <form-card class="form-card-horizontal"></form-card>
+    <form-card 
+      class="form-card-horizontal" 
+      :slider="slider" 
+      @changeSlider="changeSlider"
+    ></form-card>
     <table-card class="table-card-horizontal"></table-card>
   </div>
 
@@ -30,14 +41,19 @@
         :max="formTableData.dataSize"
         @change="change"
       />
-    </suspense></div>
+    </suspense>
+  </div>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 import FormCard from '../components/mfb01/FormCard.vue'
 import TableCard from '../components/mfb01/TableCard.vue'
 import { useFormTableStore } from '../stores/mfb01/form_table_store'
 import { debounce } from 'lodash-es'
+import { useQueryStore } from '../stores/mfb01/query_conditions_store';
+
+const slider = ref(0)
+
 const { formTableData, setFormTable } = useFormTableStore()
 let verticalLayoutFlag = ref(false)
 
@@ -45,45 +61,17 @@ const change = async function(index) {
   if (formTableData.dataSize < 1) {
     return
   }
+  const { queryConditions } = useQueryStore()
   const debouncedsetFormTable = debounce(async () => {
-    await setFormTable({ dataIndex: index })
+    queryConditions.dataIndex = index
+    await setFormTable(queryConditions)
   }, 300)
   debouncedsetFormTable()
 }
-const slider = ref(0)
+
+const changeSlider = () => {
+  slider.value = 0
+}
 </script>
 
-<style scoped>
-h1 {
-  display: inline-block;
-  line-height: 40px;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  margin: 15px 0 15px 0;
-}
-
-.switch {
-  margin-left: 10px;
-}
-
-.container-horizontal {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.form-card-horizontal {
-  margin-right: 8px;
-}
-
-.table-card-horizontal {
-  margin-left: 8px;
-}
-
-.form-card-vertical {
-  margin-bottom: 16px;
-}
-</style>
+<style src="../style/mfb01/mfb01.css" scoped></style>

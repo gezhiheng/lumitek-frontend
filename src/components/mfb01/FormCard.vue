@@ -27,13 +27,12 @@
           <el-form :model="queryForm" label-width="120px">
             <el-form-item label="客戶">
               <el-select v-model="queryForm.custNo">
-                <el-option v-for="custNo in custNos" :label="custNo.label" :value="custNo.value"/>
+                <el-option v-for="custNo in custNos" :label="custNo" :value="custNo"/>
               </el-select>
             </el-form-item>
             <el-form-item label="單號">
-              <el-input />
+              <el-input v-model="queryForm.applyNo" />
             </el-form-item>
-            
             <el-form-item label="日期">
               <el-col :span="11">
                 <el-date-picker v-model="queryForm.startTime" type="date" placeholder="Pick a date" style="width: 100%" value-format="YYYY-MM-DD"/>
@@ -60,6 +59,7 @@
             <el-form-item>
               <el-button type="primary" @click="querySubmit" v-loading.fullscreen.lock="fullscreenLoading">查詢</el-button>
               <el-button @click="dialogFormVisible = false">取消</el-button>
+              <el-button @click="clearQueryCondition">清空</el-button>
             </el-form-item>
           </el-form>
         </el-dialog>
@@ -77,7 +77,7 @@
     <el-form label-width="120px">
       <el-form-item label="客戶簡碼">
         <el-select v-model="formTableData.form.custNo">
-          <el-option v-for="custNo in custNos" :label="custNo.label" :value="custNo.value"/>
+          <el-option v-for="custNo in custNos.slice(1)"  :label="custNo" :value="custNo"/>
         </el-select>
       </el-form-item>
       <el-form-item label="客戶訂單編號">
@@ -112,10 +112,14 @@
 import { reactive, ref } from 'vue'
 import { DocumentAdd, Search, FolderOpened, Close } from '@element-plus/icons-vue'
 import { useFormTableStore } from '../../stores/mfb01/form_table_store'
+import { useQueryStore } from '../../stores/mfb01/query_conditions_store'
+import swal from 'sweetalert'
 
 const props = defineProps({
   verticalLayoutFlag: Boolean
 })
+
+const emits = defineEmits(['changeSlider'])
 
 const fullscreenLoading = ref(false)
 const dialogFormVisible = ref(false)
@@ -129,82 +133,50 @@ const queryForm = reactive({
   processType: '',
   lotNo: '',
   WIPID: '',
-  orderNo: '',
+  orderNo: ''
 })
 
 const { formTableData, setFormTable } = useFormTableStore()
+const { setQueryConditions } = useQueryStore()
 const querySubmit = async () => {
+  handleQueryForm()
+  setQueryConditions(queryForm)
   try {
+    emits('changeSlider')
     fullscreenLoading.value = true
+    console.log("🚀 ~ file: FormCard.vue:145 ~ querySubmit ~ queryForm:", JSON.stringify(queryForm))
     await setFormTable(queryForm)
     dialogFormVisible.value = false
     fullscreenLoading.value = false
   } catch (err) {
+    console.error(err)
+    swal("錯誤", "查詢出現錯誤", "error")
+    dialogFormVisible.value = false
     fullscreenLoading.value = false
   }
-  
 }
 
-const custNos = [
-  {
-    value: '08',
-    label: '08',
-  },
-  {
-    value: '11',
-    label: '11',
-  },
-  {
-    value: '12',
-    label: '12',
-  },
-  {
-    value: '13',
-    label: '13',
-  },
-  {
-    value: '13A',
-    label: '13A',
-  },
-  {
-    value: '17',
-    label: '17',
-  },
-  {
-    value: '18',
-    label: '18',
-  },
-  {
-    value: '19',
-    label: '19',
-  },
-  {
-    value: '20',
-    label: '20',
-  },
-  {
-    value: '21',
-    label: '21',
-  },
-  {
-    value: '22',
-    label: '22',
-  },
-]
+const handleQueryForm = () => {
+  queryForm.dataIndex = 0
+  queryForm.custNo = queryForm.custNo === '-' ? '' : queryForm.custNo
+  queryForm.startTime = queryForm.startTime === null ? '' : queryForm.startTime
+  queryForm.endTime = queryForm.endTime === null ? '' : queryForm.endTime
+}
+
+const clearQueryCondition = () => {
+  setQueryConditions({})
+  queryForm.dataIndex = 0
+  queryForm.custNo = ''
+  queryForm.applyNo = ''
+  queryForm.startTime = ''
+  queryForm.endTime  = ''
+  queryForm.processType =  ''
+  queryForm.lotNo = ''
+  queryForm.WIPID = ''
+  queryForm.orderNo = ''
+}
+
+const custNos = ['-','08','11','12','13','13A','17','18','19','20','21','22',]
 </script>
 
-<style scoped>
-.input {
-  max-width: 70%;
-}
-
-.card-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.dialog {
-  max-width: 10%;
-}
-</style>
+<style src="../../style/mfb01/form_card.css" scoped></style>

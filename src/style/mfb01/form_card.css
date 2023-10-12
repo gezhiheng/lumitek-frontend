@@ -1,0 +1,13 @@
+.input {
+  max-width: 70%;
+}
+
+.card-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialog {
+  max-width: 10%;
+}

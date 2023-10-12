@@ -62,7 +62,7 @@ const submit = async (formEl) => {
           username: resolve.data.username
         }
       }).catch(err => {
-        swal("登錄失敗", "網絡或服務器錯誤", "error")
+        swal("錯誤", "網絡或服務器錯誤", "error")
         return
       })
       if(data.username) {
@@ -70,7 +70,7 @@ const submit = async (formEl) => {
         window.sessionStorage.setItem('staffNo', data.staffNo)
         router.push({name: 'home'})
       } else {
-        swal("登錄失敗", "工號或密碼錯誤", "error");
+        swal("失敗", "登錄失敗-工號或密碼錯誤", "error");
       }
     } else {
       console.log('error submit!', fields)
@@ -84,7 +84,7 @@ const submitNoBackend = () => {
     window.sessionStorage.setItem('staffNo', 'admin')
     router.push({name: 'home'})
   } else {
-    swal("登錄失敗", "工號或密碼錯誤", "error");
+    swal("失敗", "登錄失敗-工號或密碼錯誤", "error");
   }
 }
 const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'

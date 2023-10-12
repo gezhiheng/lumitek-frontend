@@ -1,0 +1,32 @@
+h1 {
+  display: inline-block;
+  line-height: 40px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0 15px 0;
+}
+
+.switch {
+  margin-left: 10px;
+}
+
+.container-horizontal {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-card-horizontal {
+  margin-right: 8px;
+}
+
+.table-card-horizontal {
+  margin-left: 8px;
+}
+
+.form-card-vertical {
+  margin-bottom: 16px;
+}
