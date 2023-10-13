@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router"
 
-import MFB01 from '../pages/MFB01.vue'
-import Login from '../pages/Login.vue'
-import Home from '../pages/Home.vue'
-import Empty from '../pages/Empty.vue'
+import MFB01 from '@/pages/MFB01.vue'
+import Login from '@/pages/Login.vue'
+import Home from '@/pages/Home.vue'
+import Empty from '@/pages/Empty.vue'
 
 const router = createRouter({
   history: createWebHistory(),

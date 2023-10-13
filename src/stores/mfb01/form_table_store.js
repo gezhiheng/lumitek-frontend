@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { queryMFB01 } from '../../service/mfb01'
+import { queryMFB01 } from '@/service/mfb01'
 import { ref } from 'vue'
 import swal from 'sweetalert'
 

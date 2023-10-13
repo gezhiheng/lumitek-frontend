@@ -144,7 +144,6 @@ const querySubmit = async () => {
   try {
     emits('changeSlider')
     fullscreenLoading.value = true
-    console.log("🚀 ~ file: FormCard.vue:145 ~ querySubmit ~ queryForm:", JSON.stringify(queryForm))
     await setFormTable(queryForm)
     dialogFormVisible.value = false
     fullscreenLoading.value = false

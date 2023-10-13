@@ -46,11 +46,11 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import FormCard from '../components/mfb01/FormCard.vue'
-import TableCard from '../components/mfb01/TableCard.vue'
-import { useFormTableStore } from '../stores/mfb01/form_table_store'
+import FormCard from '@/components/mfb01/FormCard.vue'
+import TableCard from '@/components/mfb01/TableCard.vue'
+import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { debounce } from 'lodash-es'
-import { useQueryStore } from '../stores/mfb01/query_conditions_store';
+import { useQueryStore } from '@/stores/mfb01/query_conditions_store';
 
 const slider = ref(0)
 
@@ -74,4 +74,4 @@ const changeSlider = () => {
 }
 </script>
 
-<style src="../style/mfb01/mfb01.css" scoped></style>
+<style src="@/style/mfb01/mfb01.css" scoped></style>

@@ -47,8 +47,8 @@ import { UserFilled, Lock } from '@element-plus/icons-vue'
 import { reactive, ref, nextTick } from 'vue'
 import swal from 'sweetalert'
 import { ElNotification } from 'element-plus'
-import { login }  from '../service/user'
-import router from '../router/router'
+import { login }  from '@/service/user'
+import router from '@/router/router'
 
 // TODO 做笔记
 const passwordInputRef = ref()
@@ -116,4 +116,4 @@ if (!useBackendDataFlag) {
 }
 </script>
 
-<style src="../style/login.css" scoped></style>
+<style src="@/style/login.css" scoped></style>

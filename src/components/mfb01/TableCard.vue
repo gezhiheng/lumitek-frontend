@@ -1,20 +1,20 @@
 <template>
-  <el-card type="border-card" style="max-height: 100%;">
+  <el-card type="border-card" >
     <el-tabs class="demo-tabs" model-value="first">
 
       <el-tab-pane label="總表" name="first">
-
         <el-table 
           style="width: 100%; 
           margin-bottom: 15px;
           padding: 0;" 
           :data="formTableData.tbDetail"
           :max-height="verticalLayoutFlag ? 750 : 500"
+          highlight-current-row
         >
           <el-table-column
             v-for="(item, index) in tbDetailColumns"
-            :prop="item[1]"
             :fixed="verticalLayoutFlag && index < 4"
+            :prop="item[1]"
             :label="item[0]" 
             :width="item[0].length > 4 ? 150 : 80"
           />
@@ -30,7 +30,6 @@
             <span>资料作废</span>
           </el-button>
         </span>
-
       </el-tab-pane>
 
       <el-tab-pane label="明細" name="second">
@@ -56,7 +55,7 @@
         >
           <el-table-column label="" width="30"/>
           <el-table-column label="檔案名稱" prop="fileName" width="200"/>
-          <el-table-column label="檢視" width="80"/>
+          <el-table-column label="檢視" width="120"><el-button type="primary" plain>檢視</el-button></el-table-column>
         </el-table>
 
         <div v-if="verticalLayoutFlag" style="margin-bottom: 20px;">
@@ -96,7 +95,6 @@
           </el-button>
         </span>
       </el-tab-pane>
-
     </el-tabs>
   </el-card>
 </template>
@@ -143,7 +141,8 @@ const tbDetailColumns = [
   ['blockSize','blockSize'],
   ['專案代碼blockSize','projectBlockSize'],
   ['projectName','projectName']
- ]
+]
+
 const tbDetailDetailColumns = [
   ['批號', 'lotNo'],
   ['項次', 'itemNo'],

@@ -1,6 +1,6 @@
 <template>
   <el-menu mode="horizontal" :ellipsis="false" class="el-menu" @Select="handleSelect" default-active="MFB01-晶圓進貨資料">
-    <img src="../assets/lumitek.jpg" alt="lumitek">
+    <img src="@/assets/lumitek.jpg" alt="lumitek">
     <div class="flex-grow" />
     <el-sub-menu :index="feat1.value" v-for="(feat1, feat1Index) in feats1Level" :disabled="feat1.isEmpty">
       <template #title>{{ feat1.value }}</template>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import router from '../router/router';
+import router from '@/router/router';
 
 const props = defineProps({
   features: Object
@@ -75,17 +75,4 @@ const handleSelect = (index) => {
 }
 </script>
 
-<style scoped>
-.flex-grow {
-  flex-grow: 1;
-}
-
-img {
-  height: 40px;
-  margin: 6px 0 0 1.5em;
-}
-
-.el-menu {
-  font-weight: bold;
-}
-</style>
+<style src="../style/menu.css" scoped></style>

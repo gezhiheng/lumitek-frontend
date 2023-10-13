@@ -1,0 +1,12 @@
+.flex-grow {
+  flex-grow: 1;
+}
+
+img {
+  height: 40px;
+  margin: 6px 0 0 1.5em;
+}
+
+.el-menu {
+  font-weight: bold;
+}

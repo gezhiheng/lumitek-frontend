@@ -9,10 +9,10 @@
 </template>
 
 <script setup>
-import Footer from '../components/Footer.vue'
-import Header from '../components/Header.vue'
+import Footer from '@/components/Footer.vue'
+import Header from '@/components/Header.vue'
 import { ElNotification } from 'element-plus'
-import router from '../router/router'
+import router from '@/router/router'
 
 const username = window.sessionStorage.getItem('username')
 if (username) {
@@ -27,4 +27,4 @@ if (username) {
 router.push('/mfb01')
 </script>
 
-<style src="../style/home.css" scoped></style>
+<style src="@/style/home.css" scoped></style>
