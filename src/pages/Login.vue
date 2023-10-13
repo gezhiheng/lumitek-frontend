@@ -4,7 +4,13 @@
       <div class="box" style="box-shadow: var(--el-box-shadow-dark);">
         <img src="../assets/lumitek.jpg" alt="lumitek">
         <el-form-item prop="staffNo" class="staffNoInput">
-          <el-input class="w-50 m-2" placeholder="請輸入工號" v-model="ruleForm.staffNo" autocomplete="new-password">
+          <el-input 
+            class="w-50 m-2" 
+            placeholder="請輸入工號" 
+            v-model="ruleForm.staffNo" 
+            autocomplete="new-password"
+            @keydown.enter="focusPassword()"
+          >
             <template #prefix>
               <el-icon class="el-input__icon">
                 <UserFilled />
@@ -13,7 +19,15 @@
           </el-input>
         </el-form-item>
         <el-form-item prop="password" class="pwdInput">
-          <el-input type="password" placeholder="請輸入密碼" show-password v-model="ruleForm.password" autocomplete="new-password">
+          <el-input 
+            type="password" 
+            placeholder="請輸入密碼" 
+            show-password 
+            v-model="ruleForm.password" 
+            autocomplete="new-password"
+            ref="passwordInputRef"
+            @keydown.enter="submit(ruleFormRef)"
+          >
             <template #prefix>
               <el-icon class="el-input__icon">
                 <Lock />
@@ -30,11 +44,15 @@
 
 <script  setup>
 import { UserFilled, Lock } from '@element-plus/icons-vue'
-import { reactive, ref } from 'vue'
+import { reactive, ref, nextTick } from 'vue'
 import swal from 'sweetalert'
 import { ElNotification } from 'element-plus'
 import { login }  from '../service/user'
 import router from '../router/router'
+
+// TODO 做笔记
+const passwordInputRef = ref()
+const focusPassword = () => { nextTick(() => { passwordInputRef.value.focus() }) }
 
 const rules = reactive({
   staffNo: [
@@ -87,6 +105,7 @@ const submitNoBackend = () => {
     swal("失敗", "登錄失敗-工號或密碼錯誤", "error");
   }
 }
+
 const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
 if (!useBackendDataFlag) {
   ElNotification.warning({
