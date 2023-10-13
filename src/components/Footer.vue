@@ -1,18 +1,27 @@
 <template>
-  <h5>footer</h5>
+  <div class="footer">
+    <div>
+      <span>Lumitek 琉明光電</span>
+    </div>
+    <div>
+      <span>Fontend</span>
+      <a href="https://github.com/gezhiheng/lumitek-frontend" target="_blank">
+        <svgIcon name="github"></svgIcon>
+      </a>
+      <span>Made by Henry.Ge</span>
+    </div>
+    <div>
+      <span>Backend</span>
+      <a href="https://gitlab.com/Litong.Qu/lumitek-backend" target="_blank">
+        <svgIcon name="gitlab"></svgIcon>
+      </a>
+      <span>Made by Litong.Qu</span>
+    </div>
+  </div>
 </template>
 
 <script setup>
-
+import svgIcon from './SvgIcon.vue'
 </script>
 
-<style scoped>
-* {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #FFFF;
-  color: #000000;
-}
-</style>
+<style src="@/style/footer.css" scoped></style>
