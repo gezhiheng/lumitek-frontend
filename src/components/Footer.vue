@@ -4,7 +4,7 @@
       <span>Lumitek 琉明光電</span>
     </div>
     <div>
-      <span>Fontend</span>
+      <span>Frontend</span>
       <a href="https://github.com/gezhiheng/lumitek-frontend" target="_blank">
         <svgIcon name="github"></svgIcon>
       </a>

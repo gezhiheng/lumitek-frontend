@@ -26,7 +26,7 @@
             v-model="ruleForm.password" 
             autocomplete="new-password"
             ref="passwordInputRef"
-            @keydown.enter="submit(ruleFormRef)"
+            @keydown.enter="passwordEnter"
           >
             <template #prefix>
               <el-icon class="el-input__icon">
@@ -50,9 +50,19 @@ import { ElNotification } from 'element-plus'
 import { login }  from '@/service/user'
 import router from '@/router/router'
 
+const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
+
 // TODO 做笔记
 const passwordInputRef = ref()
 const focusPassword = () => { nextTick(() => { passwordInputRef.value.focus() }) }
+
+const passwordEnter = () => {
+  if (useBackendDataFlag) {
+    submit(ruleFormRef)
+  } else {
+    submitNoBackend()
+  }
+}
 
 const rules = reactive({
   staffNo: [
@@ -106,7 +116,6 @@ const submitNoBackend = () => {
   }
 }
 
-const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
 if (!useBackendDataFlag) {
   ElNotification.warning({
     title: '注意',
