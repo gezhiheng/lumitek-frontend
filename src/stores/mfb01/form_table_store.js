@@ -23,7 +23,6 @@ export const useFormTableStore = defineStore('formTable', () => {
 
   async function setFormTable(params) {
     const queryData = await queryMFB01(params).then((reslove, reject) => {
-      console.log("🚀 ~ file: form_table_store.js:27 ~ queryData ~ reslove.data:", reslove.data)
       return reslove.data
     })
     formTableData.value.dataSize = queryData.dataSize
@@ -44,5 +43,20 @@ export const useFormTableStore = defineStore('formTable', () => {
     formTableData.value.tbAttachment = queryData.tbAttachment
   }
 
-  return { formTableData, setFormTable }
+  function resetFormTableData () {
+    formTableData.value.dataSize = 0
+    formTableData.value.form.custNo = ''
+    formTableData.value.form.orderNo = ''
+    formTableData.value.form.applyNo = ''
+    formTableData.value.form.issueDate = ''
+    formTableData.value.form.processType = ''
+    formTableData.value.form.totWaferQty = ''
+    formTableData.value.form.degree = ''
+    formTableData.value.form.remark = ''
+    formTableData.value.tbDetail = []
+    formTableData.value.tbDetailDetail = []
+    formTableData.value.tbAttachment = []
+  }
+
+  return { formTableData, setFormTable, resetFormTableData }
 })

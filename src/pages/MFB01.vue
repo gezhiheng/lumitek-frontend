@@ -17,7 +17,7 @@
       :vertical-layout-flag="verticalLayoutFlag" 
       :slider="slider" 
       @changeSlider="changeSlider"
-      @setSliderVisible="sliderVisible = true"
+      @setSliderVisible="setSliderVisible"
     ></form-card>
     <table-card 
       class="table-card-vertical"
@@ -29,7 +29,7 @@
       class="form-card-horizontal" 
       :slider="slider" 
       @changeSlider="changeSlider"
-      @setSliderVisible="sliderVisible = true"
+      @setSliderVisible="setSliderVisible"
     ></form-card>
     <table-card class="table-card-horizontal"></table-card>
   </div>
@@ -75,6 +75,10 @@ const change = async function(index) {
 
 const changeSlider = () => {
   slider.value = 0
+}
+
+const setSliderVisible = (visible) => {
+  sliderVisible.value = visible
 }
 </script>
 

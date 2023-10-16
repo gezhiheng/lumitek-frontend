@@ -3,7 +3,13 @@
     <template #header>
       <div class="card-header">
         <span>
-          <el-button plain type="primary">
+          <el-button v-if="queryMode" plain type="primary" @click="backToInsertMode">
+            <el-icon>
+              <DocumentAdd />
+            </el-icon>
+            <span>返回新增</span>
+          </el-button>
+          <el-button v-else plain type="primary" >
             <el-icon>
               <DocumentAdd />
             </el-icon>
@@ -77,11 +83,11 @@
     <el-form label-width="120px">
       <el-form-item label="客戶簡碼">
         <el-select v-model="formTableData.form.custNo">
-          <el-option v-for="custNo in custNos.slice(1)"  :label="custNo" :value="custNo"/>
+          <el-option v-for="custNo in custNos.slice(1)"  :label="custNo" :value="custNo" :disabled="queryMode" />
         </el-select>
       </el-form-item>
       <el-form-item label="客戶訂單編號">
-        <el-input v-model="formTableData.form.orderNo" :class="{ input: verticalLayoutFlag }" />
+        <el-input v-model="formTableData.form.orderNo" :class="{ input: verticalLayoutFlag }" :disabled="queryMode" />
       </el-form-item>
       <el-form-item label="單號">
         <el-input v-model="formTableData.form.applyNo" :class="{ input: verticalLayoutFlag }" placeholder="系統產生" disabled />
@@ -102,7 +108,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="備註">
-        <el-input v-model="formTableData.form.remark" :class="{ input: verticalLayoutFlag }" type="textarea" />
+        <el-input v-model="formTableData.form.remark" :class="{ input: verticalLayoutFlag }" type="textarea" :disabled="queryMode" />
       </el-form-item>
     </el-form>
   </el-card>
@@ -123,6 +129,7 @@ const emits = defineEmits(['changeSlider', 'setSliderVisible'])
 
 const fullscreenLoading = ref(false)
 const dialogFormVisible = ref(false)
+const queryMode = ref(false)
 
 const queryForm = reactive({
   dataIndex: 0,
@@ -136,24 +143,25 @@ const queryForm = reactive({
   orderNo: ''
 })
 
-const { formTableData, setFormTable } = useFormTableStore()
-const { setQueryConditions } = useQueryStore()
+const { formTableData, setFormTable, resetFormTableData } = useFormTableStore()
+const { setQueryConditions, resetQueryConditions } = useQueryStore()
 const querySubmit = async () => {
+  queryMode.value = true
   handleQueryForm()
   setQueryConditions(queryForm)
   try {
-    emits('changeSlider')
-    emits('setSliderVisible')
     fullscreenLoading.value = true
     await setFormTable(queryForm)
-    dialogFormVisible.value = false
-    fullscreenLoading.value = false
+    if (formTableData.dataSize > 0) {
+      emits('changeSlider')
+      emits('setSliderVisible', true)
+    }
   } catch (err) {
     console.error(err)
     swal("錯誤", "查詢出現錯誤", "error")
-    dialogFormVisible.value = false
-    fullscreenLoading.value = false
   }
+  dialogFormVisible.value = false
+  fullscreenLoading.value = false
 }
 
 const handleQueryForm = () => {
@@ -163,8 +171,15 @@ const handleQueryForm = () => {
   queryForm.endTime = queryForm.endTime === null ? '' : queryForm.endTime
 }
 
+const backToInsertMode = () => {
+  emits('setSliderVisible', false)
+  resetQueryConditions()
+  resetFormTableData()
+  queryMode.value = false
+}
+
 const clearQueryCondition = () => {
-  setQueryConditions({})
+  resetQueryConditions()
   queryForm.dataIndex = 0
   queryForm.custNo = ''
   queryForm.applyNo = ''

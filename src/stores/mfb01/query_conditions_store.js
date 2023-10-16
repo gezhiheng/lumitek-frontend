@@ -18,5 +18,17 @@ export const useQueryStore = defineStore('queryCondition', () => {
     queryConditions.value = params
   }
 
-  return { queryConditions, setQueryConditions }
+  function resetQueryConditions() {
+    queryConditions.value.dataIndex = 0
+    queryConditions.value.custNo = ''
+    queryConditions.value.applyNo = ''
+    queryConditions.value.startTime = ''
+    queryConditions.value.endTime  = ''
+    queryConditions.value.processType =  ''
+    queryConditions.value.lotNo = ''
+    queryConditions.value.WIPID = ''
+    queryConditions.value.orderNo = ''
+  }
+
+  return { queryConditions, setQueryConditions, resetQueryConditions }
 })
