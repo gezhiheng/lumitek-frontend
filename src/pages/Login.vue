@@ -9,7 +9,7 @@
             placeholder="請輸入工號" 
             v-model="ruleForm.staffNo" 
             autocomplete="new-password"
-            @keydown.enter="focusPassword()"
+            @keydown.enter="focusPassword"
           >
             <template #prefix>
               <el-icon class="el-input__icon">
@@ -26,7 +26,7 @@
             v-model="ruleForm.password" 
             autocomplete="new-password"
             ref="passwordInputRef"
-            @keydown.enter="passwordEnter"
+            @keydown.enter="useBackendDataFlag ? submit(ruleFormRef) : submitNoBackend"
           >
             <template #prefix>
               <el-icon class="el-input__icon">
@@ -55,14 +55,6 @@ const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
 // TODO 做笔记
 const passwordInputRef = ref()
 const focusPassword = () => { nextTick(() => { passwordInputRef.value.focus() }) }
-
-const passwordEnter = () => {
-  if (useBackendDataFlag) {
-    submit(ruleFormRef)
-  } else {
-    submitNoBackend()
-  }
-}
 
 const rules = reactive({
   staffNo: [
