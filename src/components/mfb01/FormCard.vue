@@ -119,7 +119,7 @@ const props = defineProps({
   verticalLayoutFlag: Boolean
 })
 
-const emits = defineEmits(['changeSlider'])
+const emits = defineEmits(['changeSlider', 'setSliderVisible'])
 
 const fullscreenLoading = ref(false)
 const dialogFormVisible = ref(false)
@@ -143,6 +143,7 @@ const querySubmit = async () => {
   setQueryConditions(queryForm)
   try {
     emits('changeSlider')
+    emits('setSliderVisible')
     fullscreenLoading.value = true
     await setFormTable(queryForm)
     dialogFormVisible.value = false

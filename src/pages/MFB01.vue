@@ -17,6 +17,7 @@
       :vertical-layout-flag="verticalLayoutFlag" 
       :slider="slider" 
       @changeSlider="changeSlider"
+      @setSliderVisible="sliderVisible = true"
     ></form-card>
     <table-card 
       class="table-card-vertical"
@@ -28,13 +29,15 @@
       class="form-card-horizontal" 
       :slider="slider" 
       @changeSlider="changeSlider"
+      @setSliderVisible="sliderVisible = true"
     ></form-card>
     <table-card class="table-card-horizontal"></table-card>
   </div>
 
   <div style="display: flex; align-items: center; margin: 20px 0 50px 0;">
     <suspense>
-      <el-slider 
+      <el-slider
+        v-if="sliderVisible"
         v-model="slider" 
         show-input
         style="padding-left: 12px;" 
@@ -53,6 +56,7 @@ import { debounce } from 'lodash-es'
 import { useQueryStore } from '@/stores/mfb01/query_conditions_store';
 
 const slider = ref(0)
+const sliderVisible = ref(false)
 
 const { formTableData, setFormTable } = useFormTableStore()
 let verticalLayoutFlag = ref(false)

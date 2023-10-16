@@ -26,11 +26,11 @@ export const useFormTableStore = defineStore('formTable', () => {
       console.log("🚀 ~ file: form_table_store.js:27 ~ queryData ~ reslove.data:", reslove.data)
       return reslove.data
     })
+    formTableData.value.dataSize = queryData.dataSize
     if (queryData.dataSize < 1) {
       swal('注意', '沒有查詢到結果', 'warning')
       return
     }
-    formTableData.value.dataSize = queryData.dataSize
     formTableData.value.form.custNo = queryData.form.custNo
     formTableData.value.form.orderNo = queryData.form.orderNo
     formTableData.value.form.applyNo = queryData.form.applyNo
