@@ -26,7 +26,7 @@
             v-model="ruleForm.password" 
             autocomplete="new-password"
             ref="passwordInputRef"
-            @keydown.enter="useBackendDataFlag ? submit(ruleFormRef) : submitNoBackend"
+            @keydown.enter="useBackendDataFlag ? submit(ruleFormRef) : submitNoBackend()"
           >
             <template #prefix>
               <el-icon class="el-input__icon">
@@ -36,7 +36,7 @@
           </el-input>
         </el-form-item>
         <el-button v-if="useBackendDataFlag" class="loginBtn" type="primary" @click="submit(ruleFormRef)">Login</el-button>
-        <el-button v-else  class="loginBtn" type="primary" @click="submitNoBackend">Login</el-button>
+        <el-button v-else  class="loginBtn" type="primary" @click="submitNoBackend()">Login</el-button>
       </div>
     </el-form>
   </div>
