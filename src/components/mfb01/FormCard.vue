@@ -157,13 +157,13 @@ const queryForm = reactive({
 const { formTableData, setFormTable, resetFormTableData } = useFormTableStore()
 const { setQueryConditions, resetQueryConditions } = useQueryStore()
 const querySubmit = async () => {
-  queryMode.value = true
   handleQueryForm()
   setQueryConditions(queryForm)
   try {
     fullscreenLoading.value = true
     await setFormTable(queryForm)
     if (formTableData.dataSize > 0) {
+      queryMode.value = true
       emits('changeSlider')
       emits('setSliderVisible', true)
     }
@@ -184,7 +184,6 @@ const handleQueryForm = () => {
 
 const backToInsertMode = () => {
   emits('setSliderVisible', false)
-  resetQueryConditions()
   resetFormTableData()
   queryMode.value = false
 }
