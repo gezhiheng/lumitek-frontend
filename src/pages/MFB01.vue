@@ -12,18 +12,26 @@
     </span>
   </header>
 
-  <div :class="{ 'container-horizontal': !verticalLayoutFlag }">
-    <form-card
-      :class="{ 'form-card-horizontal' : !verticalLayoutFlag, 'form-card-vertical': verticalLayoutFlag }"
+  <div v-if="verticalLayoutFlag">
+    <form-card class="form-card-vertical" 
       :vertical-layout-flag="verticalLayoutFlag" 
       :slider="slider" 
       @changeSlider="changeSlider"
       @setSliderVisible="setSliderVisible"
     ></form-card>
-    <table-card
-      :class="{ 'table-card-horizontal' : !verticalLayoutFlag }"
+    <table-card 
+      class="table-card-vertical"
       :vertical-layout-flag="verticalLayoutFlag" 
     ></table-card>
+  </div>
+  <div v-else  class="container-horizontal">
+    <form-card 
+      class="form-card-horizontal" 
+      :slider="slider" 
+      @changeSlider="changeSlider"
+      @setSliderVisible="setSliderVisible"
+    ></form-card>
+    <table-card class="table-card-horizontal"></table-card>
   </div>
 
   <div style="display: flex; align-items: center; margin: 20px 0 50px 0;">
