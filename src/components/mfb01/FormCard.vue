@@ -33,7 +33,18 @@
           <el-form :model="queryForm" label-width="120px">
             <el-form-item label="客戶">
               <el-select v-model="queryForm.custNo">
-                <el-option v-for="custNo in custNos" :label="custNo" :value="custNo"/>
+                <div v-for="custNo in custNos">
+                  <el-option v-if="custNo !== '-'" :label="custNo" :value="custNo"/>
+                  <el-tooltip
+                    v-else
+                    effect="light"
+                    class="box-item"
+                    content="取消選擇客戶"
+                    placement="right-start"
+                  >
+                    <el-option :label="custNo" :value="custNo"/>
+                  </el-tooltip>
+                </div>
               </el-select>
             </el-form-item>
             <el-form-item label="單號">
