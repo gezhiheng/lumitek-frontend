@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div>
-      <span>Lumitek 琉明光電</span>
+      <span>Lumitek 琉明光電（常州）</span>
     </div>
     <div>
       <span>Frontend</span>
