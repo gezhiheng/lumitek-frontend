@@ -21,7 +21,7 @@
             </el-icon>
             <span>查询</span>
           </el-button>
-          <el-button plain type="primary">
+          <el-button plain type="primary" @click="importData">
             <el-icon>
               <FolderOpened />
             </el-icon>
@@ -154,7 +154,7 @@ const queryForm = reactive({
   orderNo: ''
 })
 
-const { formTableData, setFormTable, resetFormTableData } = useFormTableStore()
+const { formTableData, setFormTable, resetFormTable, importFormTable } = useFormTableStore()
 const { setQueryConditions, resetQueryConditions } = useQueryStore()
 const querySubmit = async () => {
   handleQueryForm()
@@ -184,7 +184,7 @@ const handleQueryForm = () => {
 
 const backToInsertMode = () => {
   emits('setSliderVisible', false)
-  resetFormTableData()
+  resetFormTable()
   queryMode.value = false
 }
 
@@ -199,6 +199,13 @@ const clearQueryCondition = () => {
   queryForm.lotNo = ''
   queryForm.WIPID = ''
   queryForm.orderNo = ''
+}
+
+const importData = () => {
+  importFormTable({
+    "custNo": formTableData.form.custNo,
+    "orderNo": formTableData.form.orderNo
+  })
 }
 
 const custNos = ['-','08','11','12','13','13A','17','18','19','20','21','22',]
