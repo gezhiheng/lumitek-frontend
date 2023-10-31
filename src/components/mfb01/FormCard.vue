@@ -21,12 +21,13 @@
             </el-icon>
             <span>查询</span>
           </el-button>
-          <el-button plain type="primary" @click="importData">
+          <el-button v-if="!queryMode" plain type="primary" @click="importData">
             <el-icon>
               <FolderOpened />
             </el-icon>
             <span>资料汇入</span>
           </el-button>
+          <input type="file" ref="selectFile" @change="uploadFile" style="display: none;">
         </span>
 
         <el-dialog v-model="dialogFormVisible" title="請輸入查詢條件" class="dialog">
@@ -154,7 +155,7 @@ const queryForm = reactive({
   orderNo: ''
 })
 
-const { formTableData, setFormTable, resetFormTable, importFormTable } = useFormTableStore()
+const { formTableData, setFormTable, resetFormTable, importFormTable, importFormTableAuto } = useFormTableStore()
 const { setQueryConditions, resetQueryConditions } = useQueryStore()
 const querySubmit = async () => {
   handleQueryForm()
@@ -177,9 +178,9 @@ const querySubmit = async () => {
 
 const handleQueryForm = () => {
   queryForm.dataIndex = 0
-  queryForm.custNo = queryForm.custNo === '-' ? '' : queryForm.custNo
-  queryForm.startTime = queryForm.startTime === null ? '' : queryForm.startTime
-  queryForm.endTime = queryForm.endTime === null ? '' : queryForm.endTime
+  queryForm.custNo = queryForm.custNo ?? ''
+  queryForm.startTime = queryForm.startTime ?? ''
+  queryForm.endTime = queryForm.endTime ?? ''
 }
 
 const backToInsertMode = () => {
@@ -201,11 +202,30 @@ const clearQueryCondition = () => {
   queryForm.orderNo = ''
 }
 
+const selectFile = ref(null)
+const uploadFile = (event) => {
+  const file = event.target.files[0]
+  if (!file) {
+    swal("注意", "請選擇一個文件", "warning")
+    return
+  }
+  importFormTable(formTableData.form.custNo, file)
+  console.log("🚀 ~ file: FormCard.vue:213 ~ uploadFile ~ formTableData.form.custNo:", formTableData.form.custNo)
+}
+
 const importData = () => {
-  importFormTable({
-    "custNo": formTableData.form.custNo,
-    "orderNo": formTableData.form.orderNo
-  })
+  if (!formTableData.form.custNo) {
+    swal("注意", "請選擇客戶編號", "warning")
+    return
+  }
+  if (formTableData.form.orderNo) {
+    importFormTableAuto({
+      "custNo": formTableData.form.custNo,
+      "orderNo": formTableData.form.orderNo
+    })
+  } else {
+    selectFile.value.click()  
+  }
 }
 
 const custNos = ['-','08','11','12','13','13A','17','18','19','20','21','22',]

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { queryMFB01, importData } from '@/service/mfb01'
+import { queryMFB01, importData, importDataAuto } from '@/service/mfb01'
 import { ref } from 'vue'
 import swal from 'sweetalert'
 
@@ -40,8 +40,8 @@ export const useFormTableStore = defineStore('formTable', () => {
     setFormTableData(queryData)
   }
 
-  async function importFormTable(params) {
-    const data = await importData(params)
+  async function importFormTableAuto(params) {
+    const data = await importDataAuto(params)
     .then((reslove, reject) => {
       return reslove.data
     })
@@ -54,6 +54,20 @@ export const useFormTableStore = defineStore('formTable', () => {
       swal('注意', data.err, 'warning')
       return
     }
+    setFormTableData(data)
+  }
+
+  async function importFormTable(custNo, file) {
+    const data = await importData(custNo, file)
+    .then((reslove, reject) => {
+      console.log("🚀 ~ file: form_table_store.js:64 ~ .then ~ reslove.data:", reslove.data)
+      return reslove.data
+    })
+    .catch(error => {
+      console.log("🚀 ~ file: form_table_store.js:66 ~ importFormTableAuto ~ error:", error)
+      swal('錯誤', '獲取數據時發生異常', 'error')
+      return
+    })
     setFormTableData(data)
   }
 
@@ -86,5 +100,5 @@ export const useFormTableStore = defineStore('formTable', () => {
     formTableData.value.tbAttachment = []
   }
 
-  return { formTableData, setFormTable, resetFormTable, importFormTable }
+  return { formTableData, setFormTable, resetFormTable, importFormTable, importFormTableAuto }
 })
