@@ -11,8 +11,6 @@ export async function importDataAuto(params) {
 }
 
 export async function importData(custNo, file) {
-  console.log("🚀 ~ file: mfb01.js:14 ~ importData ~ file:", file)
-  console.log("🚀 ~ file: mfb01.js:14 ~ importData ~ custNo:", custNo)
   const formData = new FormData()
   formData.append('file', file)
   
@@ -20,5 +18,9 @@ export async function importData(custNo, file) {
     custNo: custNo,
     file: file,
     fileload: ''
+  }, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
   })
 }
