@@ -24,3 +24,7 @@ export async function importData(custNo, file) {
     }
   })
 }
+
+export async function mfb01Add(params) {
+  return await axios.post(`${apiBaseUrl}mfb01/add/`, params)
+}

@@ -9,7 +9,7 @@
             </el-icon>
             <span>返回新增</span>
           </el-button>
-          <el-button v-else plain type="primary" >
+          <el-button v-else plain type="primary" @click="add">
             <el-icon>
               <DocumentAdd />
             </el-icon>
@@ -129,9 +129,10 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { DocumentAdd, Search, FolderOpened, Close } from '@element-plus/icons-vue'
-import { useFormTableStore } from '../../stores/mfb01/form_table_store'
-import { useQueryStore } from '../../stores/mfb01/query_conditions_store'
+import { useFormTableStore } from '@/stores/mfb01/form_table_store'
+import { useQueryStore } from '@/stores/mfb01/query_conditions_store'
 import swal from 'sweetalert'
+import { mfb01Add } from '@/service/mfb01'
 
 const props = defineProps({
   verticalLayoutFlag: Boolean
@@ -168,6 +169,7 @@ const querySubmit = async () => {
       emits('changeSlider')
       emits('setSliderVisible', true)
     }
+    addFlag.value = false
   } catch (err) {
     console.error(err)
     swal("錯誤", "查詢出現錯誤", "error")
@@ -218,6 +220,7 @@ const importData = () => {
     swal("注意", "請選擇客戶編號", "warning")
     return
   }
+  addFlag.value = true
   if (formTableData.form.orderNo) {
     importFormTableAuto({
       "custNo": formTableData.form.custNo,
@@ -228,6 +231,29 @@ const importData = () => {
   }
 }
 
+const addFlag = ref(false)
+const add = () => {
+  if(!addFlag.value) {
+    swal("注意", "請匯入資料后再新增", "warning")
+  }
+  const staffNo = window.sessionStorage.getItem('staffNo')
+  mfb01Add({
+    user: staffNo,
+    form: formTableData.form,
+    tbDetail: formTableData.tbDetail,
+    tbDetailDetail: formTableData.tbDetailDetail,
+    tbAttachment: formTableData.tbAttachment
+  }).then((resolve, reject) => {
+    const tip = resolve.data.tip
+    const message = resolve.data.message
+    if (tip === 'success') {
+      swal("成功", message, "success")
+    } else {
+      swal("失敗", message, "error")
+    }
+  })
+  
+}
 const custNos = ['-','08','11','12','13','13A','17','18','19','20','21','22',]
 </script>
 
