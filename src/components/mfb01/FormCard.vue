@@ -171,7 +171,9 @@ const querySubmit = async () => {
     }
     addFlag.value = false
   } catch (err) {
+    console.log("🚀 ~ file: FormCard.vue:174 ~ querySubmit ~ err:", err)
     console.error(err)
+    console.log("🚀 ~ file: FormCard.vue:175 ~ querySubmit ~ err:", err)
     swal("錯誤", "查詢出現錯誤", "error")
   }
   dialogFormVisible.value = false
@@ -235,6 +237,7 @@ const addFlag = ref(false)
 const add = () => {
   if(!addFlag.value) {
     swal("注意", "請匯入資料后再新增", "warning")
+    return
   }
   const staffNo = window.sessionStorage.getItem('staffNo')
   mfb01Add({
@@ -251,8 +254,9 @@ const add = () => {
     } else {
       swal("失敗", message, "error")
     }
-  })
-  
+  }).catch(err => {
+    console.log("🚀 ~ file: FormCard.vue:256 ~ add ~ err:", err)
+  })  
 }
 const custNos = ['-','08','11','12','13','13A','17','18','19','20','21','22',]
 </script>
