@@ -21,4 +21,4 @@ $ npm run dev
 ## 页面展示
 ![登录页面](public/images/show_login.png)
 ![MFB01](public/images/mfb01.png)
-![MFB02](public/images/mfb02.png)
+![MFB02](public/images/mfb01_2.jpeg)
