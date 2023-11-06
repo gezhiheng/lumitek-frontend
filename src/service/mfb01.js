@@ -28,3 +28,15 @@ export async function importData(custNo, file) {
 export async function mfb01Add(params) {
   return await axios.post(`${apiBaseUrl}mfb01/add/`, params)
 }
+
+export async function mfb01Repeal(params) {
+  return await axios.post(`${apiBaseUrl}mfb01/repeal/`, params)
+}
+
+export async function mfb01LotRepeal(params) {
+  return await axios.post(`${apiBaseUrl}mfb01/lot-repeal/`, params)
+}
+
+export async function mfb01LotReduction(params) {
+  return await axios.post(`${apiBaseUrl}mfb01/lot-reduction/`, params)
+}

@@ -83,7 +83,7 @@
         </el-dialog>
 
         <span>
-          <el-button plain type="danger">
+          <el-button v-if="queryMode" plain type="danger" @click="repeal">
             <el-icon>
               <Close />
             </el-icon>
@@ -132,7 +132,8 @@ import { DocumentAdd, Search, FolderOpened, Close } from '@element-plus/icons-vu
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { useQueryStore } from '@/stores/mfb01/query_conditions_store'
 import swal from 'sweetalert'
-import { mfb01Add } from '@/service/mfb01'
+import { mfb01Add, mfb01Repeal } from '@/service/mfb01'
+import { resolveAlert } from '@/utils/resloveAlert'
 
 const props = defineProps({
   verticalLayoutFlag: Boolean
@@ -234,12 +235,12 @@ const importData = () => {
 }
 
 const addFlag = ref(false)
+const staffNo = window.sessionStorage.getItem('staffNo')
 const add = () => {
   if(!addFlag.value) {
     swal("注意", "請匯入資料后再新增", "warning")
     return
   }
-  const staffNo = window.sessionStorage.getItem('staffNo')
   mfb01Add({
     user: staffNo,
     form: formTableData.form,
@@ -247,17 +248,21 @@ const add = () => {
     tbDetailDetail: formTableData.tbDetailDetail,
     tbAttachment: formTableData.tbAttachment
   }).then((resolve, reject) => {
-    const tip = resolve.data.tip
-    const message = resolve.data.message
-    if (tip === 'success') {
-      swal("成功", message, "success")
-    } else {
-      swal("失敗", message, "error")
-    }
+    resolveAlert(resolve)
   }).catch(err => {
     console.log("🚀 ~ file: FormCard.vue:256 ~ add ~ err:", err)
   })  
 }
+
+const repeal = () => {
+  mfb01Repeal({
+    user: staffNo,
+    applyNo: formTableData.form.applyNo
+  }).then((resolve, reject) => {
+    resolveAlert(resolve)
+  })
+}
+
 const custNos = ['-','08','11','12','13','13A','17','18','19','20','21','22',]
 </script>
 

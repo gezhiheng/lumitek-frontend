@@ -10,7 +10,9 @@
           :data="formTableData.tbDetail"
           :max-height="verticalLayoutFlag ? 750 : 500"
           highlight-current-row
+          @selection-change="handleSelectionChange"
         >
+          <el-table-column type="selection" width="55" />
           <el-table-column
             v-for="(item, index) in tbDetailColumns"
             :fixed="verticalLayoutFlag && index < 4"
@@ -21,11 +23,11 @@
         </el-table>
 
         <span>
-          <el-button plain type="success">
+          <el-button plain type="success" @click="lotReduction">
             <el-icon><Check /></el-icon>
             <span>资料还原</span>
           </el-button>
-          <el-button plain type="danger">
+          <el-button plain type="danger" @click="lotRepeal">
             <el-icon><Close /></el-icon>
             <span>资料作废</span>
           </el-button>
@@ -100,10 +102,44 @@
 </template>
 
 <script setup>
+import { toRaw } from 'vue'
 import { Check, Close, SuccessFilled, CircleCloseFilled, CirclePlusFilled, RemoveFilled, UploadFilled } from '@element-plus/icons-vue'
-import { useFormTableStore } from '../../stores/mfb01/form_table_store'
+import { mfb01LotRepeal, mfb01LotReduction } from '@/service/mfb01'
+import { useFormTableStore } from '@/stores/mfb01/form_table_store'
+import { resolveAlert } from '@/utils/resloveAlert'
 
 const { formTableData } = useFormTableStore()
+
+let lotNos = []
+const handleSelectionChange = (items) => {
+  let tempLotNos = []
+  items.forEach(item => {
+    tempLotNos.push(toRaw(item).lotNo)
+  })
+  lotNos = tempLotNos
+}
+
+const staffNo = window.sessionStorage.getItem('staffNo')
+const lotRepeal = () => {
+  mfb01LotRepeal({
+    user: staffNo,
+    applyNo: formTableData.form.applyNo,
+    lotNos: lotNos
+  }).then((resolve, reject) => {
+    resolveAlert(resolve)
+  })
+}
+
+const lotReduction = () => {
+  mfb01LotReduction({
+    user: staffNo,
+    applyNo: formTableData.form.applyNo,
+    lotNos: lotNos,
+    custNo: formTableData.form.custNo
+  }).then((resolve, reject) => {
+    resolveAlert(resolve)
+  })
+}
 
 const tbDetailColumns = [
   ['項次', 'orderItemNo'], 
