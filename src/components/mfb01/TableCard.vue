@@ -55,9 +55,14 @@
           style="width: 100%; margin-bottom: 15px;" 
           :max-height="verticalLayoutFlag ? 750 : 500"
         >
-          <el-table-column label="" width="30"/>
+          <el-table-column type="selection" width="55" />
           <el-table-column label="檔案名稱" prop="fileName" width="200"/>
-          <el-table-column label="檢視" width="120"><el-button type="primary" plain>檢視</el-button></el-table-column>
+          <el-table-column label="下載" width="120">
+            <el-button type="info" plain>
+              <el-icon><UploadFilled /></el-icon>
+            <span>下载</span>
+          </el-button>
+          </el-table-column>
         </el-table>
 
         <div v-if="verticalLayoutFlag" style="margin-bottom: 20px;">
@@ -75,14 +80,6 @@
           </el-upload>
         </div>
         <span>
-          <el-button type="primary" plain>
-            <el-icon><SuccessFilled /></el-icon>
-            <span>全选</span>
-          </el-button>
-          <el-button type="primary" plain>
-            <el-icon><CircleCloseFilled /></el-icon>
-            <span>取消</span>
-          </el-button>
           <el-button type="success" plain>
             <el-icon><CirclePlusFilled /></el-icon>
             <span>新增</span>
@@ -90,10 +87,6 @@
           <el-button type="danger" plain>
             <el-icon><RemoveFilled /></el-icon>
             <span>删除</span>
-          </el-button>
-          <el-button type="info" plain>
-            <el-icon><UploadFilled /></el-icon>
-            <span>下载</span>
           </el-button>
         </span>
       </el-tab-pane>

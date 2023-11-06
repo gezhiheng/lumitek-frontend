@@ -15,6 +15,12 @@ export const useFormTableStore = defineStore('formTable', () => {
       totWaferQty: '',
       degree: '',
       remark: '',
+      custSite: '',
+      shipSite: '',
+      custProductNo: '',
+      custProductName: '',
+      status: '',
+      CustType: '', // 需要将传入的字段统一
     },
     tbDetail: [],
     tbDetailDetail: [],
@@ -80,6 +86,12 @@ export const useFormTableStore = defineStore('formTable', () => {
     formTableData.value.form.totWaferQty = data.form.totWaferQty
     formTableData.value.form.degree = data.form.degree
     formTableData.value.form.remark = data.form.remark
+    formTableData.value.form.status = data.form.status
+    formTableData.value.form.custSite = data.form.custSite
+    formTableData.value.form.shipSite = data.form.shipSite
+    formTableData.value.form.custProductNo = data.form.custProductNo
+    formTableData.value.form.custProductName = data.form.custProductName
+    formTableData.value.form.CustType = data.form.CustType
     formTableData.value.tbDetail = data.tbDetail
     formTableData.value.tbDetailDetail = data.tbDetailDetail
     formTableData.value.tbAttachment = data.tbAttachment
@@ -95,6 +107,12 @@ export const useFormTableStore = defineStore('formTable', () => {
     formTableData.value.form.totWaferQty = ''
     formTableData.value.form.degree = ''
     formTableData.value.form.remark = ''
+    formTableData.value.form.status = ''
+    formTableData.value.form.custSite = ''
+    formTableData.value.form.shipSite = ''
+    formTableData.value.form.custProductNo = ''
+    formTableData.value.form.custProductName = ''
+    formTableData.value.form.CustType = ''
     formTableData.value.tbDetail = []
     formTableData.value.tbDetailDetail = []
     formTableData.value.tbAttachment = []
