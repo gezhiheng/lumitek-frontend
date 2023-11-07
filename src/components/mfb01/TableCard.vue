@@ -57,12 +57,6 @@
         >
           <el-table-column type="selection" width="55" />
           <el-table-column label="檔案名稱" prop="fileName" width="200"/>
-          <el-table-column label="下載" width="120">
-            <el-button type="info" plain>
-              <el-icon><UploadFilled /></el-icon>
-            <span>下载</span>
-          </el-button>
-          </el-table-column>
         </el-table>
 
         <div v-if="verticalLayoutFlag" style="margin-bottom: 20px;">
@@ -87,6 +81,10 @@
           <el-button type="danger" plain>
             <el-icon><RemoveFilled /></el-icon>
             <span>删除</span>
+          </el-button>
+          <el-button type="info" plain>
+              <el-icon><UploadFilled /></el-icon>
+            <span>下载</span>
           </el-button>
         </span>
       </el-tab-pane>
