@@ -27,7 +27,7 @@
             </el-icon>
             <span>资料汇入</span>
           </el-button>
-          <input type="file" ref="selectFile" @change="uploadFile" style="display: none;">
+          <input type="file" ref="selectFile" @change="uploadFile" style="display: none;" webkitdirectory>
         </span>
 
         <el-dialog v-model="dialogFormVisible" title="請輸入查詢條件" class="dialog">
@@ -209,12 +209,12 @@ const clearQueryCondition = () => {
 
 const selectFile = ref(null)
 const uploadFile = (event) => {
-  const file = event.target.files[0]
-  if (!file) {
-    swal("注意", "請選擇一個文件", "warning")
+  const files = event.target.files
+  if (!files) {
+    swal("注意", "請選擇正确的文件夹", "warning")
     return
   }
-  importFormTable(formTableData.form.custNo, file)
+  importFormTable(formTableData.form.custNo, files)
   console.log("🚀 ~ file: FormCard.vue:213 ~ uploadFile ~ formTableData.form.custNo:", formTableData.form.custNo)
 }
 

@@ -82,7 +82,7 @@
             <el-icon><RemoveFilled /></el-icon>
             <span>删除</span>
           </el-button>
-          <el-button type="info" plain>
+          <el-button type="info" plain @click="downloadAttachment">
             <el-icon><UploadFilled /></el-icon>
             <span>下载</span>
           </el-button>
@@ -95,7 +95,7 @@
 <script setup>
 import { toRaw } from 'vue'
 import { Check, Close, SuccessFilled, CircleCloseFilled, CirclePlusFilled, RemoveFilled, UploadFilled } from '@element-plus/icons-vue'
-import { mfb01LotRepeal, mfb01LotReduction } from '@/service/mfb01'
+import { mfb01LotRepeal, mfb01LotReduction, attachmentDownload } from '@/service/mfb01'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { resolveAlert } from '@/utils/resloveAlert'
 
@@ -185,4 +185,16 @@ const props = defineProps({
   verticalLayoutFlag: Boolean
 })
 
+const downloadAttachment = () => {
+  attachmentDownload('PRE2023110001', '23110801E0.xls').then(response => {
+    const blob = new Blob([response.data], { type: 'application/octet-stream' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = '23110801E0.xls';
+    link.click();
+  }).catch(error => {
+
+  })
+}
 </script>

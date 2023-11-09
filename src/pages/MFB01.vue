@@ -33,7 +33,7 @@
         v-model="slider" 
         show-input
         style="padding-left: 12px;" 
-        :max="formTableData.dataSize"
+        :max="formTableData.dataSize - 1"
         @change="change"
       />
     </suspense>
