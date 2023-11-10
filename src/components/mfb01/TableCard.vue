@@ -10,7 +10,7 @@
           :data="formTableData.tbDetail"
           :max-height="verticalLayoutFlag ? 750 : 500"
           highlight-current-row
-          @selection-change="handleSelectionChange"
+          @selection-change="handleTBDetailSelectionChange"
         >
           <el-table-column type="selection" width="55" />
           <el-table-column
@@ -54,6 +54,7 @@
           :data="formTableData.tbAttachment"
           style="width: 100%; margin-bottom: 15px;" 
           :max-height="verticalLayoutFlag ? 750 : 500"
+          @selection-change="handleTBAttachmentSelectionChange"
         >
           <el-table-column type="selection" width="55" />
           <el-table-column label="檔案名稱" prop="fileName" width="200"/>
@@ -82,7 +83,7 @@
             <el-icon><RemoveFilled /></el-icon>
             <span>删除</span>
           </el-button>
-          <el-button type="info" plain @click="downloadAttachment">
+          <el-button type="info" plain @click="download">
             <el-icon><UploadFilled /></el-icon>
             <span>下载</span>
           </el-button>
@@ -95,19 +96,30 @@
 <script setup>
 import { toRaw } from 'vue'
 import { Check, Close, SuccessFilled, CircleCloseFilled, CirclePlusFilled, RemoveFilled, UploadFilled } from '@element-plus/icons-vue'
-import { mfb01LotRepeal, mfb01LotReduction, attachmentDownload } from '@/service/mfb01'
+import { mfb01LotRepeal, mfb01LotReduction, downloadAttachment } from '@/service/mfb01'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { resolveAlert } from '@/utils/resloveAlert'
+import swal from 'sweetalert'
 
 const { formTableData } = useFormTableStore()
 
 let lotNos = []
-const handleSelectionChange = (items) => {
-  let tempLotNos = []
+const handleTBDetailSelectionChange = (items) => {
+  const tempLotNos = []
   items.forEach(item => {
     tempLotNos.push(toRaw(item).lotNo)
   })
   lotNos = tempLotNos
+}
+
+let fileNames = []
+const handleTBAttachmentSelectionChange = (items) => {
+  const tempFileNames = []
+  items.forEach(item => {
+    tempFileNames.push(toRaw(item).fileName)
+  })
+  fileNames = tempFileNames
+  console.log(fileNames);
 }
 
 const staffNo = window.sessionStorage.getItem('staffNo')
@@ -130,6 +142,31 @@ const lotReduction = () => {
   }).then((resolve, reject) => {
     resolveAlert(resolve)
   })
+}
+
+const download = () => {
+  if (fileNames.length === 0) {
+    swal('注意', '請選擇附件下載', 'warning')
+    return
+  }
+  const downloadLinks = []
+  fileNames.forEach(fileName => {
+    downloadAttachment(formTableData.form.applyNo, fileName).then(response => {
+      const blob = new Blob([response.data], { type: 'application/octet-stream' });
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = fileName
+      link.click()
+      downloadLinks.push(link)
+    })
+  })
+  // 下载完成后删除所有的a标签
+  setTimeout(() => {
+   downloadLinks.forEach(link => {
+     link.remove()
+   })
+  }, 5000)
 }
 
 const tbDetailColumns = [
@@ -184,17 +221,4 @@ const tbDetailDetailColumns = [
 const props = defineProps({
   verticalLayoutFlag: Boolean
 })
-
-const downloadAttachment = () => {
-  attachmentDownload('PRE2023110001', '23110801E0.xls').then(response => {
-    const blob = new Blob([response.data], { type: 'application/octet-stream' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = '23110801E0.xls';
-    link.click();
-  }).catch(error => {
-
-  })
-}
 </script>

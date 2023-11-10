@@ -1,4 +1,5 @@
 import axios from "axios"
+import swal from 'sweetalert'
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
 
@@ -24,7 +25,7 @@ export async function importData(custNo, files) {
   })
 }
 
-export async function attachmentDownload(applyNo, fileName) {
+export async function downloadAttachment(applyNo, fileName) {
   const config = {
     method: 'get',
     url: `${apiBaseUrl}mfb01/attachment-download/${applyNo}/${fileName}`,
@@ -33,7 +34,10 @@ export async function attachmentDownload(applyNo, fileName) {
     },
     responseType: 'blob'
   }
-  return await axios(config)
+  return await axios(config).catch(error => {
+    console.log("🚀 ~ file: mfb01.js:38 ~ returnawaitaxios ~ error:", error)
+    swal("錯誤", "文件下載失敗", "error")
+  })
 }
 
 export async function mfb01Add(params) {
