@@ -4,6 +4,7 @@ import MFB01 from '@/pages/MFB01.vue'
 import Login from '@/pages/Login.vue'
 import Home from '@/pages/Home.vue'
 import Empty from '@/pages/Empty.vue'
+import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -38,6 +39,8 @@ router.beforeEach((to, from, next) => {
   if(to.path !== '/login' && !token) {
     return next('/login')
   } else {
+    const { resetFormTable } = useFormTableStore()
+    resetFormTable()
     next()
   }
 })
