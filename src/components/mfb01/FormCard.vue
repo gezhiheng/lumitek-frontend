@@ -93,7 +93,7 @@
       </div>
     </template>
     <div :class="{ formContainer: verticalLayoutFlag }">
-        <el-form label-width="120px">
+      <el-form label-width="120px">
         <el-text size="large" style="float: right; font-size: 30px;" class="mx-1" type="primary">{{ formTableData.form.status }}</el-text>
         <el-form-item label="客戶碼">
           <el-select v-model="formTableData.form.custNo">
