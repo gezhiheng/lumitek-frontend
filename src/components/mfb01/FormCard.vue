@@ -139,7 +139,7 @@ const props = defineProps({
   verticalLayoutFlag: Boolean
 })
 
-const emits = defineEmits(['changeSlider', 'setSliderVisible', 'setQueryMode'])
+const emits = defineEmits(['changeSlider', 'setSliderVisible', 'setQueryMode', 'setSliderMarks'])
 
 const fullscreenLoading = ref(false)
 const dialogFormVisible = ref(false)
@@ -170,6 +170,7 @@ const querySubmit = async () => {
       emits('changeSlider')
       emits('setSliderVisible', true)
       emits('setQueryMode', true)
+      emits('setSliderMarks', formTableData.dataSize)
     }
     addFlag.value = false
   } catch (err) {
@@ -182,7 +183,7 @@ const querySubmit = async () => {
 
 const handleQueryForm = () => {
   queryForm.dataIndex = 0
-  queryForm.custNo = queryForm.custNo ?? ''
+  queryForm.custNo = queryForm.custNo === '-' ? '' : queryForm.custNo
   queryForm.startTime = queryForm.startTime ?? ''
   queryForm.endTime = queryForm.endTime ?? ''
 }
