@@ -22,7 +22,7 @@
           />
         </el-table>
 
-        <span>
+        <span v-if="queryMode">
           <el-button plain type="success" @click="lotReduction">
             <el-icon><Check /></el-icon>
             <span>资料还原</span>
@@ -69,7 +69,7 @@
             <el-icon><RemoveFilled /></el-icon>
             <span>删除</span>
           </el-button>
-          <el-button type="info" plain @click="download">
+          <el-button v-if="queryMode" type="info" plain @click="download">
             <el-icon><UploadFilled /></el-icon>
             <span>下载</span>
           </el-button>
@@ -204,6 +204,7 @@ const tbDetailDetailColumns = [
 ]
 
 const props = defineProps({
-  verticalLayoutFlag: Boolean
+  verticalLayoutFlag: Boolean,
+  queryMode: Boolean
 })
 </script>

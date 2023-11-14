@@ -139,7 +139,7 @@ const props = defineProps({
   verticalLayoutFlag: Boolean
 })
 
-const emits = defineEmits(['changeSlider', 'setSliderVisible'])
+const emits = defineEmits(['changeSlider', 'setSliderVisible', 'setQueryMode'])
 
 const fullscreenLoading = ref(false)
 const dialogFormVisible = ref(false)
@@ -169,6 +169,7 @@ const querySubmit = async () => {
       queryMode.value = true
       emits('changeSlider')
       emits('setSliderVisible', true)
+      emits('setQueryMode', true)
     }
     addFlag.value = false
   } catch (err) {
@@ -188,6 +189,7 @@ const handleQueryForm = () => {
 
 const backToInsertMode = () => {
   emits('setSliderVisible', false)
+  emits('setQueryMode', false)
   resetFormTable()
   queryMode.value = false
 }

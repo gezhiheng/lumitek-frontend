@@ -19,10 +19,12 @@
       :slider="slider" 
       @changeSlider="changeSlider"
       @setSliderVisible="setSliderVisible"
+      @setQueryMode="setQueryMode"
     ></form-card>
     <table-card
       :class="{ 'table-card-horizontal' : !verticalLayoutFlag }"
       :vertical-layout-flag="verticalLayoutFlag" 
+      :queryMode="queryMode"
     ></table-card>
   </div>
 
@@ -49,6 +51,7 @@ import { useQueryStore } from '@/stores/mfb01/query_conditions_store';
 
 const slider = ref(0)
 const sliderVisible = ref(false)
+const queryMode = ref(false)
 
 const { formTableData, setFormTable } = useFormTableStore()
 let verticalLayoutFlag = ref(false)
@@ -71,6 +74,10 @@ const changeSlider = () => {
 
 const setSliderVisible = (visible) => {
   sliderVisible.value = visible
+}
+
+const setQueryMode = (mode) => {
+  queryMode.value = mode
 }
 </script>
 
