@@ -92,37 +92,41 @@
         </span>
       </div>
     </template>
-    <el-form label-width="120px">
-      <el-form-item label="客戶簡碼">
-        <el-select v-model="formTableData.form.custNo">
-          <el-option v-for="custNo in custNos.slice(1)"  :label="custNo" :value="custNo" :disabled="queryMode" />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="客戶訂單編號">
-        <el-input v-model="formTableData.form.orderNo" :class="{ input: verticalLayoutFlag }" :disabled="queryMode" />
-      </el-form-item>
-      <el-form-item label="單號">
-        <el-input v-model="formTableData.form.applyNo" :class="{ input: verticalLayoutFlag }" placeholder="系統產生" disabled />
-      </el-form-item>
-      <el-form-item label="進貨日期">
-        <el-input v-model="formTableData.form.issueDate" :class="{ input: verticalLayoutFlag }" disabled />
-      </el-form-item>
-      <el-form-item label="製程別">
-        <el-input v-model="formTableData.form.processType" :class="{ input: verticalLayoutFlag }" disabled />
-      </el-form-item>
-      <el-form-item label="總晶圓數">
-        <el-input v-model="formTableData.form.totWaferQty" :class="{ input: verticalLayoutFlag }" disabled />
-      </el-form-item>
-      <el-form-item label="件別">
-        <el-radio-group v-model="formTableData.form.degree" disabled>
-          <el-radio label="Y">急件</el-radio>
-          <el-radio label="N">一般</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="備註">
-        <el-input v-model="formTableData.form.remark" :class="{ input: verticalLayoutFlag }" type="textarea" :disabled="queryMode" />
-      </el-form-item>
-    </el-form>
+    <div :class="{ formContainer: verticalLayoutFlag }">
+        <el-form label-width="120px">
+        <el-text size="large" style="float: right; font-size: 30px;" class="mx-1" type="primary">{{ formTableData.form.status }}</el-text>
+        <el-form-item label="客戶碼">
+          <el-select v-model="formTableData.form.custNo">
+            <el-option v-for="custNo in custNos.slice(1)"  :label="custNo" :value="custNo" :disabled="queryMode" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="客戶訂單編號">
+          <el-input v-model="formTableData.form.orderNo"  :disabled="queryMode" />
+        </el-form-item>
+        <el-form-item label="單號">
+          <el-input v-model="formTableData.form.applyNo"  placeholder="系統產生" disabled />
+        </el-form-item>
+        <el-form-item label="進貨日期">
+          <el-input v-model="formTableData.form.issueDate"  disabled />
+        </el-form-item>
+        <el-form-item label="製程別">
+          <el-input v-model="formTableData.form.processType" disabled />
+        </el-form-item>
+        <el-form-item label="總晶圓數">
+          <el-input v-model="formTableData.form.totWaferQty" disabled />
+        </el-form-item>
+        <el-form-item label="件別">
+          <el-radio-group v-model="formTableData.form.degree" disabled>
+            <el-radio label="Y">急件</el-radio>
+            <el-radio label="N">一般</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="備註">
+          <el-input v-model="formTableData.form.remark" type="textarea" :disabled="queryMode" />
+        </el-form-item>
+      </el-form>
+    </div>
+    
   </el-card>
 </template>
 
