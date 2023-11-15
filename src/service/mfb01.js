@@ -22,6 +22,9 @@ export async function importData(custNo, files) {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
+  }).catch(error => {
+    console.log("🚀 ~ file: mfb01.js:26 ~ importData ~ error:", error)
+    swal("錯誤", "匯入文件失敗", "error")
   })
 }
 
@@ -37,6 +40,25 @@ export async function downloadAttachment(applyNo, fileName) {
   return await axios(config).catch(error => {
     console.log("🚀 ~ file: mfb01.js:38 ~ returnawaitaxios ~ error:", error)
     swal("錯誤", "文件下載失敗", "error")
+  })
+}
+
+export async function addAttachment(applyNo, orderNo, user, files) {
+  const fileList = Array.from(files)
+  const formData = new FormData()
+  formData.append('applyNo', applyNo)
+  formData.append('orderNo', orderNo)
+  formData.append('user', user)
+  fileList.forEach(file => {
+    formData.append('files', file)
+  });
+  return await axios.post(`${apiBaseUrl}mfb01/attachment-add/`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  }).catch(error => {
+    console.log("🚀 ~ file: mfb01.js:57 ~ addAttachment ~ error:", error)
+    swal("錯誤", "附件添加失敗", "error")
   })
 }
 

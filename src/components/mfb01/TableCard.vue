@@ -1,6 +1,6 @@
 <template>
   <el-card type="border-card" >
-    <el-tabs class="demo-tabs" model-value="first">
+    <el-tabs style="margin-top: 10px;" model-value="first">
 
       <el-tab-pane label="總表" name="first">
         <el-table 
@@ -61,11 +61,11 @@
         </el-table>
         
         <span>
-          <el-button type="success" plain>
+          <el-button v-if="queryMode || insertMode" type="success" @click="btnAddAttachment" plain>
             <el-icon><CirclePlusFilled /></el-icon>
             <span>新增</span>
           </el-button>
-          <el-button type="danger" plain>
+          <el-button v-if="queryMode || insertMode" type="danger" plain>
             <el-icon><RemoveFilled /></el-icon>
             <span>删除</span>
           </el-button>
@@ -73,6 +73,7 @@
             <el-icon><UploadFilled /></el-icon>
             <span>下载</span>
           </el-button>
+          <input type="file" ref="selectFile" @change="uploadAttachment" multiple>
         </span>
       </el-tab-pane>
     </el-tabs>
@@ -80,14 +81,15 @@
 </template>
 
 <script setup>
-import { toRaw } from 'vue'
+import { toRaw, ref } from 'vue'
 import { Check, Close, CirclePlusFilled, RemoveFilled, UploadFilled } from '@element-plus/icons-vue'
-import { mfb01LotRepeal, mfb01LotReduction, downloadAttachment } from '@/service/mfb01'
+import { mfb01LotRepeal, mfb01LotReduction, downloadAttachment, addAttachment } from '@/service/mfb01'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { resolveAlert } from '@/utils/resloveAlert'
 import swal from 'sweetalert'
 
 const { formTableData } = useFormTableStore()
+const selectFile = ref(null)
 
 let lotNos = []
 const handleTBDetailSelectionChange = (items) => {
@@ -154,6 +156,28 @@ const download = () => {
   }, 5000)
 }
 
+const uploadAttachment = (event) => {
+  const files = event.target.files
+  if (!files) {
+    swal("注意", "請選擇正确的文件", "warning")
+    return
+  }
+  const staffNo = window.sessionStorage.getItem('staffNo')
+  addAttachment(
+    formTableData.form.applyNo,
+    formTableData.form.orderNo,
+    staffNo,
+    files
+  ).then(resolve => {
+    console.log("🚀 ~ file: TableCard.vue:172 ~ uploadAttachment ~ resolve:", resolve)
+    
+  })
+}
+
+const btnAddAttachment = () => {
+  selectFile.value.click()
+}
+
 const tbDetailColumns = [
   ['項次', 'orderItemNo'], 
   ['出廠別', 'custSite'], 
@@ -205,6 +229,7 @@ const tbDetailDetailColumns = [
 
 const props = defineProps({
   verticalLayoutFlag: Boolean,
-  queryMode: Boolean
+  queryMode: Boolean,
+  insertMode: Boolean
 })
 </script>

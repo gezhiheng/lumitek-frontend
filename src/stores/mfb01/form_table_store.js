@@ -69,11 +69,6 @@ export const useFormTableStore = defineStore('formTable', () => {
       console.log("🚀 ~ file: form_table_store.js:64 ~ .then ~ reslove.data:", reslove.data)
       return reslove.data
     })
-    .catch(error => {
-      console.log("🚀 ~ file: form_table_store.js:66 ~ importFormTableAuto ~ error:", error)
-      swal('錯誤', '獲取數據時發生異常', 'error')
-      return
-    })
     setFormTableData(data)
   }
 

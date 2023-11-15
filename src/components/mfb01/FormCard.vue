@@ -21,7 +21,7 @@
             </el-icon>
             <span>查询</span>
           </el-button>
-          <el-button v-if="!queryMode" plain type="primary" @click="importData">
+          <el-button v-if="!(queryMode || insertMode)" plain type="primary" @click="importData">
             <el-icon>
               <FolderOpened />
             </el-icon>
@@ -143,11 +143,12 @@ const props = defineProps({
   verticalLayoutFlag: Boolean
 })
 
-const emits = defineEmits(['changeSlider', 'setSliderVisible', 'setQueryMode', 'setSliderMarks'])
+const emits = defineEmits(['changeSlider', 'setSliderVisible', 'setQueryMode', 'setSliderMarks', 'setInsertMode'])
 
 const fullscreenLoading = ref(false)
 const dialogFormVisible = ref(false)
 const queryMode = ref(false)
+const insertMode = ref(false)
 
 const queryForm = reactive({
   dataIndex: 0,
@@ -220,7 +221,6 @@ const uploadFile = (event) => {
     return
   }
   importFormTable(formTableData.form.custNo, files)
-  console.log("🚀 ~ file: FormCard.vue:213 ~ uploadFile ~ formTableData.form.custNo:", formTableData.form.custNo)
 }
 
 const importData = () => {
@@ -237,6 +237,8 @@ const importData = () => {
   } else {
     selectFile.value.click()  
   }
+  insertMode.value = true
+  emits('setInsertMode', true)
 }
 
 const addFlag = ref(false)
@@ -256,7 +258,9 @@ const add = () => {
     resolveAlert(resolve)
   }).catch(err => {
     console.log("🚀 ~ file: FormCard.vue:256 ~ add ~ err:", err)
-  })  
+  })
+  resetFormTable()
+  insertMode.value = false
 }
 
 const repeal = () => {

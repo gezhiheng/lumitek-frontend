@@ -21,11 +21,13 @@
       @setSliderVisible="setSliderVisible"
       @setQueryMode="setQueryMode"
       @setSliderMarks="setSliderMarks"
+      @setInsertMode="setInsertMode"
     ></form-card>
     <table-card
       :class="{ 'table-card-horizontal' : !verticalLayoutFlag }"
       :vertical-layout-flag="verticalLayoutFlag" 
       :queryMode="queryMode"
+      :insertMode="insertMode"
     ></table-card>
   </div>
 
@@ -57,6 +59,7 @@ const slider = ref(0)
 const sliderVisible = ref(false)
 const queryMode = ref(false)
 const sliderIndex = ref(1)
+const insertMode = ref(false)
 
 const { formTableData, setFormTable } = useFormTableStore()
 let verticalLayoutFlag = ref(false)
@@ -90,6 +93,11 @@ const setQueryMode = (mode) => {
 
 const setSliderMarks = (dataSize) => {
   marks[dataSize] = '' + dataSize
+}
+
+const setInsertMode = (mode) => {
+  console.log('setInsertMode', mode);
+  insertMode.value = mode
 }
 </script>
 
