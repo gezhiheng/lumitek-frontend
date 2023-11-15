@@ -10,7 +10,8 @@ export default defineConfig({
     svgBuilder('./src/assets/icons/')
   ],
   server: {
-    host: '0.0.0.0'
+    host: '0.0.0.0',
+    port: 8080,
   },
   resolve: {
     alias: {
