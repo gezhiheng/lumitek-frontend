@@ -73,7 +73,7 @@
             <el-icon><UploadFilled /></el-icon>
             <span>下载</span>
           </el-button>
-          <input type="file" ref="selectFile" @change="uploadAttachment" multiple>
+          <input type="file" ref="selectFile" style="display: none;" @change="uploadAttachment" multiple>
         </span>
       </el-tab-pane>
     </el-tabs>
@@ -169,8 +169,10 @@ const uploadAttachment = (event) => {
     staffNo,
     files
   ).then(resolve => {
-    console.log("🚀 ~ file: TableCard.vue:172 ~ uploadAttachment ~ resolve:", resolve)
-    
+    const attachmentsAdded = resolve.data.attachmentsAdded
+    attachmentsAdded.forEach(attachmentAdded => {
+      formTableData.tbAttachment.push(attachmentAdded)
+    })
   })
 }
 

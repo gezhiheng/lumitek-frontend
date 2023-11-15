@@ -101,7 +101,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="客戶訂單編號">
-          <el-input v-model="formTableData.form.orderNo"  :disabled="queryMode" />
+          <el-input v-model="formTableData.form.orderNo"  :disabled="queryMode || insertMode" />
         </el-form-item>
         <el-form-item label="單號">
           <el-input v-model="formTableData.form.applyNo"  placeholder="系統產生" disabled />

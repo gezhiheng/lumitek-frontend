@@ -43,12 +43,12 @@ export async function downloadAttachment(applyNo, fileName) {
   })
 }
 
-export async function addAttachment(applyNo, orderNo, user, files) {
+export async function addAttachment(applyNo, orderNo, staffNo, files) {
   const fileList = Array.from(files)
   const formData = new FormData()
   formData.append('applyNo', applyNo)
   formData.append('orderNo', orderNo)
-  formData.append('user', user)
+  formData.append('staffNo', staffNo)
   fileList.forEach(file => {
     formData.append('files', file)
   });
@@ -63,6 +63,7 @@ export async function addAttachment(applyNo, orderNo, user, files) {
 }
 
 export async function mfb01Add(params) {
+  console.log("🚀 ~ file: mfb01.js:66 ~ mfb01Add ~ params:", params)
   return await axios.post(`${apiBaseUrl}mfb01/add/`, params)
 }
 
