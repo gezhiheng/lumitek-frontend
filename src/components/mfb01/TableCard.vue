@@ -65,7 +65,7 @@
             <el-icon><CirclePlusFilled /></el-icon>
             <span>新增</span>
           </el-button>
-          <el-button v-if="queryMode || insertMode" type="danger" plain>
+          <el-button v-if="queryMode || insertMode" type="danger" @click="delAttachment" plain>
             <el-icon><RemoveFilled /></el-icon>
             <span>删除</span>
           </el-button>
@@ -83,7 +83,7 @@
 <script setup>
 import { toRaw, ref } from 'vue'
 import { Check, Close, CirclePlusFilled, RemoveFilled, UploadFilled } from '@element-plus/icons-vue'
-import { mfb01LotRepeal, mfb01LotReduction, downloadAttachment, addAttachment } from '@/service/mfb01'
+import { mfb01LotRepeal, mfb01LotReduction, downloadAttachment, addAttachment, deleteAttachment } from '@/service/mfb01'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { resolveAlert } from '@/utils/resloveAlert'
 import swal from 'sweetalert'
@@ -100,13 +100,13 @@ const handleTBDetailSelectionChange = (items) => {
   lotNos = tempLotNos
 }
 
-let fileNames = []
+let selectedFileNames = []
 const handleTBAttachmentSelectionChange = (items) => {
   const tempFileNames = []
   items.forEach(item => {
     tempFileNames.push(toRaw(item).fileName)
   })
-  fileNames = tempFileNames
+  selectedFileNames = tempFileNames
 }
 
 const staffNo = window.sessionStorage.getItem('staffNo')
@@ -132,12 +132,12 @@ const lotReduction = () => {
 }
 
 const download = () => {
-  if (fileNames.length === 0) {
+  if (selectedFileNames.length === 0) {
     swal('注意', '請選擇附件下載', 'warning')
     return
   }
   const downloadLinks = []
-  fileNames.forEach(fileName => {
+  selectedFileNames.forEach(fileName => {
     downloadAttachment(formTableData.form.applyNo, fileName).then(response => {
       const blob = new Blob([response.data], { type: 'application/octet-stream' });
       const url = URL.createObjectURL(blob)
@@ -162,7 +162,6 @@ const uploadAttachment = (event) => {
     swal("注意", "請選擇正确的文件", "warning")
     return
   }
-  const staffNo = window.sessionStorage.getItem('staffNo')
   addAttachment(
     formTableData.form.applyNo,
     formTableData.form.orderNo,
@@ -173,6 +172,35 @@ const uploadAttachment = (event) => {
     attachmentsAdded.forEach(attachmentAdded => {
       formTableData.tbAttachment.push(attachmentAdded)
     })
+  })
+}
+
+const delAttachment = () => {
+  if (selectedFileNames.length === 0) {
+    swal("注意", "請選擇附件刪除", "warning")
+    return
+  }
+  const fileNames = []
+  const sourceFile = []
+  Array.from(formTableData.tbAttachment).forEach(item => {
+    selectedFileNames.forEach(selectedFileName => {
+      if (item.fileName === selectedFileName) {
+        fileNames.push(item.fileName)
+        sourceFile.push(item.sourceFile)
+      }
+    })
+  })
+  deleteAttachment(
+    formTableData.form.applyNo,
+    staffNo,
+    fileNames,
+    sourceFile
+  ).then(resolve => {
+    const result = resolve.status
+    if (result === 200) {
+      formTableData.tbAttachment = formTableData.tbAttachment.filter(item => 
+        !selectedFileNames.includes(item.fileName))
+    }
   })
 }
 

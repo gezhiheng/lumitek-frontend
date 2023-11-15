@@ -62,6 +62,24 @@ export async function addAttachment(applyNo, orderNo, staffNo, files) {
   })
 }
 
+export async function deleteAttachment(applyNo, staffNo, fileNames, sourceFile) {
+  const formData = new FormData()
+  formData.append('applyNo', applyNo)
+  formData.append('staffNo', staffNo)
+  for (let i = 0; i < fileNames.length; i++) {
+    formData.append('fileNames', fileNames[i])
+    formData.append('sourceFile', sourceFile[i])
+  }
+  return await axios.post(`${apiBaseUrl}mfb01/attachment-delete/`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  }).catch(error => {
+    console.log("🚀 ~ file: mfb01.js:76 ~ deleteAttachment ~ error:", error)
+    swal("錯誤", "附件刪除失敗", "error")
+  })
+}
+
 export async function mfb01Add(params) {
   console.log("🚀 ~ file: mfb01.js:66 ~ mfb01Add ~ params:", params)
   return await axios.post(`${apiBaseUrl}mfb01/add/`, params)
