@@ -132,10 +132,10 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+import swal from 'sweetalert'
 import { DocumentAdd, Search, FolderOpened, Close } from '@element-plus/icons-vue'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { useQueryStore } from '@/stores/mfb01/query_conditions_store'
-import swal from 'sweetalert'
 import { mfb01Add, mfb01Repeal } from '@/service/mfb01'
 import { resolveAlert } from '@/utils/resloveAlert'
 

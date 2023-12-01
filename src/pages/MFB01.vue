@@ -49,10 +49,10 @@
 </template>
 <script setup>
 import { ref, reactive } from 'vue'
+import { debounce } from 'lodash-es'
 import FormCard from '@/components/mfb01/FormCard.vue'
 import TableCard from '@/components/mfb01/TableCard.vue'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
-import { debounce } from 'lodash-es'
 import { useQueryStore } from '@/stores/mfb01/query_conditions_store';
 
 const slider = ref(0)

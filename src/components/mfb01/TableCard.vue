@@ -83,10 +83,10 @@
 <script setup>
 import { toRaw, ref } from 'vue'
 import { Check, Close, CirclePlusFilled, RemoveFilled, UploadFilled } from '@element-plus/icons-vue'
+import swal from 'sweetalert'
 import { mfb01LotRepeal, mfb01LotReduction, downloadAttachment, addAttachment, deleteAttachment } from '@/service/mfb01'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { resolveAlert } from '@/utils/resloveAlert'
-import swal from 'sweetalert'
 
 const { formTableData } = useFormTableStore()
 const selectFile = ref(null)

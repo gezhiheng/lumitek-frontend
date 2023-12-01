@@ -9,9 +9,9 @@
 </template>
 
 <script setup>
+import { ElNotification } from 'element-plus'
 import Footer from '@/components/Footer.vue'
 import Header from '@/components/Header.vue'
-import { ElNotification } from 'element-plus'
 import router from '@/router/router'
 
 const username = window.sessionStorage.getItem('username')
