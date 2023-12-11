@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <el-card class="main">
     <template #header>
       <div class="card-header">
         <span>

@@ -1,5 +1,5 @@
 <template>
-  <el-card type="border-card" >
+  <el-card type="border-card" class="main">
     <el-tabs style="margin-top: 10px;" model-value="first">
 
       <el-tab-pane label="總表" name="first">
@@ -263,3 +263,5 @@ const props = defineProps({
   insertMode: Boolean
 })
 </script>
+
+<style src="@/style/mfb01/table_card.css" scoped></style>
