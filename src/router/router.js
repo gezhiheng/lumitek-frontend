@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from "vue-router"
 
 import MFB01 from '@/pages/MFB01.vue'
 import Login from '@/pages/Login.vue'
-import Home from '@/pages/Home.vue'
+import MainLayout from '@/pages/MainLayout.vue'
+import Welcome from '@/pages/Welcome.vue'
 import Empty from '@/pages/Empty.vue'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 
@@ -11,13 +12,18 @@ const router = createRouter({
   routes: [
     { 
       path: '/', 
-      name: 'home',
-      component: Home,
+      name: 'main',
+      component: MainLayout,
       children: [
         {
           path: '/mfb01',
           name: 'mfb01',
           component: MFB01
+        },
+        {
+          path: '/welcome',
+          name: 'welcome',
+          component: Welcome
         },
         {
           path: '/empty',

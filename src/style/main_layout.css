@@ -16,3 +16,16 @@
   width: 100%;
   height: 260px;
 }
+
+h1 {
+  position: absolute;
+  margin: 88px 0 0 24px;
+}
+
+.settings_btn {
+  position: fixed;
+  height: 60px;
+  width: 60px;
+  bottom: 100px;
+  right: 100px;
+}

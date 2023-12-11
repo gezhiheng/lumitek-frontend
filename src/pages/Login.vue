@@ -84,7 +84,7 @@ const submit = async (formEl) => {
       if(data.username) {
         window.sessionStorage.setItem('username', data.username)
         window.sessionStorage.setItem('staffNo', data.staffNo)
-        router.push({name: 'home'})
+        router.push({name: 'main'})
       } else {
         swal("失敗", "登錄失敗-工號或密碼錯誤", "error");
       }
