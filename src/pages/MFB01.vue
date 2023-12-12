@@ -1,17 +1,4 @@
 <template>
-  <header>
-    <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">MFB01-晶圓進貨資料</h1>
-    <span>
-      <el-switch 
-        class="switch" 
-        size="large" 
-        style="--el-switch-on-color: #409eff; --el-switch-off-color: #dcdfe6" 
-        v-model="verticalLayoutFlag" 
-        inline-prompt active-text="水平展示" 
-        inactive-text="垂直展示 "/>
-    </span>
-  </header>
-
   <div :class="{ 'container-horizontal': !verticalLayoutFlag }">
     <form-card
       :class="{ 'form-card-horizontal' : !verticalLayoutFlag, 'form-card-vertical': verticalLayoutFlag }"
@@ -53,7 +40,7 @@ import { debounce } from 'lodash-es'
 import FormCard from '@/components/mfb01/FormCard.vue'
 import TableCard from '@/components/mfb01/TableCard.vue'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
-import { useQueryStore } from '@/stores/mfb01/query_conditions_store';
+import { useQueryStore } from '@/stores/mfb01/query_conditions_store'
 
 const slider = ref(0)
 const sliderVisible = ref(false)

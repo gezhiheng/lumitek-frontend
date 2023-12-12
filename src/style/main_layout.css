@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  background-color: #eeeeee;
 }
 
 .main {
@@ -17,9 +16,11 @@
   height: 260px;
 }
 
-h1 {
+h2 {
   position: absolute;
   margin: 88px 0 0 24px;
+  font-weight: bold;
+  font-size: 22px;
 }
 
 .settings_btn {
@@ -28,4 +29,29 @@ h1 {
   width: 60px;
   bottom: 100px;
   right: 100px;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.footer {
+  margin-top: 30px;
+}
+
+.settings-option {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+}
+
+.settings-option > span {
+  line-height: 40px;
+  background-color: #ffffff;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.settings-option > .switch {
+  background-color: #ffffff;
 }

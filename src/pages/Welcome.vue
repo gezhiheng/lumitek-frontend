@@ -10,7 +10,7 @@
 
 <style scoped>
 .main {
-  margin: 30px 20px 15px 10px;
+  margin: 0 20px 15px 10px;
   background: #ffffff;
   width: 97%;
 }
