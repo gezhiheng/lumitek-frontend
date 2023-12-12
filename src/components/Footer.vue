@@ -17,6 +17,9 @@
       </a>
       <span>Made by Litong.Qu</span>
     </div>
+    <div>
+      <span>Powerd by Django & Vue & Element Plus</span>
+    </div>
   </div>
 </template>
 
