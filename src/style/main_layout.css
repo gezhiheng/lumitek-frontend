@@ -42,16 +42,10 @@ h2 {
 .settings-option {
   display: flex;
   justify-content: space-between;
-  background-color: #ffffff;
 }
 
 .settings-option > span {
   line-height: 40px;
-  background-color: #ffffff;
   font-weight: bold;
   font-size: 15px;
-}
-
-.settings-option > .switch {
-  background-color: #ffffff;
 }

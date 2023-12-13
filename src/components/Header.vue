@@ -1,6 +1,6 @@
 <template>
   <el-menu mode="horizontal" :ellipsis="false" class="el-menu" @Select="handleSelect">
-    <img src="@/assets/lumitek.jpg" alt="lumitek">
+    <img v-if="!isDark" src="@/assets/lumitek.jpg" alt="lumitek">
     <div class="flex-grow" />
     <el-sub-menu :index="feat1.value" v-for="(feat1, feat1Index) in feats1Level" :disabled="feat1.isEmpty">
       <template #title>{{ feat1.value }}</template>
@@ -22,8 +22,11 @@
 </template>
 
 <script setup>
-import router from '@/router/router';
+import router from '@/router/router'
+import { useDark } from "@vueuse/core"
 import { getFeatures }  from '@/service/user'
+
+const isDark = useDark()
 
 const emits = defineEmits(['getTitle'])
 const feats1Level = []
@@ -59,7 +62,7 @@ function setFeatures(features) {
     feats1index++
   }
 }
-// T
+// TODO 使用mock
 const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
 const staffNo = window.sessionStorage.getItem('staffNo')
 let features = {}

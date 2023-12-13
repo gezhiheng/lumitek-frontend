@@ -1,8 +1,9 @@
 <template>
-  <div :class="{ 'container-horizontal': !verticalLayoutFlag }">
+  <div :class="{ 'container-horizontal': !settings.verticalMode.isEnabled }">
     <form-card
-      :class="{ 'form-card-horizontal' : !verticalLayoutFlag, 'form-card-vertical': verticalLayoutFlag }"
-      :vertical-layout-flag="verticalLayoutFlag" 
+      :class="{ 'form-card-horizontal': !settings.verticalMode.isEnabled, 
+        'form-card-vertical': settings.verticalMode.isEnabled }"
+      :vertical-layout-flag="settings.verticalMode.isEnabled" 
       :slider="slider" 
       @changeSlider="changeSlider"
       @setSliderVisible="setSliderVisible"
@@ -11,8 +12,9 @@
       @setInsertMode="setInsertMode"
     ></form-card>
     <table-card
-      :class="{ 'table-card-horizontal' : !verticalLayoutFlag }"
-      :vertical-layout-flag="verticalLayoutFlag" 
+      :class="{ 'table-card-horizontal': !settings.verticalMode.isEnabled, 
+        'table-card-vertical': settings.verticalMode.isEnabled}"
+      :vertical-layout-flag="settings.verticalMode.isEnabled" 
       :queryMode="queryMode"
       :insertMode="insertMode"
     ></table-card>
@@ -41,6 +43,9 @@ import FormCard from '@/components/mfb01/FormCard.vue'
 import TableCard from '@/components/mfb01/TableCard.vue'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { useQueryStore } from '@/stores/mfb01/query_conditions_store'
+import { useSettingsStore } from '@/stores/settings_store'
+
+const { settings } = useSettingsStore()
 
 const slider = ref(0)
 const sliderVisible = ref(false)
@@ -49,7 +54,6 @@ const sliderIndex = ref(1)
 const insertMode = ref(false)
 
 const { formTableData, setFormTable } = useFormTableStore()
-let verticalLayoutFlag = ref(false)
 
 const change = async function(index) {
   sliderIndex.value = index

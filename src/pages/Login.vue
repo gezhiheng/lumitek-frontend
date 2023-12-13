@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <el-form :rules="rules" :model="ruleForm" ref="ruleFormRef">
-      <div class="box" style="box-shadow: var(--el-box-shadow-dark);">
+      <div class="box">
         <img src="../assets/lumitek.jpg" alt="lumitek">
         <el-form-item prop="staffNo" class="staffNoInput">
           <el-input 

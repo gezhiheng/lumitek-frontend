@@ -6,6 +6,7 @@ import App from './App.vue'
 import { createPinia } from 'pinia'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import svgIcon from './components/SvgIcon.vue'
+import 'element-plus/theme-chalk/dark/css-vars.css'
 import './style.css'
 
 const pinia = createPinia()

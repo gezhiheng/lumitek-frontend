@@ -1,3 +1,8 @@
-.dark {
+html.dark {
   background: #252525;
+  color: #eeeeee;
+}
+
+html {
+  background: #eeeeee;
 }

@@ -28,5 +28,10 @@ header {
 }
 
 .form-card-vertical {
+  margin-right: 8px;
   margin-bottom: 16px;
+}
+
+.table-card-vertical {
+  margin-left: 8px;
 }
