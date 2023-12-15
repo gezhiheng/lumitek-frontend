@@ -2,6 +2,7 @@
   <el-menu mode="horizontal" :ellipsis="false" class="el-menu" @Select="handleSelect">
     <img v-if="!isDark" src="@/assets/lumitek.jpg" alt="lumitek">
     <img v-else src="@/assets/lumitek-dark-mode.png" alt="lumitek">
+    <h1 style="line-height: 58px; margin-left: 30px;">{{ title }}</h1>
     <div class="flex-grow" />
     <el-sub-menu :index="feat1.value" v-for="(feat1, feat1Index) in feats1Level" :disabled="feat1.isEmpty">
       <template #title>{{ feat1.value }}</template>
@@ -73,10 +74,17 @@ if (useBackendDataFlag) {
 }
 setFeatures(features)
 
+const porps = defineProps({
+  title: String
+})
+
 const handleSelect = (index) => {
   switch(index) {
     case 'MFB01-晶圓進貨資料':
       router.push({ name: 'mfb01' })
+      break
+    case 'MFA01-產品資料維護':
+      router.push({ name: 'mfa01' })
       break
     default:
       router.push({ name: 'empty' })

@@ -1,7 +1,6 @@
 <template>
   <el-container>
-    <el-header class="header"><Suspense><Header></Header></Suspense></el-header>
-    <h2 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">{{ title }}</h2>
+    <el-header class="header"><Suspense><Header :title="title"></Header></Suspense></el-header>
     <el-container class="main">
       <el-main><Suspense><router-view></router-view></Suspense></el-main>
     </el-container>
@@ -54,8 +53,6 @@ if (username) {
 }
 router.push({name: 'welcome'})
 
-const title = ref('')
-
 const verticalFlag = ref(false)
 const isDark = useDark()
 const darkFlag = ref(isDark)
@@ -68,6 +65,7 @@ const toggleVertical = () => {
   setModeEnabled('verticalMode', verticalFlag.value)
 }
 
+const title = ref('')
 // 监听路由的变化
 watch(() => router.currentRoute.value.path, (newFullPath, oldFullPath) => {
   const path = newFullPath.slice(1)
@@ -77,6 +75,9 @@ watch(() => router.currentRoute.value.path, (newFullPath, oldFullPath) => {
   } else if (path === 'mfb01') {
     setModeActive('verticalMode', true)
     title.value = 'MFB01-晶圓進貨資料'
+  } else if (path === 'mfa01') {
+    setModeActive('verticalMode', false)
+    title.value = 'MFA01-產品資料維護'
   }
 })
 </script>
