@@ -14,22 +14,22 @@ header {
 }
 
 .container-horizontal {
+  margin-top: 10px;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
 .form-card-horizontal {
-  margin-right: 8px;
+  margin-right: 10px;
 }
 
 .table-card-horizontal {
-  margin-left: 8px;
+  margin-left: 10px;
 }
 
 .form-card-vertical {
-  margin-right: 8px;
-  margin-bottom: 16px;
+  margin: 10px 10px 16px 10px;
 }
 
 .table-card-vertical {
