@@ -28,7 +28,6 @@ import { getFeatures }  from '@/service/user'
 
 const isDark = useDark()
 
-const emits = defineEmits(['getTitle'])
 const feats1Level = []
 const feats2Level = []
 const feats3Level = []
@@ -76,11 +75,9 @@ setFeatures(features)
 const handleSelect = (index) => {
   switch(index) {
     case 'MFB01-晶圓進貨資料':
-      emits('getTitle', index)
       router.push({ name: 'mfb01' })
       break
     default:
-      emits('getTitle', '')
       router.push({ name: 'empty' })
       break
   }

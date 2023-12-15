@@ -87,7 +87,6 @@ const setSliderMarks = (dataSize) => {
 }
 
 const setInsertMode = (mode) => {
-  console.log('setInsertMode', mode);
   insertMode.value = mode
 }
 </script>

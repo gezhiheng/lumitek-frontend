@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header class="header"><Suspense><Header @getTitle="getTitle"></Header></Suspense></el-header>
+    <el-header class="header"><Suspense><Header></Header></Suspense></el-header>
     <h2 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">{{ title }}</h2>
     <el-container class="main">
       <el-main><Suspense><router-view></router-view></Suspense></el-main>
@@ -55,9 +55,6 @@ if (username) {
 router.push({name: 'welcome'})
 
 const title = ref('')
-const getTitle = (value) => {
-  title.value = value
-}
 
 const verticalFlag = ref(false)
 const isDark = useDark()
@@ -69,10 +66,7 @@ const toggleDark = () => {
 
 const toggleVertical = () => {
   setModeEnabled('verticalMode', verticalFlag.value)
-  console.log("🚀 ~ file: MainLayout.vue:72 ~ toggleVertical ~ verticalFlag.value:", verticalFlag.value)
 }
-
-console.log("🚀 ~ file: MainLayout.vue:65 ~ settings:", toRaw(settings))
 
 // 监听路由的变化
 watch(() => router.currentRoute.value.path, (newFullPath, oldFullPath) => {
@@ -82,6 +76,7 @@ watch(() => router.currentRoute.value.path, (newFullPath, oldFullPath) => {
     title.value = ''
   } else if (path === 'mfb01') {
     setModeActive('verticalMode', true)
+    title.value = 'MFB01-晶圓進貨資料'
   }
 })
 </script>
