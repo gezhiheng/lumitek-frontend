@@ -1,6 +1,7 @@
 <template>
   <el-menu mode="horizontal" :ellipsis="false" class="el-menu" @Select="handleSelect">
     <img v-if="!isDark" src="@/assets/lumitek.jpg" alt="lumitek">
+    <img v-else src="@/assets/lumitek-dark-mode.png" alt="lumitek">
     <div class="flex-grow" />
     <el-sub-menu :index="feat1.value" v-for="(feat1, feat1Index) in feats1Level" :disabled="feat1.isEmpty">
       <template #title>{{ feat1.value }}</template>

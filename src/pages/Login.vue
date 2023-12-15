@@ -98,7 +98,7 @@ const submitNoBackend = () => {
   if (ruleForm.staffNo === 'admin' && ruleForm.password === '123') {
     window.sessionStorage.setItem('username', '系統管理員')
     window.sessionStorage.setItem('staffNo', 'admin')
-    router.push({name: 'home'})
+    router.push({name: 'welcome'})
   } else {
     swal("失敗", "登錄失敗-工號或密碼錯誤", "error");
   }
