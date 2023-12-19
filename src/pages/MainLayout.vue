@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref, watch, toRaw } from 'vue'
+import { ref, watch } from 'vue'
 import { useDark, useToggle } from "@vueuse/core"
 import { ElNotification } from 'element-plus'
 import { Setting } from '@element-plus/icons-vue'
