@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { queryMFB01, importData, importDataAuto } from '@/service/mfb01'
 import { ref } from 'vue'
+import { queryMFB01, importData, importDataAuto } from '@/service/mfb01'
 import swal from 'sweetalert'
 
 export const useFormTableStore = defineStore('formTable', () => {
@@ -32,12 +32,6 @@ export const useFormTableStore = defineStore('formTable', () => {
     .then((reslove, reject) => {
       return reslove.data
     })
-    .catch(error => {
-      console.log("🚀 ~ file: form_table_store.js:30 ~ setFormTable ~ error:", error)
-      swal('錯誤', '獲取數據時發生異常', 'error')
-      formTableData.value.dataSize = 0
-      return
-    })
     formTableData.value.dataSize = queryData.dataSize
     if (queryData.dataSize < 1) {
       swal('注意', '沒有查詢到結果', 'warning')
@@ -50,11 +44,6 @@ export const useFormTableStore = defineStore('formTable', () => {
     const data = await importDataAuto(params)
     .then((reslove, reject) => {
       return reslove.data
-    })
-    .catch(error => {
-      console.log("🚀 ~ file: form_table_store.js:47 ~ importFormTable ~ error:", error)
-      swal('錯誤', '獲取數據時發生異常', 'error')
-      return
     })
     if (data.err) {
       swal('注意', data.err, 'warning')

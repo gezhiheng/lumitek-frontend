@@ -4,11 +4,20 @@ import swal from 'sweetalert'
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
 
 export async function queryMFB01(params) {
-  return await axios.post(`${apiBaseUrl}mfb01/query/`, params)
+  return await axios.post(`${apiBaseUrl}mfb01/query/`, params).catch(error => {
+    console.log("🚀 ~ file: mfb01.js:8 ~ returnawaitaxios.post ~ error:", error)
+    swal('錯誤', '獲取數據時發生異常', 'error')
+    formTableData.value.dataSize = 0
+    return
+  })
 }
 
 export async function importDataAuto(params) {
-  return await axios.post(`${apiBaseUrl}mfb01/import-data-auto/`, params)
+  return await axios.post(`${apiBaseUrl}mfb01/import-data-auto/`, params) .catch(error => {
+    console.log("🚀 ~ file: mfb01.js:17 ~ returnawaitaxios.post ~ error:", error)
+    swal('錯誤', '獲取數據時發生異常', 'error')
+    return
+  })
 }
 
 export async function importData(custNo, files) {
