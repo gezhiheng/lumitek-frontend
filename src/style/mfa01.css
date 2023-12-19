@@ -9,15 +9,3 @@
 .tabs {
   max-width: 60%;
 }
-
-.el-tab-pane .el-input {
-  width: 50%;
-}
-
-.el-tab-pane .el-button {
-  margin-top: 12px;
-}
-
-.el-form-item span {
-  margin-left: 12px;
-}
