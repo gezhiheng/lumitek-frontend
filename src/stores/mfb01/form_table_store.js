@@ -73,41 +73,23 @@ export const useFormTableStore = defineStore('formTable', () => {
   }
 
   function setFormTableData(data) {
-    formTableData.value.form.custNo = data.form.custNo
-    formTableData.value.form.orderNo = data.form.orderNo
-    formTableData.value.form.applyNo = data.form.applyNo
-    formTableData.value.form.issueDate = data.form.issueDate
-    formTableData.value.form.processType = data.form.processType
-    formTableData.value.form.totWaferQty = data.form.totWaferQty
-    formTableData.value.form.degree = data.form.degree
-    formTableData.value.form.remark = data.form.remark
-    formTableData.value.form.status = data.form.status
-    formTableData.value.form.custSite = data.form.custSite
-    formTableData.value.form.shipSite = data.form.shipSite
-    formTableData.value.form.custProductNo = data.form.custProductNo
-    formTableData.value.form.custProductName = data.form.custProductName
-    formTableData.value.form.CustType = data.form.CustType
+    const form = data.form
+    Object.entries(form).forEach(([key, value]) => {
+      if (formTableData.value.form.hasOwnProperty(key)) {
+        formTableData.value.form[key] = value
+      }
+    })
     formTableData.value.tbDetail = data.tbDetail
     formTableData.value.tbDetailDetail = data.tbDetailDetail
     formTableData.value.tbAttachment = data.tbAttachment
   }
 
   function resetFormTable () {
+    Object.entries(formTableData.value.form).forEach(([key, value]) => {
+        formTableData.value.form[key] = ''
+      }
+    )
     formTableData.value.dataSize = 0
-    formTableData.value.form.custNo = ''
-    formTableData.value.form.orderNo = ''
-    formTableData.value.form.applyNo = ''
-    formTableData.value.form.issueDate = ''
-    formTableData.value.form.processType = ''
-    formTableData.value.form.totWaferQty = ''
-    formTableData.value.form.degree = ''
-    formTableData.value.form.remark = ''
-    formTableData.value.form.status = ''
-    formTableData.value.form.custSite = ''
-    formTableData.value.form.shipSite = ''
-    formTableData.value.form.custProductNo = ''
-    formTableData.value.form.custProductName = ''
-    formTableData.value.form.CustType = ''
     formTableData.value.tbDetail = []
     formTableData.value.tbDetailDetail = []
     formTableData.value.tbAttachment = []
