@@ -33,16 +33,21 @@ export const useFormTabStore = defineStore('formTab', () => {
   })
 
   async function setFormTab(params) {
+    let size = 0
     await queryMFA01(params).then(resolve => {
-      formTabData.dataSize = resolve.data.dataSize
-      const form = resolve.data.form
-      Object.keys(form).forEach(key => {
-        if (formTabData.form.hasOwnProperty(key)) {
-          formTabData.form[key] = form[key]
-        }
-      })
-      formTabData.stations = resolve.data.CCDstation
+      size = resolve.data.dataSize
+      formTabData.dataSize = size
+      if (size > 0) {
+        const form = resolve.data.form
+        Object.keys(form).forEach(key => {
+          if (formTabData.form.hasOwnProperty(key)) {
+            formTabData.form[key] = form[key]
+          }
+        })
+        formTabData.stations = resolve.data.CCDstation
+      }
     })
+    return size
   }
 
   function resetFormTab() {
