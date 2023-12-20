@@ -83,6 +83,9 @@ const setQueryMode = (mode) => {
 }
 
 const setSliderMarks = (dataSize) => {
+  Object.keys(marks).forEach(key => {
+    delete marks[key]
+  })
   marks[dataSize] = '' + dataSize
 }
 
