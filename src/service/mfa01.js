@@ -16,3 +16,10 @@ export async function getWipStdOptions() {
     swal("錯誤", "獲取WipStdOptions失敗", "error")
   })
 }
+
+export async function getStationOptions() {
+  return await axios.post(`${apiBaseUrl}mfa01/station-options/`).catch(error => {
+    console.log("🚀 ~ file: mfa01.js:22 ~ returnawaitaxios.post ~ error:", error)
+    swal("錯誤", "獲取stationOptions失敗", "error")
+  })
+}
