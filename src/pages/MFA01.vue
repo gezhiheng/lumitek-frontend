@@ -1,13 +1,13 @@
 <template>
   <el-card class="container --el-box-shadow-dark">
     <template #header>
-      <el-button v-if="flag.queryMode" plain type="primary">
+      <el-button v-if="flag.queryMode" plain type="primary" @click="backToInsertMode">
         <el-icon>
           <DocumentAdd />
         </el-icon>
         <span>返回新增</span>
       </el-button>
-      <el-button v-else plain type="primary">
+      <el-button v-else plain type="primary" >
         <el-icon>
           <DocumentAdd />
         </el-icon>
@@ -64,18 +64,18 @@
     </template>
     <Form :queryMode="flag.queryMode"></Form>
     <el-divider />
-    <Tab></Tab>
+    <Tab :wips="wips"></Tab>
   </el-card>
   <div style="display: flex; align-items: center; margin: 20px 0 50px 0;">
     <suspense>
       <el-slider
-        v-if="flag.sliderVisible"
+        v-if="flag.queryMode"
         v-model="slider.value" 
         show-input
         style="padding-left: 12px;"
         :min="1"
-        :max="slider.formDataSize"
-        :disabled="slider.formDataSize <= 1"
+        :max="slider.size"
+        :disabled="slider.size <= 1"
         :marks="slider.marks"
         @change="sliderChange"
       />
@@ -84,24 +84,24 @@
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { DocumentAdd, Search, Edit } from '@element-plus/icons-vue'
+import swal from 'sweetalert'
 import Form from '@/components/mfa01/Form.vue'
 import Tab from '@/components/mfa01/Tab.vue'
 import { useFormTabStore } from '@/stores/mfa01/form_tab_store'
-import { getWipStdOptions } from '@/service/mfa01'
+import { getWipStdOptions, getStationOptions } from '@/service/mfa01'
 
-const { setFormTab, resetFormTab } = useFormTabStore()
+const { formTabData, setFormTab, resetFormTab } = useFormTabStore()
 const flag = reactive({
   formDialogVisible: false,
   fullscreenLoading: false,
-  sliderVisible: false,
   queryMode: false,
   stationDialogVisible: false
 })
 const slider = reactive({
   value: 0,
-  formDataSize: 10,
+  size: 1,
   marks: {}
 })
 const queryForm = reactive({
@@ -116,27 +116,64 @@ const queryForm = reactive({
   productType: '',
   processType: ''
 })
+const queryConditions = {
+  dataIndex: 0,
+  isEnable: '1',
+  productNo: '',
+  custNo: '',
+  status: '',
+  productInType: '',
+  custProductNo: '',
+  custProductPartName: '',
+  productType: '',
+  processType: ''
+}
+const wips = ref([])
 
-onMounted(() => {
-  
+onMounted(async () => {
+  await getWipStdOptions().then(resolve => {
+    wips.value = resolve.data.WipStdName
+  })
 })
 
 const resetQueryForm = () => {
+  Object.keys(queryForm).forEach(key => {
+    queryForm[key] = ''
+  })
+  queryForm.dataIndex = 0
+  queryForm.isEnable = '1'
+}
 
+const backToInsertMode = () => {
+  flag.queryMode = false
+  resetFormTab()
 }
 
 const querySubmit = async () => {
   flag.fullscreenLoading = true
   queryForm.dataIndex = 0
-  await setFormTab(queryForm)
+  const size = await setFormTab(queryForm)
+  if (size > 0) {
+    slider.value = 0
+    slider.size = formTabData.dataSize
+    Object.keys(slider.marks).forEach(key => {
+      delete slider.marks[key]
+    })
+    slider.marks[formTabData.dataSize] = formTabData.dataSize + ''
+    flag.queryMode = true
+    Object.keys(queryConditions).forEach(key => {
+      queryConditions[key] = queryForm[key]
+    })
+  } else {
+    swal("注意", "查詢沒有結果", "warning")
+  }
   flag.fullscreenLoading = false
   flag.formDialogVisible = false
-  flag.queryMode = true
-  flag.sliderVisible = true
 }
 
 const sliderChange = async function(index) {
-  queryForm.dataIndex = index - 1
+  queryConditions.dataIndex = index - 1
+  await setFormTab(queryConditions)
 }
 </script>
 

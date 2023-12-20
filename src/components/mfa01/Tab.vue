@@ -33,7 +33,7 @@
       >
         <el-form-item label="晶圓製程" style="width: 312px;">
           <el-select v-model="formTabData.form.WipStdNo" placeholder="選擇晶圓製程">
-            <el-option v-for="option in props.wipStdOptions" :label="option" :value="option" />
+            <el-option v-for="option in props.wips" :label="option" :value="option" />
           </el-select>
         </el-form-item>
         <div style="margin-bottom: 25px;"><span>良率檢查設定</span></div>
@@ -53,17 +53,29 @@
           <el-table-column prop="stationNo" label="站別代碼"/>
           <el-table-column prop="stationName" label="站別名稱"/>
         </el-table>
-        <el-button type="primary" plain style="margin-top: 12px;">設定站別</el-button>
+        <el-button 
+          type="primary" 
+          style="margin-top: 12px;"
+          plain 
+          @click="setStationOptions"
+        >
+          設定站別
+        </el-button>
       </div>
-      <!-- <el-dialog v-model="flag.stationDialogVisible" style="width: 500px;">
+      <el-dialog v-model="stationDialogVisible" style="width: 610px;">
+        <template #header>
+          <p style="text-align: center;">
+            <span>請設定站別</span>
+          </p>
+        </template>
         <el-transfer
-          v-model="value"
+          v-model="selectedStationOptions"
           filterable
-          :filter-method="filterMethod"
-          filter-placeholder="State Abbreviations"
-          :data="data"
+          filter-placeholder="搜索站別"
+          :titles="['全部站別', '設定站別']"
+          :data="stationOptionsData"
         />
-      </el-dialog> -->
+      </el-dialog>
       <div style="width: 55%; margin-left: 12px; float: left;">
         <div style="margin-bottom: 12px;">
           <span>良率檢查設定</span>
@@ -94,13 +106,32 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { useFormTabStore } from '../../stores/mfa01/form_tab_store'
+import { ref, onMounted } from 'vue'
 import type { FormProps } from 'element-plus'
+import { useFormTabStore } from '@/stores/mfa01/form_tab_store'
+import { getStationOptions } from '@/service/mfa01'
 
 const labelPosition = ref<FormProps['labelPosition']>('left')
 const props = defineProps({
-  wipStdOptions: []
+  wips: []
 })
 const { formTabData } = useFormTabStore()
+const stationDialogVisible = ref(false)
+const stationOptionsData = ref<any>([])
+const selectedStationOptions = ref<any>([])
+
+onMounted(async () => {
+  await getStationOptions().then(resolve => {
+    resolve.data.stationOptions.forEach(item => {
+      stationOptionsData.value.push({
+        key: item.stationNo,
+        label: item.stationName
+      })
+    })
+  })
+})
+
+const setStationOptions = () => {
+  stationDialogVisible.value = true
+}
 </script>
