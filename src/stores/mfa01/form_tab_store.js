@@ -44,7 +44,7 @@ export const useFormTabStore = defineStore('formTab', () => {
             formTabData.form[key] = form[key]
           }
         })
-        formTabData.stations = resolve.data.CCDstation
+        formTabData.stations = resolve.data.stations
       }
     })
     return size
@@ -59,5 +59,10 @@ export const useFormTabStore = defineStore('formTab', () => {
     formTabData.stations = []
   }
 
-  return { formTabData, setFormTab, resetFormTab }
+  function setStations(resource) {
+    console.log("🚀 ~ file: form_tab_store.js:63 ~ setStations ~ resource:", resource)
+    formTabData.stations = resource
+  }
+
+  return { formTabData, setFormTab, resetFormTab, setStations }
 })
