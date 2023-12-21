@@ -107,7 +107,7 @@ const slider = reactive({
 const queryForm = reactive({
   dataIndex: 0,
   isEnable: '1',
-  productNo: '',
+  productNo: '118949E',
   custNo: '',
   status: '',
   productInType: '',
