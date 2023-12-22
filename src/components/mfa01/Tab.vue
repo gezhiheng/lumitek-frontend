@@ -2,7 +2,7 @@
   <el-tabs type="border-card" class="tabs">
     <el-tab-pane label="規格">
       <el-form  
-        :label-position="labelPosition" 
+        :label-position="labelPosition" 1
         :model="formTabData.form" 
         label-width="120px" 
         :inline="true"
@@ -69,12 +69,14 @@
           </p>
         </template>
         <el-transfer
-          v-model="selectedStationOptions"
+          v-model="stationOptions.selected"
           filterable
           filter-placeholder="搜索站別"
           :titles="['全部站別', '設定站別']"
-          :data="stationOptionsData"
-        />
+          :data="stationOptions.resource"
+          @change="handleChange"
+        >
+        </el-transfer>
       </el-dialog>
       <div style="width: 55%; margin-left: 12px; float: left;">
         <div style="margin-bottom: 12px;">
@@ -106,32 +108,52 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import type { FormProps } from 'element-plus'
-import { useFormTabStore } from '@/stores/mfa01/form_tab_store'
-import { getStationOptions } from '@/service/mfa01'
+import type { stationOption, station, axiosResponse, stationResponse } from '../../../types/type'
+import { useFormTabStore } from '../../stores/mfa01/form_tab_store'
+import { getStationOptions } from '../../service/mfa01'
 
 const labelPosition = ref<FormProps['labelPosition']>('left')
 const props = defineProps({
   wips: []
 })
-const { formTabData } = useFormTabStore()
+const { formTabData, setStations } = useFormTabStore()
 const stationDialogVisible = ref(false)
-const stationOptionsData = ref<any>([])
-const selectedStationOptions = ref<any>([])
+const stationOptions = reactive({
+  resource: [] as stationOption[],
+  selected: [] as string[]
+})
+let orginalStations = [] as station[]
 
 onMounted(async () => {
-  await getStationOptions().then(resolve => {
-    resolve.data.stationOptions.forEach(item => {
-      stationOptionsData.value.push({
-        key: item.stationNo,
-        label: item.stationName
-      })
+const resolve = await getStationOptions() as axiosResponse<stationResponse>
+  resolve.data.stationOptions.forEach((station: station) => {
+    stationOptions.resource.push({
+      key: station.stationNo,
+      label: station.stationName,
+      disabled: false
     })
+    orginalStations.push(station)
   })
 })
 
 const setStationOptions = () => {
   stationDialogVisible.value = true
+  stationOptions.selected= []
+  formTabData.stations.forEach((station: station) => {
+    stationOptions.selected.push(station.stationNo)
+  })
+}
+
+const handleChange = (
+  value: number[] | string[],
+  direction: 'left' | 'right',
+  movedKeys: string[] | number[]
+) => {
+  const movedStations: station[] = orginalStations.filter(
+    (station: station) => (value as string[]).includes(station.stationNo)
+  )
+  setStations(movedStations)
 }
 </script>
