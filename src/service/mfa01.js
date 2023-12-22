@@ -23,3 +23,25 @@ export async function getStationOptions() {
     swal("錯誤", "獲取stationOptions失敗", "error")
   })
 }
+
+export async function add(params) {
+  return await axios.post(`${apiBaseUrl}mfa01/add/`, params).catch(error => {
+    console.log("🚀 ~ file: mfa01.js:29 ~ returnawaitaxios.post ~ error:", error)
+    if (error.response.data.message) {
+      swal("錯誤", error.response.data.message, "error")
+    } else {
+      swal("錯誤", "新增時-服務端發生錯誤", "error")
+    }
+  })
+}
+
+export async function update(params) {
+  return await axios.post(`${apiBaseUrl}mfa01/modify/`, params).catch(error => {
+    console.log("🚀 ~ file: mfa01.js:40 ~ returnawaitaxios.post ~ error:", error)
+    if (error.response.data.message) {
+      swal("錯誤", error.response.data.message, "error")
+    } else {
+      swal("錯誤", "修改時-服務端發生錯誤", "error")
+    }
+  })
+}

@@ -7,7 +7,7 @@
         </el-icon>
         <span>返回新增</span>
       </el-button>
-      <el-button v-else plain type="primary" >
+      <el-button v-else plain type="primary" @click="addData">
         <el-icon>
           <DocumentAdd />
         </el-icon>
@@ -19,7 +19,7 @@
         </el-icon>
         <span>查询</span>
       </el-button>
-      <el-button v-if="flag.queryMode" plain type="primary">
+      <el-button v-if="flag.queryMode" plain type="primary" @click="updateData">
         <el-icon>
           <Edit />
         </el-icon>
@@ -90,7 +90,7 @@ import swal from 'sweetalert'
 import Form from '@/components/mfa01/Form.vue'
 import Tab from '@/components/mfa01/Tab.vue'
 import { useFormTabStore } from '@/stores/mfa01/form_tab_store'
-import { getWipStdOptions, getStationOptions } from '@/service/mfa01'
+import { getWipStdOptions, add, update } from '@/service/mfa01'
 
 const { formTabData, setFormTab, resetFormTab } = useFormTabStore()
 const flag = reactive({
@@ -129,6 +129,7 @@ const queryConditions = {
   processType: ''
 }
 const wips = ref([])
+const staffNo = window.sessionStorage.getItem('staffNo')
 
 onMounted(async () => {
   await getWipStdOptions().then(resolve => {
@@ -174,6 +175,74 @@ const querySubmit = async () => {
 const sliderChange = async function(index) {
   queryConditions.dataIndex = index - 1
   await setFormTab(queryConditions)
+}
+
+const addData = async () => {
+  const addFlag = checkField()
+  if (!addFlag) {
+    return
+  }
+  flag.fullscreenLoading = true
+  try {
+    await add({
+      staffNo: staffNo,
+      form: formTabData.form,
+      stations: handleStationNos(formTabData.stations)
+    }).then(resolve => {
+      if (resolve.data.tip === 'success') {
+        swal("成功", resolve.data.message, "success")
+      }
+    })
+  } finally {
+    flag.fullscreenLoading = false
+  }
+}
+
+const updateData = async () => {
+  const updateFlag = checkField()
+  if (!updateFlag) {
+    return
+  }
+  flag.fullscreenLoading = true
+  try {
+    await update({
+      staffNo: staffNo,
+      form: formTabData.form,
+      stations: handleStationNos(formTabData.stations)
+    }).then(resolve => {
+      if (resolve.data.tip === 'success') {
+        swal("成功", resolve.data.message, "success")
+      }
+    })
+  } finally {
+    flag.fullscreenLoading = false
+  }
+}
+
+const checkField = () => {
+  const initial = [
+    ['productNo', '產品型號'],
+    ['custNo', '客戶簡碼'],
+    ['WipStdNo', '晶圓製程']
+  ]
+  const requiredField = new Map(initial)
+  let flag = true
+  requiredField.forEach((value, key) => {
+    if (formTabData.form[key] === '') {
+      swal("注意", `${value}不能為空值`, "warning")
+      flag = false
+      return
+    }
+  })
+  return flag
+}
+
+const handleStationNos = (stationNos) => {
+  const handledStationNos = []
+  stationNos.forEach(stationNo => {
+    handledStationNos.push(stationNo.stationNo)
+  })
+  return handledStationNos
 }
 </script>
 
