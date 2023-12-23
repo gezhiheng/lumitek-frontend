@@ -27,11 +27,6 @@ const router = createRouter({
           component: MFA01
         },
         {
-          path: '/welcome',
-          name: 'welcome',
-          component: Welcome
-        },
-        {
           path: '/empty',
           name: 'empty',
           component: Empty
@@ -42,6 +37,11 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/welcome',
+      name: 'welcome',
+      component: Welcome
     }
   ]
 })
