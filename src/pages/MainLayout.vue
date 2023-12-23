@@ -51,7 +51,6 @@ if (username) {
     offset: 100,
   })
 }
-router.push({name: 'welcome'})
 
 const verticalFlag = ref(false)
 const isDark = useDark()
