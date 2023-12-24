@@ -1,7 +1,7 @@
 <template>
   <el-card class="container --el-box-shadow-dark">
     <template #header>
-      <el-button v-if="flag.queryMode" plain type="primary" @click="backToInsertMode">
+      <el-button v-if="state.queryMode" plain type="primary" @click="backToInsertMode">
         <el-icon>
           <DocumentAdd />
         </el-icon>
@@ -13,19 +13,19 @@
         </el-icon>
         <span>新增</span>
       </el-button>
-      <el-button plain type="primary" @click="flag.formDialogVisible = !flag.formDialogVisible">
+      <el-button plain type="primary" @click="state.formDialogVisible = !state.formDialogVisible">
         <el-icon>
           <Search />
         </el-icon>
         <span>查询</span>
       </el-button>
-      <el-button v-if="flag.queryMode" plain type="primary" @click="updateData">
+      <el-button v-if="state.queryMode" plain type="primary" @click="updateData">
         <el-icon>
           <Edit />
         </el-icon>
         <span>修改</span>
       </el-button>
-      <el-dialog v-model="flag.formDialogVisible" title="請輸入查詢條件" style="width: 500px;">
+      <el-dialog v-model="state.formDialogVisible" title="請輸入查詢條件" style="width: 500px;">
         <el-form :model="queryForm" label-width="120px" style="width: 85%;">
           <el-form-item label="是否有效">
             <el-switch v-model="queryForm.isEnable" active-value="1" inactive-value="0"/>
@@ -55,21 +55,21 @@
             <el-input v-model="queryForm.processType" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="querySubmit" v-loading.fullscreen.lock="flag.fullscreenLoading">查詢</el-button>
-            <el-button @click="flag.formDialogVisible = false">取消</el-button>
+            <el-button type="primary" @click="querySubmit" v-loading.fullscreen.lock="state.fullscreenLoading">查詢</el-button>
+            <el-button @click="state.formDialogVisible = false">取消</el-button>
             <el-button @click="resetQueryForm">清空</el-button>
           </el-form-item>
         </el-form>
       </el-dialog>
     </template>
-    <Form :queryMode="flag.queryMode"></Form>
+    <Form :queryMode="state.queryMode"></Form>
     <el-divider />
     <Tab :wips="wips"></Tab>
   </el-card>
   <div style="display: flex; align-items: center; margin: 20px 0 50px 0;">
     <suspense>
       <el-slider
-        v-if="flag.queryMode"
+        v-if="state.queryMode"
         v-model="slider.value" 
         show-input
         style="padding-left: 12px;"
@@ -93,7 +93,7 @@ import { useFormTabStore } from '@/stores/mfa01/form_tab_store'
 import { getWipStdOptions, add, update } from '@/service/mfa01'
 
 const { formTabData, setFormTab, resetFormTab } = useFormTabStore()
-const flag = reactive({
+const state = reactive({
   formDialogVisible: false,
   fullscreenLoading: false,
   queryMode: false,
@@ -146,12 +146,12 @@ const resetQueryForm = () => {
 }
 
 const backToInsertMode = () => {
-  flag.queryMode = false
+  state.queryMode = false
   resetFormTab()
 }
 
 const querySubmit = async () => {
-  flag.fullscreenLoading = true
+  state.fullscreenLoading = true
   queryForm.dataIndex = 0
   const size = await setFormTab(queryForm)
   if (size > 0) {
@@ -161,15 +161,15 @@ const querySubmit = async () => {
       delete slider.marks[key]
     })
     slider.marks[formTabData.dataSize] = formTabData.dataSize + ''
-    flag.queryMode = true
+    state.queryMode = true
     Object.keys(queryConditions).forEach(key => {
       queryConditions[key] = queryForm[key]
     })
   } else {
     swal("注意", "查詢沒有結果", "warning")
   }
-  flag.fullscreenLoading = false
-  flag.formDialogVisible = false
+  state.fullscreenLoading = false
+  state.formDialogVisible = false
 }
 
 const sliderChange = async function(index) {
@@ -182,7 +182,7 @@ const addData = async () => {
   if (!addFlag) {
     return
   }
-  flag.fullscreenLoading = true
+  state.fullscreenLoading = true
   try {
     await add({
       staffNo: staffNo,
@@ -194,7 +194,7 @@ const addData = async () => {
       }
     })
   } finally {
-    flag.fullscreenLoading = false
+    state.fullscreenLoading = false
   }
 }
 
@@ -203,7 +203,7 @@ const updateData = async () => {
   if (!updateFlag) {
     return
   }
-  flag.fullscreenLoading = true
+  state.fullscreenLoading = true
   try {
     await update({
       staffNo: staffNo,
@@ -215,7 +215,7 @@ const updateData = async () => {
       }
     })
   } finally {
-    flag.fullscreenLoading = false
+    state.fullscreenLoading = false
   }
 }
 
