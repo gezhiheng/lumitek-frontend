@@ -2,7 +2,7 @@
   <div class="main">
     <el-form :rules="rules" :model="ruleForm" ref="ruleFormRef">
       <div class="box">
-        <img src="../assets/lumitek.jpg" alt="lumitek">
+        <img src="../assets/lumitek-dark-mode.png" alt="lumitek">
         <el-form-item prop="staffNo" class="staffNoInput">
           <el-input 
             class="w-50 m-2" 
@@ -35,8 +35,8 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-button v-if="useBackendDataFlag" class="loginBtn" type="primary" @click="submit(ruleFormRef)">Login</el-button>
-        <el-button v-else  class="loginBtn" type="primary" @click="submitNoBackend()">Login</el-button>
+        <el-button v-if="useBackendDataFlag" text class="loginBtn transparent-btn" type="primary" @click="submit(ruleFormRef)">Login</el-button>
+        <el-button v-else text class="loginBtn" type="primary" @click="submitNoBackend()">Login</el-button>
       </div>
     </el-form>
   </div>
