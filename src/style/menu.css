@@ -10,3 +10,8 @@ img {
 .el-menu {
   font-weight: bold;
 }
+
+h1 {
+  line-height: 58px; 
+  margin-left: 30px;
+}
