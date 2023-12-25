@@ -62,32 +62,32 @@ img {
   border: 1px solid #fff;
 }
 
-:deep .el-input__wrapper {
+:deep(.el-input__wrapper) {
   background-color: transparent !important;
   border: 1px solid #fff;
 }
 
-:deep[data-v-37dfd6fc] input:-webkit-autofill {
+:deep([data-v-37dfd6fc] input:-webkit-autofill) {
   -webkit-text-fill-color: #fff;
   transition: background-color 5000s ease-out 0.5s;
 }
 
-:deep input::-webkit-input-placeholder {
+:deep(input::-webkit-input-placeholder) {
   color: #fff;
 }
 
-:deep input::-moz-input-placeholder {
+:deep(input::-moz-input-placeholder) {
   color: #fff;
 }
 
-:deep input::-ms-input-placeholder {
+:deep(input::-ms-input-placeholder) {
   color: #fff;
 }
 
-.el-form-item--large /deep/ .el-form-item__label {
+:deep(.el-form-item--large .el-form-item__label) {
   color: #fff !important;
 }
 
-:deep .el-input__prefix-inner {
+:deep(.el-input__prefix-inner) {
   color: #ffffff !important;
 }
