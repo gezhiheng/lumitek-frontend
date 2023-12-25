@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header class="header"><Suspense><Header :title="title"></Header></Suspense></el-header>
+    <el-header class="header"><Suspense><Menu></Menu></Suspense></el-header>
     <el-container class="main">
       <el-main><Suspense><router-view></router-view></Suspense></el-main>
     </el-container>
@@ -32,29 +32,31 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useDark, useToggle } from "@vueuse/core"
 import { ElNotification } from 'element-plus'
 import { Setting } from '@element-plus/icons-vue'
 import Footer from '@/components/Footer.vue'
-import Header from '@/components/Header.vue'
+import Menu from '@/components/Menu.vue'
 import router from '@/router/router'
 import { useSettingsStore } from '@/stores/settings_store'
 
 const { settings, setModeActive, setModeEnabled } = useSettingsStore()
-
-const username = window.sessionStorage.getItem('username')
-if (username) {
-  ElNotification.success({
-    title: '登錄成功',
-    message: `${username}，歡迎`,
-    offset: 100,
-  })
-}
-
 const verticalFlag = ref(false)
 const isDark = useDark()
 const darkFlag = ref(isDark)
+
+onMounted(() => {
+  const username = window.sessionStorage.getItem('username')
+  if (username) {
+    ElNotification.success({
+      title: '歡迎',
+      message: `${username}`,
+      offset: 100,
+    })
+  }
+})
+
 const toggleDark = () => {
   useToggle(isDark)
   setModeEnabled('darkMode', isDark)
