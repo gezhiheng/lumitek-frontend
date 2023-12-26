@@ -1,6 +1,17 @@
 <template>
   <el-container>
     <el-header class="header"><Suspense><Menu></Menu></Suspense></el-header>
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item 
+        v-for="breadcrumb in breadcrumbs" 
+        :to="{path: breadcrumb.path}" 
+      >
+        {{ breadcrumb.name }}
+      </el-breadcrumb-item>
+      <!-- 这里添加面包屑item 因为可能是element plus组件库的bug（面包屑的最后一个item样式（不管有没有“to”属性）是没有"to"属性的样式） -->
+      <!-- 为了不影响美观和使用故添加一个没有内容的面包屑item -->
+      <el-breadcrumb-item to="/welcome"></el-breadcrumb-item>
+    </el-breadcrumb>
     <el-container class="main">
       <el-main><Suspense><router-view></router-view></Suspense></el-main>
     </el-container>
@@ -32,7 +43,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted} from 'vue'
+import { ref, onMounted, inject } from 'vue'
 import { useDark, useToggle } from "@vueuse/core"
 import { ElNotification } from 'element-plus'
 import { Setting } from '@element-plus/icons-vue'
@@ -40,10 +51,11 @@ import Footer from '@/components/Footer.vue'
 import Menu from '@/components/Menu.vue'
 import { useSettingsStore } from '@/stores/settings_store'
 
-const { settings, setModeActive, setModeEnabled } = useSettingsStore()
+const { settings, setModeEnabled } = useSettingsStore()
 const verticalFlag = ref(false)
 const isDark = useDark()
 const darkFlag = ref(isDark)
+const breadcrumbs = inject('breadcrumbs')
 
 onMounted(() => {
   const username = window.sessionStorage.getItem('username')

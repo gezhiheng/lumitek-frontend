@@ -32,7 +32,7 @@ h2 {
 }
 
 .header {
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 
 .footer {
@@ -48,4 +48,10 @@ h2 {
   line-height: 40px;
   font-weight: bold;
   font-size: 15px;
+}
+
+.el-breadcrumb {
+  width: 70%;
+  margin: 0 auto;
+  padding: 0 0 12px 20px;
 }
