@@ -1,5 +1,5 @@
 <template>
-  <el-menu mode="horizontal" :ellipsis="false" class="el-menu" @Select="handleSelect">
+  <el-menu mode="horizontal" :ellipsis="false" class="el-menu" @Select="handleSelect" :default-active="title">
     <router-link to="/welcome">
       <img v-if="!isDark" src="@/assets/lumitek.jpg" alt="lumitek">
       <img v-else src="@/assets/lumitek-dark-mode.png" alt="lumitek">
@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { reactive, onMounted, inject } from 'vue'
 import { useDark } from "@vueuse/core"
 import { getFeatures }  from '@/service/user'
 import { useFeaturesStore } from '@/stores/features_store'
@@ -39,7 +39,7 @@ const menu = reactive({
   secondLevel: [],
   thirdLevel: []
 })
-const title = ref('')
+const title = inject('title')
 const staffNo = window.sessionStorage.getItem('staffNo')
 const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
 const { features, setFeatures } = useFeaturesStore()

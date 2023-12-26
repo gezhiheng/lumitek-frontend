@@ -32,13 +32,12 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { ref, onMounted} from 'vue'
 import { useDark, useToggle } from "@vueuse/core"
 import { ElNotification } from 'element-plus'
 import { Setting } from '@element-plus/icons-vue'
 import Footer from '@/components/Footer.vue'
 import Menu from '@/components/Menu.vue'
-import router from '@/router/router'
 import { useSettingsStore } from '@/stores/settings_store'
 
 const { settings, setModeActive, setModeEnabled } = useSettingsStore()
@@ -65,22 +64,6 @@ const toggleDark = () => {
 const toggleVertical = () => {
   setModeEnabled('verticalMode', verticalFlag.value)
 }
-
-const title = ref('')
-// 监听路由的变化
-watch(() => router.currentRoute.value.path, (newFullPath, oldFullPath) => {
-  const path = newFullPath.slice(1)
-  if (path === 'welcome' || path === 'empty') {
-    setModeActive('verticalMode', false)
-    title.value = ''
-  } else if (path === 'mfb01') {
-    setModeActive('verticalMode', true)
-    title.value = 'MFB01-晶圓進貨資料'
-  } else if (path === 'mfa01') {
-    setModeActive('verticalMode', false)
-    title.value = 'MFA01-產品資料維護'
-  }
-})
 </script>
 
 <style src="@/style/main_layout.css" scoped></style>
