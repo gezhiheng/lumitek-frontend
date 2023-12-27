@@ -10,7 +10,7 @@
       </el-breadcrumb-item>
       <!-- 这里添加面包屑item 因为可能是element plus组件库的bug（面包屑的最后一个item样式（不管有没有“to”属性）是没有"to"属性的样式） -->
       <!-- 为了不影响美观和使用故添加一个没有内容的面包屑item -->
-      <el-breadcrumb-item to="/welcome"></el-breadcrumb-item>
+      <el-breadcrumb-item></el-breadcrumb-item>
     </el-breadcrumb>
     <el-container class="main">
       <el-main><Suspense><router-view></router-view></Suspense></el-main>
