@@ -76,6 +76,16 @@ const defaultFeatures = [
     label: "MF-制造管理",
     children: [
       {
+        index: "mfa",
+        label: "MFA-基本資料維護",
+        children: [
+          {
+            index: "mfa01",
+            label: "MFA01-產品資料維護"
+          }
+        ]
+      },
+      {
         index: "mfb",
         label: "MFB-進貨派工作業",
         children: [
@@ -115,7 +125,8 @@ const defaultFeatures = [
   },
   {
     index: "sl",
-    label: "SL-業務相關"
+    label: "SL-業務相關",
+    children: []
   },
   {
     index: "ep",
