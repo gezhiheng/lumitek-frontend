@@ -55,3 +55,15 @@ h2 {
   margin: 0 auto;
   padding: 0 0 12px 20px;
 }
+
+.el-container {
+  position: relative;
+}
+
+.del-area {
+  position: fixed;
+  bottom: 100px;
+  left: 12px;
+  width: 135px;
+  height: 135px;
+}
