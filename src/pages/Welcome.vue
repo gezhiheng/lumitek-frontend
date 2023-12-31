@@ -31,7 +31,7 @@
         <Suspense><Menu :verticalFlag="false"></Menu></Suspense>
       </template>
     </el-drawer>
-    <el-footer><Footer></Footer></el-footer>
+    <el-footer v-if="state.showDelayedElements"><Footer></Footer></el-footer>
   </div>
 </template>
 
