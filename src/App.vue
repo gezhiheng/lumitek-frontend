@@ -5,7 +5,7 @@
 <script setup>
 import { ref, watch, provide, onMounted } from 'vue'
 import router from '@/router/router'
-import routerMapping from '@/constants/router_mapping'
+import useableFeatures from '@/constants/useable_features'
 import modeSettings from '@/constants/mode_settings'
 import { useSettingsStore } from '@/stores/settings_store'
 
@@ -15,14 +15,14 @@ const { setModeActive } = useSettingsStore()
 
 watch(() => router.currentRoute.value.path, (newFullPath, oldFullPath) => {
   const name = newFullPath.slice(1)
-  const mapping = routerMapping.find(item => item.name === name)
-  if (mapping) {
-    title.value = mapping.index
-    const pushFlag = !breadcrumbs.value.some(item => item.name === mapping.index)
+  const feature = useableFeatures.find(item => item.index === name)
+  if (feature) {
+    title.value = feature.label
+    const pushFlag = !breadcrumbs.value.some(item => item.name === feature.label)
     if(pushFlag) {
       breadcrumbs.value.push({
         path: newFullPath,
-        name: mapping.index
+        name: feature.label
       })
     }
   } else {
