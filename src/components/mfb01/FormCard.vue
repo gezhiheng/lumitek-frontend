@@ -137,7 +137,7 @@ import { DocumentAdd, Search, FolderOpened, Close } from '@element-plus/icons-vu
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { useQueryStore } from '@/stores/mfb01/query_conditions_store'
 import { mfb01Add, mfb01Repeal } from '@/service/mfb01'
-import { resolveAlert } from '@/utils/resloveAlert'
+import { resolveAlert } from '@/utils/reslove_alert'
 
 const props = defineProps({
   verticalLayoutFlag: Boolean

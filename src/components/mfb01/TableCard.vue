@@ -86,7 +86,7 @@ import { Check, Close, CirclePlusFilled, RemoveFilled, UploadFilled } from '@ele
 import swal from 'sweetalert'
 import { mfb01LotRepeal, mfb01LotReduction, downloadAttachment, addAttachment, deleteAttachment } from '@/service/mfb01'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
-import { resolveAlert } from '@/utils/resloveAlert'
+import { resolveAlert } from '@/utils/reslove_alert'
 
 const { formTableData } = useFormTableStore()
 const selectFile = ref(null)
