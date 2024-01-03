@@ -25,31 +25,59 @@
       </el-form>
     </el-tab-pane>
     <el-tab-pane label="晶圓製程">
-      <el-form 
-        :label-position="labelPosition"
-        :model="formTabData.form" 
-        label-width="120px" 
-        :inline="true"
-      >
-        <el-form-item label="晶圓製程" style="width: 312px;">
-          <el-select v-model="formTabData.form.WipStdNo" placeholder="選擇晶圓製程">
-            <el-option v-for="option in props.wips" :label="option" :value="option" />
-          </el-select>
-        </el-form-item>
-        <div style="margin-bottom: 25px;"><span>良率檢查設定</span></div>
-        <el-form-item label="點測良率">
-          <el-input v-model="formTabData.form.proberYield" style="width: 50%;"/>
-          <span style="margin-left: 12px;">%(0不檢查)</span>
-        </el-form-item>
-        <el-form-item label="AOI的KPI值">
-          <el-input v-model="formTabData.form.AOI_KPI" style="width: 50%;"/>
-          <span style="margin-left: 12px;">%(0不檢查)</span>
-        </el-form-item>
-      </el-form>
+      <div style="width: 40%; float: left;">
+        <el-table :data="formTabData.wipStations">
+          <el-table-column prop="parentStationNo" label="母站點"/>
+          <el-table-column prop="stationNo" label="子站點"/>
+          <el-table-column prop="stationName" label="站點名稱"/>
+        </el-table>
+        <el-button 
+          type="primary" 
+          style="margin-top: 12px;"
+          plain 
+          @click="wipOnClick"
+        >
+          設定制程
+        </el-button>
+        <el-dialog v-model="state.isShowWipStationsDialog" style="width: 610px;">
+          <template #header>
+            <p style="text-align: center;">
+              <span>請設定制程</span>
+            </p>
+          </template>
+          <el-transfer
+            v-model="wipStationOptions.selected"
+            filterable
+            filter-placeholder="搜索制程"
+            :titles="['全部制程', '設定制程']"
+            :data="wipStationOptions.resource"
+            @change="onWipOptionsChange"
+          >
+          </el-transfer>
+        </el-dialog>
+      </div>
+      <div style="width: 55%; margin-left: 12px; float: left;">
+        <el-form 
+          :label-position="labelPosition"
+          :model="formTabData.form" 
+          label-width="120px" 
+          :inline="true"
+        >
+          <div style="margin-bottom: 12px;"><span>良率檢查設定</span></div>
+          <el-form-item label="點測良率">
+            <el-input v-model="formTabData.form.proberYield" style="width: 50%;"/>
+            <span style="margin-left: 12px;">%(0不檢查)</span>
+          </el-form-item>
+          <el-form-item label="AOI的KPI值">
+            <el-input v-model="formTabData.form.AOI_KPI" style="width: 50%;"/>
+            <span style="margin-left: 12px;">%(0不檢查)</span>
+          </el-form-item>
+        </el-form>
+      </div>
     </el-tab-pane>
     <el-tab-pane label="成品製程">
       <div style="width: 40%; float: left;">
-        <el-table :data="formTabData.stations">
+        <el-table :data="formTabData.productStations">
           <el-table-column prop="stationNo" label="站別代碼"/>
           <el-table-column prop="stationName" label="站別名稱"/>
         </el-table>
@@ -57,24 +85,24 @@
           type="primary" 
           style="margin-top: 12px;"
           plain 
-          @click="setStationOptions"
+          @click="productOnClick"
         >
           設定站別
         </el-button>
       </div>
-      <el-dialog v-model="stationDialogVisible" style="width: 610px;">
+      <el-dialog v-model="state.isShowProductStationsDialog" style="width: 610px;">
         <template #header>
           <p style="text-align: center;">
             <span>請設定站別</span>
           </p>
         </template>
         <el-transfer
-          v-model="stationOptions.selected"
+          v-model="productStationOptions.selected"
           filterable
           filter-placeholder="搜索站別"
           :titles="['全部站別', '設定站別']"
-          :data="stationOptions.resource"
-          @change="handleChange"
+          :data="productStationOptions.resource"
+          @change="onProductOptionsChange"
         >
         </el-transfer>
       </el-dialog>
@@ -112,48 +140,82 @@ import { ref, reactive, onMounted } from 'vue'
 import type { FormProps } from 'element-plus'
 import type { stationOption, station, axiosResponse, stationResponse } from '../../../types/type'
 import { useFormTabStore } from '../../stores/mfa01/form_tab_store'
-import { getStationOptions } from '../../service/mfa01'
+import { getWipStations, getProductStations } from '../../service/mfa01'
 
 const labelPosition = ref<FormProps['labelPosition']>('left')
-const props = defineProps({
-  wips: []
+const state = reactive({
+  isShowWipStationsDialog: false,
+  isShowProductStationsDialog: false
 })
 const { formTabData, setStations } = useFormTabStore()
-const stationDialogVisible = ref(false)
-const stationOptions = reactive({
+const productStationOptions = reactive({
   resource: [] as stationOption[],
   selected: [] as string[]
 })
-let orginalStations = [] as station[]
+const wipStationOptions = reactive({
+  resource: [] as stationOption[],
+  selected: [] as string[]
+})
+const productOrginalStations = [] as station[]
+const wipOrginalStations = [] as station[]
 
 onMounted(async () => {
-const resolve = await getStationOptions() as axiosResponse<stationResponse>
-  resolve.data.stationOptions.forEach((station: station) => {
-    stationOptions.resource.push({
+  let resolve = await getProductStations() as axiosResponse<stationResponse>
+  resolve.data.productStations.forEach((station: station) => {
+    productStationOptions.resource.push({
       key: station.stationNo,
       label: station.stationName,
       disabled: false
     })
-    orginalStations.push(station)
+    productOrginalStations.push(station)
+  })
+
+  resolve = await getWipStations() as axiosResponse<stationResponse>
+  resolve.data.wipStations.forEach((station: station) => {
+    wipStationOptions.resource.push({
+      key: station.stationNo,
+      label: station.stationName,
+      disabled: false
+    })
+    wipOrginalStations.push(station)
   })
 })
 
-const setStationOptions = () => {
-  stationDialogVisible.value = true
-  stationOptions.selected= []
-  formTabData.stations.forEach((station: station) => {
-    stationOptions.selected.push(station.stationNo)
+const productOnClick = () => {
+  state.isShowProductStationsDialog = true
+  productStationOptions.selected= []
+  formTabData.productStations.forEach((station: station) => {
+    productStationOptions.selected.push(station.stationNo)
   })
 }
 
-const handleChange = (
+const wipOnClick = () => {
+  state.isShowWipStationsDialog = true
+  wipStationOptions.selected= []
+  formTabData.wipStations.forEach((station: station) => {
+    wipStationOptions.selected.push(station.stationNo)
+  })
+}
+
+const onProductOptionsChange = (
   value: number[] | string[],
   direction: 'left' | 'right',
   movedKeys: string[] | number[]
 ) => {
-  const movedStations: station[] = orginalStations.filter(
+  const movedStations: station[] = productOrginalStations.filter(
     (station: station) => (value as string[]).includes(station.stationNo)
   )
-  setStations(movedStations)
+  setStations('productStations', movedStations)
+}
+
+const onWipOptionsChange = (
+  value: number[] | string[], 
+  direction: 'left' | 'right',
+  movedKeys: string[] | number[]
+) => {
+  const movedStations: station[] = wipOrginalStations.filter(
+    (station: station) => (value as string[]).includes(station.stationNo)
+  )
+  setStations('wipStations', movedStations)
 }
 </script>

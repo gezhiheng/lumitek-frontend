@@ -29,7 +29,8 @@ export const useFormTabStore = defineStore('formTab', () => {
       sorterWarningYield: '',//挑揀良率警戒值
       sorterYield: '' //挑揀良率>=入Bin率
     },
-    stations: []
+    wipStations: [],
+    productStations: []
   })
 
   async function setFormTab(params) {
@@ -44,7 +45,8 @@ export const useFormTabStore = defineStore('formTab', () => {
             formTabData.form[key] = form[key]
           }
         })
-        formTabData.stations = resolve.data.stations
+        formTabData.wipStations = resolve.data.wipStations
+        formTabData.productStations = resolve.data.productStations
       }
     })
     return size
@@ -56,12 +58,12 @@ export const useFormTabStore = defineStore('formTab', () => {
       formTabData.form[key] = ''
     })
     formTabData.form.isEnable = true
-    formTabData.stations = []
+    formTabData.wipStations = []
+    formTabData.productStations = []
   }
 
-  function setStations(resource) {
-    console.log("🚀 ~ file: form_tab_store.js:63 ~ setStations ~ resource:", resource)
-    formTabData.stations = resource
+  function setStations(stationName, resource) {
+    formTabData[stationName] = resource
   }
 
   return { formTabData, setFormTab, resetFormTab, setStations }

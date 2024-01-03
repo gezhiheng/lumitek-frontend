@@ -10,17 +10,17 @@ export async function queryMFA01(params) {
   })
 }
 
-export async function getWipStdOptions() {
+export async function getWipStations() {
   return await axios.post(`${apiBaseUrl}mfa01/wipstdno-options/`).catch(error => {
     console.log("🚀 ~ file: mfa01.js:15 ~ returnawaitaxios.post ~ error:", error)
-    swal("錯誤", "獲取WipStdOptions失敗", "error")
+    swal("錯誤", "獲取WipStations失敗", "error")
   })
 }
 
-export async function getStationOptions() {
+export async function getProductStations() {
   return await axios.post(`${apiBaseUrl}mfa01/station-options/`).catch(error => {
     console.log("🚀 ~ file: mfa01.js:22 ~ returnawaitaxios.post ~ error:", error)
-    swal("錯誤", "獲取stationOptions失敗", "error")
+    swal("錯誤", "獲取ProductStations失敗", "error")
   })
 }
 

@@ -84,13 +84,13 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { reactive } from 'vue'
 import { DocumentAdd, Search, Edit } from '@element-plus/icons-vue'
 import swal from 'sweetalert'
 import Form from '@/components/mfa01/Form.vue'
 import Tab from '@/components/mfa01/Tab.vue'
 import { useFormTabStore } from '@/stores/mfa01/form_tab_store'
-import { getWipStdOptions, add, update } from '@/service/mfa01'
+import { add, update } from '@/service/mfa01'
 
 const { formTabData, setFormTab, resetFormTab } = useFormTabStore()
 const state = reactive({
@@ -128,14 +128,7 @@ const queryConditions = {
   productType: '',
   processType: ''
 }
-const wips = ref([])
 const staffNo = window.sessionStorage.getItem('staffNo')
-
-onMounted(async () => {
-  await getWipStdOptions().then(resolve => {
-    wips.value = resolve.data.WipStdName
-  })
-})
 
 const resetQueryForm = () => {
   Object.keys(queryForm).forEach(key => {
@@ -208,7 +201,8 @@ const updateData = async () => {
     await update({
       staffNo: staffNo,
       form: formTabData.form,
-      stations: handleStationNos(formTabData.stations)
+      wipStations: formTabData.wipStations,
+      productStations: formTabData.productStations
     }).then(resolve => {
       if (resolve.data.tip === 'success') {
         swal("成功", resolve.data.message, "success")
@@ -222,8 +216,7 @@ const updateData = async () => {
 const checkField = () => {
   const initial = [
     ['productNo', '產品型號'],
-    ['custNo', '客戶簡碼'],
-    ['WipStdNo', '晶圓製程']
+    ['custNo', '客戶簡碼']
   ]
   const requiredField = new Map(initial)
   let flag = true
@@ -234,15 +227,11 @@ const checkField = () => {
       return
     }
   })
+  if (formTabData.wipStations.length === 0) {
+    flag = false
+    swal("注意", '請設置晶圓制程', "warning")
+  }
   return flag
-}
-
-const handleStationNos = (stationNos) => {
-  const handledStationNos = []
-  stationNos.forEach(stationNo => {
-    handledStationNos.push(stationNo.stationNo)
-  })
-  return handledStationNos
 }
 </script>
 
