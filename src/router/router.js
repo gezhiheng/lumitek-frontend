@@ -6,7 +6,7 @@ import Login from '@/pages/Login.vue'
 import MainLayout from '@/pages/MainLayout.vue'
 import Welcome from '@/pages/Welcome.vue'
 import Empty from '@/pages/Empty.vue'
-import { useFormTableStore } from '@/stores/mfb01/form_table_store'
+import resetStores from "@/utils/reset_stores"
 
 const router = createRouter({
   history: createWebHistory(),
@@ -48,11 +48,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const token = window.sessionStorage.getItem('username')
-  if(to.path !== '/login' && !token) {
+  const path = to.path
+  if(path !== '/login' && !token) {
     return next('/login')
   } else {
-    const { resetFormTable } = useFormTableStore()
-    resetFormTable()
+    resetStores(path)
     next()
   }
 })
