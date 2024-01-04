@@ -10,6 +10,13 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 import './style.css'
 import './mock'
 
+function loadFonts() {
+  const fontStyles = document.createElement('link')
+  fontStyles.href = '/fonts.css'
+  fontStyles.rel = 'stylesheet'
+  document.head.appendChild(fontStyles)
+}
+
 const pinia = createPinia()
 const app = createApp(App)
 .use(ElementPlus, {
@@ -18,5 +25,10 @@ const app = createApp(App)
 .use(router)
 .use(pinia)
 .component('svg-icon', svgIcon)
+.mixin({
+  beforeMount() {
+    loadFonts()
+  }
+})
 .mount('#app')
 console.log('%c Welcome to Lumitek! ','color:#1e80ff;font-size:20px;background:#fff;padding:8px;')
