@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
 
-import MFB01 from '@/pages/MFB01.vue'
-import MFA01 from '@/pages/MFA01.vue'
+import MFB01 from '@/pages/mfb/MFB01.vue'
+import MFA01 from '@/pages/mfa/MFA01.vue'
 import Login from '@/pages/Login.vue'
 import MainLayout from '@/pages/MainLayout.vue'
 import Welcome from '@/pages/Welcome.vue'
