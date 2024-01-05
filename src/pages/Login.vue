@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main main-background">
     <el-form :rules="rules" :model="ruleForm" ref="ruleFormRef">
       <div class="box">
         <img src="../assets/lumitek-dark-mode.png" alt="lumitek">
@@ -10,6 +10,7 @@
             v-model="ruleForm.staffNo" 
             autocomplete="new-password"
             @keydown.enter="focusPassword"
+            input-style="color: white;"
           >
             <template #prefix>
               <el-icon class="el-input__icon">
@@ -27,6 +28,7 @@
             autocomplete="new-password"
             ref="passwordInputRef"
             @keydown.enter="useBackendDataFlag ? submit(ruleFormRef) : submitNoBackend()"
+            input-style="color: white;"
           >
             <template #prefix>
               <el-icon class="el-input__icon">

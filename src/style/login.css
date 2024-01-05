@@ -1,3 +1,5 @@
+@import url('./background.css');
+
 * {
   margin: 0;
   padding: 0;
@@ -7,27 +9,6 @@
   display: grid;
   place-items: center; /* 居中元素 */
   height: 100vh; /* 设置容器的高度，以确保垂直居中占据整个视口 */
-  background-color: #409eff;
-  background-image: 
-    radial-gradient(closest-side, #79bbff, rgba(78, 225, 235, 0)),
-    radial-gradient(closest-side, #a0cfff, rgba(78, 120, 235, 0)),
-    radial-gradient(closest-side, rgba(254, 234, 131, 1), rgba(254, 234, 131, 0)),
-    radial-gradient(closest-side, #d9ecff, rgba(0, 238, 255, 0)),
-    radial-gradient(closest-side, #ecf5ff, rgba(78, 225, 235, 0));
-  background-size: 
-    130vmax 130vmax,
-    80vmax 80vmax,
-    90vmax 90vmax,
-    110vmax 110vmax,
-    90vmax 90vmax;
-  background-position:
-    -80vmax -80vmax,
-    60vmax -30vmax,
-    10vmax 10vmax,
-    -30vmax -10vmax,
-    50vmax 50vmax;
-  background-repeat: no-repeat;
-  animation: 10s movement linear infinite;
 }
 
 .box {
@@ -56,6 +37,7 @@ img {
 }
 
 .loginBtn {
+  font-family: 'alibaba';
   margin-left: 50px;
   width: 400px;
   color: #fff;

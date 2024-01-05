@@ -1,5 +1,5 @@
 <template >
-  <div class="container">
+  <div class="container main-background">
     <h1 
       v-if="state.showDelayedElements" 
       class="animate__bounceIn"
