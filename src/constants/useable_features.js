@@ -6,6 +6,10 @@ const useableFeatures = [
   {
     index: 'mfa01',
     label: 'MFA01-產品資料維護'
+  },
+  {
+    index: 'mfb02',
+    label: 'MFB02-晶圓製令維護'
   }
 ]
 

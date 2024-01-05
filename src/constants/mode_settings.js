@@ -12,6 +12,13 @@ const modeSettings = [
       darkMode: true,
       verticalMode: false
     }
+  },
+  {
+    routerName: 'mfb02',
+    settings: {
+      darkMode: true,
+      verticalMode: true
+    }
   }
 ]
 

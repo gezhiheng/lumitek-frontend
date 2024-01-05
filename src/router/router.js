@@ -28,6 +28,11 @@ const router = createRouter({
           component: MFA01
         },
         {
+          path: '/mfb02',
+          name: 'mfb02',
+          component: MFB02
+        },
+        {
           path: '/empty',
           name: 'empty',
           component: Empty
