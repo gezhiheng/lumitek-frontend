@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { queryMFB01, importData, importDataAuto } from '@/service/mfb01'
+import { queryMFB01, importData, importDataAuto } from '@/service/mfb/mfb01'
 import swal from 'sweetalert'
 
 export const useFormTableStore = defineStore('formTable', () => {

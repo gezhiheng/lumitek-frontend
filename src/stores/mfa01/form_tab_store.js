@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import { queryMFA01 } from '@/service/mfa01'
+import { queryMFA01 } from '@/service/mfa/mfa01'
 
 export const useFormTabStore = defineStore('formTab', () => {
   const formTabData = reactive({

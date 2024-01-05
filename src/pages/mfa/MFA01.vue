@@ -90,7 +90,7 @@ import swal from 'sweetalert'
 import Form from '@/components/mfa01/Form.vue'
 import Tab from '@/components/mfa01/Tab.vue'
 import { useFormTabStore } from '@/stores/mfa01/form_tab_store'
-import { add, update } from '@/service/mfa01'
+import { add, update } from '@/service/mfa/mfa01'
 
 const { formTabData, setFormTab, resetFormTab } = useFormTabStore()
 const state = reactive({

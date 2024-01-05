@@ -140,7 +140,7 @@ import { ref, reactive, onMounted } from 'vue'
 import type { FormProps } from 'element-plus'
 import type { stationOption, station, axiosResponse, stationResponse } from '../../../types/type'
 import { useFormTabStore } from '../../stores/mfa01/form_tab_store'
-import { getWipStations, getProductStations } from '../../service/mfa01'
+import { getWipStations, getProductStations } from '../../service/mfa/mfa01'
 
 const labelPosition = ref<FormProps['labelPosition']>('left')
 const state = reactive({
