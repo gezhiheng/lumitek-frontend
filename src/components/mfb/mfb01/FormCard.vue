@@ -275,4 +275,4 @@ const repeal = () => {
 const custNos = ['-','08','11','12','13','13A','17','18','19','20','21','22',]
 </script>
 
-<style src="../../style/mfb01/form_card.css" scoped></style>
+<style src="@/style/mfb01/form_card.css" scoped></style>
