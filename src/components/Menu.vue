@@ -41,11 +41,10 @@ import useableFeatures from '@/constants/useable_features'
 const isDark = useDark()
 const title = inject('title')
 const staffNo = window.sessionStorage.getItem('staffNo')
-const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
 const { featuresRequest, setFeaturesRequest } = useFeaturesStore()
 
 onMounted(async () => {
-  if (useBackendDataFlag && !featuresRequest.requested) {
+  if (!featuresRequest.requested) {
     const featuresRequested = await getFeatures(staffNo).then((resolve, reject) => {
       return resolve.data
     })

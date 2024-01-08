@@ -27,7 +27,7 @@
             v-model="ruleForm.password" 
             autocomplete="new-password"
             ref="passwordInputRef"
-            @keydown.enter="useBackendDataFlag ? submit(ruleFormRef) : submitNoBackend()"
+            @keydown.enter="submit(ruleFormRef)"
             input-style="color: white;"
           >
             <template #prefix>
@@ -37,8 +37,7 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-button v-if="useBackendDataFlag" text class="loginBtn transparent-btn" type="primary" @click="submit(ruleFormRef)">Login</el-button>
-        <el-button v-else text class="loginBtn" type="primary" @click="submitNoBackend()">Login</el-button>
+        <el-button text class="loginBtn transparent-btn" type="primary" @click="submit(ruleFormRef)">Login</el-button>
       </div>
     </el-form>
   </div>
@@ -47,12 +46,9 @@
 <script  setup>
 import { reactive, ref, nextTick } from 'vue'
 import { UserFilled, Lock } from '@element-plus/icons-vue'
-import { ElNotification } from 'element-plus'
 import swal from 'sweetalert'
 import { login }  from '@/service/user'
 import router from '@/router/router'
-
-const useBackendDataFlag = import.meta.env.VITE_USE_BACKEND_DATA_FLAG === 'true'
 
 const passwordInputRef = ref()
 const focusPassword = () => { nextTick(() => { passwordInputRef.value.focus() }) }
@@ -93,24 +89,6 @@ const submit = async (formEl) => {
     } else {
       console.log('error submit!', fields)
     }
-  })
-}
-
-const submitNoBackend = () => {
-  if (ruleForm.staffNo === 'admin' && ruleForm.password === '123') {
-    window.sessionStorage.setItem('username', '系統管理員')
-    window.sessionStorage.setItem('staffNo', 'admin')
-    router.push({name: 'welcome'})
-  } else {
-    swal("失敗", "登錄失敗-工號或密碼錯誤", "error");
-  }
-}
-
-if (!useBackendDataFlag) {
-  ElNotification.warning({
-    title: '注意',
-    message: '當前沒有使用後台數據',
-    offset: 100,
   })
 }
 </script>
