@@ -2,8 +2,8 @@
   <!-- default-active的默认选中菜单绑定为透传的title 是因为app组件透传时，是把index设置为title -->
   <el-menu mode="horizontal" :ellipsis="false" class="el-menu" @Select="handleSelect" :default-active="title">
     <router-link to="/welcome">
-      <img v-if="!isDark" src="@/assets/lumitek.jpg" alt="lumitek">
-      <img v-else src="@/assets/lumitek-dark-mode.png" alt="lumitek">
+      <img v-show="!isDark" src="@/assets/lumitek.jpg" alt="lumitek">
+      <img v-show="isDark" src="@/assets/lumitek-dark-mode.png" alt="lumitek">
     </router-link>
     <h1>{{ title }}</h1>
     <div class="flex-grow"></div>
