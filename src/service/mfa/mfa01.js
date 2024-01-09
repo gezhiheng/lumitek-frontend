@@ -25,6 +25,7 @@ export async function getProductStations() {
 }
 
 export async function add(params) {
+  console.log("🚀 ~ add ~ params:", params)
   return await axios.post(`${apiBaseUrl}mfa01/add/`, params).catch(error => {
     console.log("🚀 ~ file: mfa01.js:29 ~ returnawaitaxios.post ~ error:", error)
     if (error.response.data.message) {
