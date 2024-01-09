@@ -181,9 +181,10 @@ const querySubmit = async () => {
   } catch (err) {
     console.log("🚀 ~ file: FormCard.vue:174 ~ querySubmit ~ err:", err)
     swal("錯誤", "查詢出現錯誤", "error")
+  } finally {
+    dialogFormVisible.value = false
+    fullscreenLoading.value = false
   }
-  dialogFormVisible.value = false
-  fullscreenLoading.value = false
 }
 
 const handleQueryForm = () => {
