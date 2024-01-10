@@ -8,7 +8,16 @@ img {
 }
 
 .el-menu {
+  font-family: 'alibaba';
   font-weight: bold;
+}
+
+.el-sub-menu {
+  font-family: 'alibaba';
+}
+
+.el-menu-item {
+  font-family: 'alibaba';
 }
 
 h1 {
