@@ -26,7 +26,7 @@
         <span>修改</span>
       </el-button>
       <el-dialog v-model="state.formDialogVisible" title="請輸入查詢條件" style="width: 500px;">
-        <el-form :model="queryForm" label-width="120px" style="width: 85%;">
+        <el-form :model="queryForm" label-width="150px" style="width: 85%;">
           <el-form-item label="是否有效">
             <el-switch v-model="queryForm.isEnable" active-value="1" inactive-value="0"/>
           </el-form-item>
@@ -180,7 +180,8 @@ const addData = async () => {
     await add({
       staffNo: staffNo,
       form: formTabData.form,
-      stations: handleStationNos(formTabData.stations)
+      productStations: formTabData.productStations,
+      wipStations: formTabData.wipStations
     }).then(resolve => {
       if (resolve.data.tip === 'success') {
         swal("成功", resolve.data.message, "success")
