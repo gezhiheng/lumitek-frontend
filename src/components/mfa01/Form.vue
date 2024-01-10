@@ -24,6 +24,9 @@
     <el-form-item label="客戶内部料號">
       <el-input v-model="formTabData.form.custProductPartName" />
     </el-form-item>
+    <el-form-item label="製程別" style="width: 312px;">
+      <el-input v-model="formTabData.form.processType" />
+    </el-form-item>
     <el-form-item label="狀態" style="width: 312px;">
       <el-select v-model="formTabData.form.status" placeholder="選擇狀態">
         <el-option v-for="option in statusOptions" :label="option" :value="option" />
