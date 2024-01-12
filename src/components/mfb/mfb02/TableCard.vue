@@ -26,21 +26,22 @@ import { initTable } from '@/service/mfb/mfb02'
 import { onClickTableQuery } from '@/service/mfb/mfb02'
 
 const props = defineProps({
+  sharedData: Object,
   showMoreData: false
 })
 const tableData = ref([])
 const emits = defineEmits(['updateSharedData'])
 
-watch(() => props.showMoreData.changeTableData, () => {
-  initTable().then(resolve => {
+watch(() => props.sharedData.changeTableData, async () => {
+  await initTable().then(resolve => {
     resolve?.data?.form?.forEach(item => {
       tableData.value.push(item)
     })
   })
 })
 
-onMounted(() => {
-  initTable().then(resolve => {
+onMounted(async () => {
+  await initTable().then(resolve => {
     resolve?.data?.form?.forEach(item => {
       tableData.value.push(item)
     })

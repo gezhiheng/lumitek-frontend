@@ -15,6 +15,7 @@
         'table-card-horizontal': !settings.verticalMode.isEnabled, 
         'table-card-vertical': settings.verticalMode.isEnabled
       }"
+      :sharedData="sharedData"
       :showMoreData="sharedData.showMoreData"
       @updateSharedData="updateSharedData"
     ></TableCard>
