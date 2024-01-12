@@ -258,6 +258,7 @@ const onRepeal = async () => {
       if (resolve.data.tip === 'success') {
         swal('成功', '作废成功','success')
         emits('updateSharedData', {
+          changeTableData: true,
           form: {
             status: 'VOID'
           }
