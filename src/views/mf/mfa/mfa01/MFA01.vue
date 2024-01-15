@@ -201,8 +201,8 @@ const updateData = async () => {
     await update({
       staffNo: staffNo,
       form: formTabData.form,
-      wipStations: formTabData.wipStations,
-      productStations: formTabData.productStations
+      wipStations: formTabData.wipStations ? formTabData.wipStations : [],
+      productStations: formTabData.productStations ? formTabData.productStations : [],
     }).then(resolve => {
       if (resolve.data.tip === 'success') {
         swal("成功", resolve.data.message, "success")
