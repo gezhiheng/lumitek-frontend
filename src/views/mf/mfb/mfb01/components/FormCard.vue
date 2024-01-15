@@ -87,7 +87,7 @@
             <el-icon>
               <Close />
             </el-icon>
-            <span>资料作废</span>
+            <span>資料作廢</span>
           </el-button>
         </span>
       </div>
