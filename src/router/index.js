@@ -1,12 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router"
-
-import MFB01 from '@/pages/mfb/MFB01.vue'
-import MFA01 from '@/pages/mfa/MFA01.vue'
-import MFB02 from '@/pages/mfb/MFB02.vue'
-import Login from '@/pages/Login.vue'
-import MainLayout from '@/pages/MainLayout.vue'
-import Welcome from '@/pages/Welcome.vue'
-import Empty from '@/pages/Empty.vue'
+import { MainLayout } from "@/layouts"
 import resetStores from "@/utils/reset_stores"
 
 const router = createRouter({
@@ -20,35 +13,35 @@ const router = createRouter({
         {
           path: '/mfb01',
           name: 'mfb01',
-          component: MFB01
+          component: () => import('@/views/mf/mfb/mfb01/MFB01.vue'),
         },
         {
           path: '/mfa01',
           name: 'mfa01',
-          component: MFA01
+          component: () => import('@/views/mf/mfa/mfa01/MFA01.vue'),
         },
         {
           path: '/mfb02',
           name: 'mfb02',
-          component: MFB02
+          component: () => import('@/views/mf/mfb/mfb02/MFB02.vue'),
         },
         {
           path: '/empty',
           name: 'empty',
-          component: Empty
-        }
+          component: () => import('@/views/Empty.vue'),
+        },
       ] 
     },
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: () => import('@/views/Login.vue'),
     },
     {
       path: '/welcome',
       name: 'welcome',
-      component: Welcome
-    }
+      component: () => import('@/views/Welcome.vue'),
+    },
   ]
 })
 

@@ -23,7 +23,7 @@
         <el-icon>
           <Delete />
         </el-icon>
-        <span>资料作废</span>
+        <span>資料作廢</span>
       </el-button>
       <el-text size="large" style="float: right; font-size: 30px;" type="primary">{{ sharedData.form.status }}</el-text>
       <el-dialog v-model="state.dialogFormVisible" title="請輸入查詢條件" style="max-width: 30%;">
@@ -120,7 +120,7 @@
       :data="sharedData.formDetail" 
       stripe 
       style="width: 100%;" 
-      :height="state.showMoreData ? 250 : 100" 
+      :height="state.showMoreData ? 200 : 100" 
     >
       <el-table-column 
         v-for="colum in tableColum" 
@@ -137,7 +137,7 @@
 import { reactive, watch, nextTick, toRaw } from 'vue'
 import swal from 'sweetalert'
 import { DocumentAdd, Delete, Search } from '@element-plus/icons-vue'
-import { query, add, repeal } from '@/service/mfb/mfb02'
+import { query, add, repeal } from '@/service/mf/mfb/mfb02'
 
 const staffNo = window.sessionStorage.getItem('staffNo')
 const emits = defineEmits(['resetSlider', 'updateSharedData'])
@@ -283,6 +283,7 @@ const onAdd = async () => {
         emits('updateSharedData', {
           changeTableData: true
         })
+        backToInsertMode()
       }
     })
   } finally {

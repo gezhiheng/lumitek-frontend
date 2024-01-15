@@ -4,9 +4,9 @@
 
 <script setup>
 import { ref, watch, provide, onMounted } from 'vue'
-import router from '@/router/router'
-import useableFeatures from '@/constants/useable_features'
-import modeSettings from '@/constants/mode_settings'
+import router from '@/router'
+import useableFeatures from '@/config/useable_features'
+import modeSettings from '@/config/mode_settings'
 import { useSettingsStore } from '@/stores/settings_store'
 
 const title = ref('')

@@ -6,4 +6,5 @@
   src: url('../assets/fonts/AlibabaSansTC-95/AlibabaSansTC-95.otf');
   src: url('../assets/fonts/AlibabaSansTC-95/AlibabaSansTC-95.ttf');
   src: url('../assets/fonts/AlibabaSansTC-95/AlibabaSansTC-95.woff2');
+  font-display: swap;
 }

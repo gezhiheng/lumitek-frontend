@@ -1,3 +1,9 @@
+@import url('./font.css');
+
+* {
+  font-family: 'alibaba';
+}
+
 html.dark {
   background: #252525;
   color: #eeeeee;

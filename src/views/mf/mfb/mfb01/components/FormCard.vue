@@ -25,7 +25,7 @@
             <el-icon>
               <FolderOpened />
             </el-icon>
-            <span>资料汇入</span>
+            <span>資料匯入</span>
           </el-button>
           <input type="file" ref="selectFile" @change="uploadFile" style="display: none;" webkitdirectory>
         </span>
@@ -33,7 +33,7 @@
         <el-dialog v-model="dialogFormVisible" title="請輸入查詢條件" class="dialog">
           <el-form :model="queryForm" label-width="120px">
             <el-form-item label="客戶">
-              <el-select v-model="queryForm.custNo">
+              <el-select v-model="queryForm.custNo" placeholder="請選擇">
                 <div v-for="custNo in custNos">
                   <el-option v-if="custNo !== '-'" :label="custNo" :value="custNo"/>
                   <el-tooltip
@@ -96,7 +96,7 @@
       <el-form label-width="120px">
         <el-text size="large" style="float: right; font-size: 30px;" class="mx-1" type="primary">{{ formTableData.form.status }}</el-text>
         <el-form-item label="客戶碼">
-          <el-select v-model="formTableData.form.custNo">
+          <el-select v-model="formTableData.form.custNo" placeholder="請選擇">
             <el-option v-for="custNo in custNos.slice(1)"  :label="custNo" :value="custNo" :disabled="queryMode" />
           </el-select>
         </el-form-item>
@@ -136,7 +136,7 @@ import swal from 'sweetalert'
 import { DocumentAdd, Search, FolderOpened, Close } from '@element-plus/icons-vue'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { useQueryStore } from '@/stores/mfb01/query_conditions_store'
-import { mfb01Add, mfb01Repeal } from '@/service/mfb/mfb01'
+import { mfb01Add, mfb01Repeal } from '@/service/mf/mfb/mfb01'
 import { resolveAlert } from '@/utils/reslove_alert'
 
 const props = defineProps({
@@ -276,4 +276,22 @@ const repeal = () => {
 const custNos = ['-','08','11','12','13','13A','17','18','19','20','21','22',]
 </script>
 
-<style src="@/style/mfb01/form_card.css" scoped></style>
+<style scoped>
+.formContainer {
+  max-width: 70%;
+}
+
+.card-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialog {
+  max-width: 10%;
+}
+
+.main {
+  margin-left: 8px;
+}
+</style>

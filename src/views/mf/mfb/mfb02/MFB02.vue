@@ -38,8 +38,8 @@
 
 <script setup>
 import { reactive } from 'vue'
-import FormCard from '@/components/mfb/mfb02/FormCard.vue'
-import TableCard from '@/components/mfb/mfb02/TableCard.vue'
+import FormCard from './components/FormCard.vue'
+import TableCard from './components/TableCard.vue'
 import { useSettingsStore } from '@/stores/settings_store'
 
 const { settings } = useSettingsStore()

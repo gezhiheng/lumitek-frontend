@@ -36,11 +36,12 @@
     </suspense>
   </div>
 </template>
+
 <script setup>
 import { ref, reactive } from 'vue'
 import { debounce } from 'lodash-es'
-import FormCard from '@/components/mfb/mfb01/FormCard.vue'
-import TableCard from '@/components/mfb/mfb01/TableCard.vue'
+import FormCard from './components/FormCard.vue'
+import TableCard from './components/TableCard.vue'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { useQueryStore } from '@/stores/mfb01/query_conditions_store'
 import { useSettingsStore } from '@/stores/settings_store'
@@ -94,4 +95,42 @@ const setInsertMode = (mode) => {
 }
 </script>
 
-<style src="@/style/mfb01/mfb01.css" scoped></style>
+<style scoped>
+h1 {
+  display: inline-block;
+  line-height: 40px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0 15px 0;
+}
+
+.switch {
+  margin-left: 10px;
+}
+
+.container-horizontal {
+  margin-top: 10px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-card-horizontal {
+  margin-right: 10px;
+}
+
+.table-card-horizontal {
+  margin-left: 10px;
+}
+
+.form-card-vertical {
+  margin: 10px 10px 16px 10px;
+}
+
+.table-card-vertical {
+  margin-left: 8px;
+}
+</style>

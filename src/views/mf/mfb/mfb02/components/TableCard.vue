@@ -5,10 +5,10 @@
       style="width: 100%" 
       lazy="true"
       :data="tableData" 
-      :height="showMoreData ? 650 : 500" 
+      :height="showMoreData ? 600 : 500" 
       @row-click="onTableClick"
     >
-      <el-table-column type="index" width="60" label="序號" align="center"/>
+      <el-table-column type="index" width="50" align="center"/>
       <el-table-column 
         v-for="(colum, index) in tableColum" 
         :prop="colum.prop" 
@@ -22,8 +22,8 @@
 
 <script setup>
 import { ref, onMounted, toRaw, watch } from 'vue'
-import { initTable } from '@/service/mfb/mfb02'
-import { onClickTableQuery } from '@/service/mfb/mfb02'
+import { initTable } from '@/service/mf/mfb/mfb02'
+import { onClickTableQuery } from '@/service/mf/mfb/mfb02'
 
 const props = defineProps({
   sharedData: Object,
@@ -83,6 +83,11 @@ const tableColum =  [
     width: 110
   },
   {
+    prop: 'applyNo',
+    label: '客戶進貨單號',
+    width: 140
+  },
+  {
     prop: 'issueDate',
     label: '進貨時間',
     width: 180
@@ -105,7 +110,7 @@ const tableColum =  [
   {
     prop: 'custProductName',
     label: '客戶產品名稱',
-    width: 210
+    width: 220
   },
   {
     prop: 'waferSize',
@@ -121,11 +126,6 @@ const tableColum =  [
     prop: 'lifePickup',
     label: 'lifePickup',
     width: 100
-  },
-  {
-    prop: 'applyNo',
-    label: '客戶進貨單號',
-    width: 140
   },
   {
     prop: 'shipSite',

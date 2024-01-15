@@ -25,11 +25,11 @@
         <span v-if="queryMode">
           <el-button plain type="success" @click="lotReduction">
             <el-icon><Check /></el-icon>
-            <span>资料还原</span>
+            <span>資料還原</span>
           </el-button>
           <el-button plain type="danger" @click="lotRepeal">
             <el-icon><Close /></el-icon>
-            <span>资料作废</span>
+            <span>資料作廢</span>
           </el-button>
         </span>
       </el-tab-pane>
@@ -67,11 +67,11 @@
           </el-button>
           <el-button v-if="queryMode || insertMode" type="danger" @click="delAttachment" plain>
             <el-icon><RemoveFilled /></el-icon>
-            <span>删除</span>
+            <span>刪除</span>
           </el-button>
           <el-button v-if="queryMode" type="info" plain @click="download">
             <el-icon><UploadFilled /></el-icon>
-            <span>下载</span>
+            <span>下載</span>
           </el-button>
           <input type="file" ref="selectFile" style="display: none;" @change="uploadAttachment" multiple>
         </span>
@@ -84,7 +84,7 @@
 import { toRaw, ref } from 'vue'
 import { Check, Close, CirclePlusFilled, RemoveFilled, UploadFilled } from '@element-plus/icons-vue'
 import swal from 'sweetalert'
-import { mfb01LotRepeal, mfb01LotReduction, downloadAttachment, addAttachment, deleteAttachment } from '@/service/mfb/mfb01'
+import { mfb01LotRepeal, mfb01LotReduction, downloadAttachment, addAttachment, deleteAttachment } from '@/service/mf/mfb/mfb01'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { resolveAlert } from '@/utils/reslove_alert'
 
@@ -264,4 +264,8 @@ const props = defineProps({
 })
 </script>
 
-<style src="@/style/mfb01/table_card.css" scoped></style>
+<style scoped>
+.main {
+  margin-right: 8px;
+}
+</style>

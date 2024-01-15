@@ -26,7 +26,7 @@
     </el-tab-pane>
     <el-tab-pane label="晶圓製程">
       <div style="width: 40%; float: left;">
-        <el-table :data="formTabData.wipStations">
+        <el-table :data="formTabData.wipStations" max-height="220px" stripe>
           <el-table-column prop="parentStationNo" label="母站點"/>
           <el-table-column prop="stationNo" label="子站點"/>
           <el-table-column prop="stationName" label="站點名稱"/>
@@ -138,9 +138,9 @@
 <script lang="ts" setup>
 import { ref, reactive, onMounted } from 'vue'
 import type { FormProps } from 'element-plus'
-import type { stationOption, station, axiosResponse, stationResponse } from '../../../types/type'
-import { useFormTabStore } from '../../stores/mfa01/form_tab_store'
-import { getWipStations, getProductStations } from '../../service/mfa/mfa01'
+import type { stationOption, station, axiosResponse, stationResponse } from '../../../../../types/type'
+import { useFormTabStore } from '../../../../../stores/mfa01/form_tab_store'
+import { getWipStations, getProductStations } from '../../../../../service/mf/mfa/mfa01'
 
 const labelPosition = ref<FormProps['labelPosition']>('left')
 const state = reactive({

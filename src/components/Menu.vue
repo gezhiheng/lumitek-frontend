@@ -1,11 +1,11 @@
 <template>
   <!-- default-active的默认选中菜单绑定为透传的title 是因为app组件透传时，是把index设置为title -->
-  <el-menu mode="horizontal" :ellipsis="false" class="el-menu" @Select="handleSelect" :default-active="title">
+  <el-menu mode="horizontal" :ellipsis="false" class="el-menu el-menu-demo" @Select="handleSelect" :default-active="activeIndex">
     <router-link to="/welcome">
       <img v-show="!isDark" src="@/assets/lumitek.jpg" alt="lumitek">
       <img v-show="isDark" src="@/assets/lumitek-dark-mode.png" alt="lumitek">
     </router-link>
-    <h1>{{ title }}</h1>
+    <h2>{{ title }}</h2>
     <div class="flex-grow"></div>
     <div v-for="feature in featuresRequest.features">
       <el-sub-menu v-if="feature.children.length > 0" :index="feature.index">
@@ -31,15 +31,16 @@
 </template>
 
 <script setup>
-import { onMounted, inject } from 'vue'
+import { ref, onMounted, inject } from 'vue'
 import { useDark } from "@vueuse/core"
 import { getFeatures }  from '@/service/user'
 import { useFeaturesStore } from '@/stores/features_store'
-import router from '@/router/router'
-import useableFeatures from '@/constants/useable_features'
+import router from '@/router'
+import useableFeatures from '@/config/useable_features'
 
 const isDark = useDark()
 const title = inject('title')
+const activeIndex = ref('')
 const staffNo = window.sessionStorage.getItem('staffNo')
 const { featuresRequest, setFeaturesRequest } = useFeaturesStore()
 
@@ -56,6 +57,7 @@ const handleSelect = (index) => {
   let feature = ''
   useableFeatures.forEach(item => {
     if (item.index === index) {
+      activeIndex.value = index
       feature = item.index
       router.push({ name: item.index })
       return
@@ -67,4 +69,22 @@ const handleSelect = (index) => {
 }
 </script>
 
-<style src="@/style/menu.css" scoped></style>
+<style scoped>
+.flex-grow {
+  flex-grow: 1;
+}
+
+img {
+  height: 40px;
+  margin: 6px 0 0 1.5em;
+}
+
+.el-menu {
+  font-weight: bold;
+}
+
+h2 {
+  line-height: 58px; 
+  margin-left: 30px;
+}
+</style>

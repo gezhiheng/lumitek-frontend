@@ -1,6 +1,5 @@
 <template>
-  <el-container>
-    <el-header class="header"><Suspense><Menu></Menu></Suspense></el-header>
+    <div class="header"><Suspense><Menu></Menu></Suspense></div>
     <el-breadcrumb separator="/">
       <VueDraggable
         v-model="breadcrumbs"
@@ -42,12 +41,12 @@
     >
       <div></div>
     </VueDraggable>
-    <el-container class="main">
-      <el-main><Suspense><router-view></router-view></Suspense></el-main>
-    </el-container>
+    <div class="main-container">
+      <Suspense><router-view></router-view></Suspense>
+    </div>
     <el-popover placement="top" :width="180" trigger="hover">
       <template #reference>
-        <el-button class="settings_btn" circle>
+        <el-button class="settings_btn" circle size="60">
           <el-icon size="40">
             <Setting />
           </el-icon>
@@ -68,12 +67,11 @@
           @change="toggleVertical"/>
       </div>
     </el-popover>
-    <el-footer class="footer"><Footer></Footer></el-footer>
-  </el-container>
+    <el-footer><Footer></Footer></el-footer>
 </template>
 
 <script setup>
-import { ref, onMounted, inject, toRaw, reactive } from 'vue'
+import { ref, onMounted, inject, reactive } from 'vue'
 import { useDark, useToggle } from "@vueuse/core"
 import { ElNotification } from 'element-plus'
 import { Setting, Delete, DeleteFilled } from '@element-plus/icons-vue'
@@ -129,4 +127,69 @@ const toggleVertical = () => {
 }
 </script>
 
-<style src="@/style/main_layout.css" scoped></style>
+<style scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  width: 70%;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.el-footer {
+  padding: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 260px;
+  margin-top: 30px;
+}
+
+h2 {
+  position: absolute;
+  margin: 88px 0 0 24px;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.settings_btn {
+  position: fixed;
+  bottom: 100px;
+  right: 100px;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.settings-option {
+  display: flex;
+  justify-content: space-between;
+}
+
+.settings-option > span {
+  line-height: 40px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.el-breadcrumb {
+  width: 70%;
+  margin: 0 auto;
+  padding: 0 0 12px 20px;
+}
+
+.el-container {
+  position: relative;
+}
+
+.del-area {
+  position: fixed;
+  bottom: 100px;
+  left: 12px;
+  width: 135px;
+  height: 135px;
+}
+</style>

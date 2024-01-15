@@ -63,7 +63,6 @@
       </el-dialog>
     </template>
     <Form :queryMode="state.queryMode"></Form>
-    <el-divider />
     <Tab :wips="wips"></Tab>
   </el-card>
   <div style="display: flex; align-items: center; margin: 20px 0 50px 0;">
@@ -87,10 +86,10 @@
 import { reactive } from 'vue'
 import { DocumentAdd, Search, Edit } from '@element-plus/icons-vue'
 import swal from 'sweetalert'
-import Form from '@/components/mfa01/Form.vue'
-import Tab from '@/components/mfa01/Tab.vue'
+import Form from './components/Form.vue'
+import Tab from './components/Tab.vue'
 import { useFormTabStore } from '@/stores/mfa01/form_tab_store'
-import { add, update } from '@/service/mfa/mfa01'
+import { add, update } from '@/service/mf/mfa/mfa01'
 
 const { formTabData, setFormTab, resetFormTab } = useFormTabStore()
 const state = reactive({
@@ -236,4 +235,16 @@ const checkField = () => {
 }
 </script>
 
-<style src="@/style/mfa01.css" scoped></style>
+<style scoped>
+.container {
+  margin: 10px 10px 0 10px;
+}
+
+.form {
+  margin-bottom: 10px;
+}
+
+.tabs {
+  max-width: 60%;
+}
+</style>

@@ -25,6 +25,32 @@
 
 <script setup>
 import svgIcon from './SvgIcon.vue'
+
 </script>
 
-<style src="@/style/footer.css" scoped></style>
+<style scoped>
+.footer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center; /*垂直居中*/
+  justify-content: center;
+  flex-direction: column;
+  color: #abadb1;
+}
+
+.footer > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.footer > div > * {
+  margin-right: 8px;
+}
+
+span {
+  height: 26px;
+  line-height: 26px;
+}
+</style>

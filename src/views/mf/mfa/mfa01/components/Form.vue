@@ -21,28 +21,28 @@
     <el-form-item label="批單位數量">
       <el-input v-model="formTabData.form.batchQty" />
     </el-form-item>
-    <el-form-item label="客戶内部料號">
+    <el-form-item label="客戶内部料號" >
       <el-input v-model="formTabData.form.custProductPartName" />
     </el-form-item>
-    <el-form-item label="製程別" style="width: 312px;">
+    <el-form-item label="製程別" >
       <el-input v-model="formTabData.form.processType" />
     </el-form-item>
-    <el-form-item label="狀態" style="width: 312px;">
+    <el-form-item label="狀態">
       <el-select v-model="formTabData.form.status" placeholder="選擇狀態">
         <el-option v-for="option in statusOptions" :label="option" :value="option" />
       </el-select>
     </el-form-item>
-    <el-form-item label="產品進貨類型" style="width: 312px;">
+    <el-form-item label="產品進貨類型">
       <el-select v-model="formTabData.form.productInType" placeholder="選擇產品進貨類型">
         <el-option v-for="option in productInTypeOptions" :label="option.label" :value="option.value" />
       </el-select>
     </el-form-item>
-    <el-form-item label="產品形態" style="width: 312px;">
+    <el-form-item label="產品形態" >
       <el-select v-model="formTabData.form.productType" placeholder="選擇產品形態">
         <el-option v-for="option in productTypeOptions" :label="option.label" :value="option.value" />
       </el-select>
     </el-form-item>
-    <el-form-item label="單位" style="width: 312px; padding-left: 0;">
+    <el-form-item label="單位">
       <el-select v-model="formTabData.form.productUnit" placeholder="選擇單位">
         <el-option v-for="option in productUnitOptions" :label="option" :value="option" />
       </el-select>
@@ -53,7 +53,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import type { FormProps } from 'element-plus'
-import { useFormTabStore } from '../../stores/mfa01/form_tab_store'
+import { useFormTabStore } from '../../../../../stores/mfa01/form_tab_store'
 
 const labelPosition = ref<FormProps['labelPosition']>('left')
 const { formTabData } = useFormTabStore()
@@ -87,3 +87,10 @@ const productTypeOptions = [
 ]
 const productUnitOptions = ['片', '頁', '粒']
 </script>
+
+<style scoped>
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+</style>
