@@ -77,7 +77,7 @@
     </el-tab-pane>
     <el-tab-pane label="成品製程">
       <div style="width: 40%; float: left;">
-        <el-table :data="formTabData.productStations">
+        <el-table :data="formTabData.productStations" max-height="220px">
           <el-table-column prop="stationNo" label="站別代碼"/>
           <el-table-column prop="stationName" label="站別名稱"/>
         </el-table>
