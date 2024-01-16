@@ -137,6 +137,7 @@ const toggleVertical = () => {
   width: 70%;
   min-height: 100vh;
   margin: 0 auto;
+  padding: 12px;
 }
 
 .el-footer {
@@ -178,7 +179,7 @@ h2 {
 .el-breadcrumb {
   width: 70%;
   margin: 0 auto;
-  padding: 0 0 12px 20px;
+  padding: 0 12px;
 }
 
 .el-container {

@@ -1,0 +1,13 @@
+.container-horizontal {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-card-horizontal {
+  margin-right: 10px;
+}
+
+.form-card-vertical {
+  margin-bottom: 16px;
+}

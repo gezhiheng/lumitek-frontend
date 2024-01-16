@@ -290,8 +290,4 @@ const custNos = ['-','08','11','12','13','13A','17','18','19','20','21','22',]
 .dialog {
   max-width: 10%;
 }
-
-.main {
-  margin-left: 8px;
-}
 </style>

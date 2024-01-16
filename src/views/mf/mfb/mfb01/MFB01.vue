@@ -96,6 +96,7 @@ const setInsertMode = (mode) => {
 </script>
 
 <style scoped>
+@import url('@/style/toggle-vertical.css');
 h1 {
   display: inline-block;
   line-height: 40px;
@@ -105,32 +106,5 @@ header {
   display: flex;
   justify-content: space-between;
   margin: 15px 0 15px 0;
-}
-
-.switch {
-  margin-left: 10px;
-}
-
-.container-horizontal {
-  margin-top: 10px;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.form-card-horizontal {
-  margin-right: 10px;
-}
-
-.table-card-horizontal {
-  margin-left: 10px;
-}
-
-.form-card-vertical {
-  margin: 10px 10px 16px 10px;
-}
-
-.table-card-vertical {
-  margin-left: 8px;
 }
 </style>

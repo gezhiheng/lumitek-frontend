@@ -236,10 +236,6 @@ const checkField = () => {
 </script>
 
 <style scoped>
-.container {
-  margin: 10px 10px 0 10px;
-}
-
 .form {
   margin-bottom: 10px;
 }

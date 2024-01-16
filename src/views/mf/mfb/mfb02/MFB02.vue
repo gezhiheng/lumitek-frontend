@@ -101,26 +101,5 @@ const change = async function(index) {
 </script>
 
 <style scoped>
-.container-horizontal {
-  margin-top: 10px;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.form-card-horizontal {
-  margin: 0 10px 0 12px;
-}
-
-.table-card-horizontal {
-  margin: 0 10px 0 12px;
-}
-
-.form-card-vertical {
-  margin: 10px 10px 16px 10px;
-}
-
-.table-card-vertical {
-  margin: 0 8px;
-}
+@import url('@/style/toggle-vertical.css');
 </style>
