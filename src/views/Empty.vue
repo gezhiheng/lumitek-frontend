@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <el-empty description="该功能尚未开发" />
+    <el-empty description="該功能尚未開發" />
   </div>
 </template>
 
