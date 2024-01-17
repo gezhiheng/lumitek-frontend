@@ -1,6 +1,6 @@
 <template>
   <el-form 
-    :label-position="labelPosition" 
+    label-position="left" 
     :inline="true" 
     :model="formTabData.form" 
     label-width="120px"
@@ -50,12 +50,15 @@
   </el-form>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-import type { FormProps } from 'element-plus'
-import { useFormTabStore } from '../../../../../stores/mfa01/form_tab_store'
+<script setup>
+import { useFormTabStore } from '@/stores/mfa01/form_tab_store'
+import {
+  statusOptions,
+  productInTypeOptions,
+  productTypeOptions,
+  productUnitOptions
+} from '../constants'
 
-const labelPosition = ref<FormProps['labelPosition']>('left')
 const { formTabData } = useFormTabStore()
 const props = defineProps({
   queryMode: Boolean
