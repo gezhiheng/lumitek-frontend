@@ -93,7 +93,7 @@
       </div>
     </template>
     <div :class="{ formContainer: verticalLayoutFlag }">
-      <el-form label-width="120px">
+      <el-form label-width="120px" label-position="left">
         <el-text size="large" style="float: right; font-size: 30px;" class="mx-1" type="primary">{{ formTableData.form.status }}</el-text>
         <el-form-item label="客戶碼">
           <el-select v-model="formTableData.form.custNo" placeholder="請選擇">
@@ -138,6 +138,7 @@ import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { useQueryStore } from '@/stores/mfb01/query_conditions_store'
 import { mfb01Add, mfb01Repeal } from '@/service/mf/mfb/mfb01'
 import { resolveAlert } from '@/utils/reslove_alert'
+import { custNos } from '../constants'
 
 const props = defineProps({
   verticalLayoutFlag: Boolean
@@ -272,8 +273,6 @@ const repeal = () => {
     resolveAlert(resolve)
   })
 }
-
-const custNos = ['-','08','11','12','13','13A','17','18','19','20','21','22',]
 </script>
 
 <style scoped>

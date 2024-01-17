@@ -74,7 +74,7 @@
         </el-form>
       </el-dialog>
     </template>
-    <el-form label-width="120px">
+    <el-form label-width="120px" label-position="left">
       <el-form-item label="單號">
         <el-input v-model="sharedData.form.applyNo" :disabled="state.queryMode"/>
       </el-form-item>
@@ -121,9 +121,10 @@
       stripe 
       style="width: 100%;" 
       :height="state.showMoreData ? 200 : 100" 
+      empty-text="沒有數據"
     >
       <el-table-column 
-        v-for="colum in tableColum" 
+        v-for="colum in formTableColumns" 
         :prop="colum.prop" 
         :label="colum.label" 
         :width="colum.width" 
@@ -138,6 +139,7 @@ import { reactive, watch, nextTick, toRaw } from 'vue'
 import swal from 'sweetalert'
 import { DocumentAdd, Delete, Search } from '@element-plus/icons-vue'
 import { query, add, repeal } from '@/service/mf/mfb/mfb02'
+import { formTableColumns } from '../constants'
 
 const staffNo = window.sessionStorage.getItem('staffNo')
 const emits = defineEmits(['resetSlider', 'updateSharedData'])
@@ -290,54 +292,6 @@ const onAdd = async () => {
     state.fullscreenLoading = false
   }
 }
-
-const tableColum = [
-  {
-    prop: 'productSeqNo',
-    label: '子批號',
-    width: 110
-  },
-  {
-    prop: 'ST_lotNo',
-    label: '客戶批號',
-    width: 190
-  },
-  {
-    prop: 'ST_itemNo',
-    label: '客戶項次',
-    width: 90
-  },
-  {
-    prop: 'ST_WIPID',
-    label: '晶片刻號',
-    width: 120
-  },
-  {
-    prop: 'ST_laserMark',
-    label: 'LaserMark',
-    width: 130
-  },
-  {
-    prop: 'status',
-    label: '狀態',
-    width: 90
-  },
-  {
-    prop: 'StageNo',
-    label: '站別',
-    width: 90
-  },
-  {
-    prop: 'StepNo',
-    label: '子站別',
-    width: 90
-  },
-  {
-    prop: 'PROD_BATCH_M',
-    label: '母批號',
-    width: 120
-  },
-]
 </script>
 
 <style scoped>
