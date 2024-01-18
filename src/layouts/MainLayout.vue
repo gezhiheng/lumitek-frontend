@@ -76,6 +76,7 @@ import { useDark, useToggle } from "@vueuse/core"
 import { ElNotification } from 'element-plus'
 import { Setting, Delete, DeleteFilled } from '@element-plus/icons-vue'
 import { VueDraggable } from 'vue-draggable-plus'
+import 'animate.css'
 import Footer from '@/components/Footer.vue'
 import Menu from '@/components/Menu.vue'
 import { useSettingsStore } from '@/stores/settings_store'
