@@ -15,14 +15,14 @@ const { setModeActive } = useSettingsStore()
 
 watch(() => router.currentRoute.value.path, (newFullPath, oldFullPath) => {
   const name = newFullPath.slice(1)
-  const feature = useableFeatures.find(item => item.index === name)
-  if (feature) {
-    title.value = feature.label
-    const pushFlag = !breadcrumbs.value.some(item => item.name === feature.label)
+  const label = useableFeatures[name]
+  if (label) {
+    title.value = label
+    const pushFlag = !breadcrumbs.value.some(item => item.name === label)
     if(pushFlag) {
       breadcrumbs.value.push({
         path: newFullPath,
-        name: feature.label
+        name: label
       })
     }
   } else {

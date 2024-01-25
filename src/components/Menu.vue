@@ -54,16 +54,9 @@ onMounted(async () => {
 })
 
 const handleSelect = (index) => {
-  let feature = ''
-  useableFeatures.forEach(item => {
-    if (item.index === index) {
-      activeIndex.value = index
-      feature = item.index
-      router.push({ name: item.index })
-      return
-    }
-  })
-  if (feature === '') {
+  if (useableFeatures[index]) {
+    setActiveMenuIndex(index)
+  } else {
     router.push({ name: 'empty' })
   }
 }
