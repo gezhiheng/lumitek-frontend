@@ -35,12 +35,12 @@ watch(() => router.currentRoute.value.path, (newFullPath, oldFullPath) => {
 })
 
 const setSettings = (name) => {
-  modeSettings.forEach(item => {
-    if (item.routerName === name) {
-      Object.keys(item.settings).forEach(key => {
-        setModeActive(key, item.settings[key])
-      })
-    }
+  const settingsObj = modeSettings[name]
+  if (!settingsObj) {
+    return
+  }
+  Object.keys(settingsObj).forEach(key => {
+    setModeActive(key, settingsObj[key])
   })
 }
 

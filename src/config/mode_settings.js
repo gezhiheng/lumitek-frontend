@@ -1,25 +1,20 @@
-const modeSettings = [
-  {
-    routerName: 'mfb01',
-    settings: {
-      darkMode: true,
-      verticalMode: true
-    }
+const modeSettings = {
+  mfb01: {
+    darkMode: true,
+    verticalMode: true,
   },
-  {
-    routerName: 'mfa01',
-    settings: {
-      darkMode: true,
-      verticalMode: false
-    }
+  mfa01: {
+    darkMode: true,
+    verticalMode: false,
   },
-  {
-    routerName: 'mfb02',
-    settings: {
-      darkMode: true,
-      verticalMode: true
-    }
-  }
-]
+  mfb02: {
+    darkMode: true,
+    verticalMode: true,
+  },
+  mfb04: {
+    darkMode: true,
+    verticalMode: false,
+  },
+}
 
 export default modeSettings
