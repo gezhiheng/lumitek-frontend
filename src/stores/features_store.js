@@ -14,3 +14,13 @@ export const useFeaturesStore = defineStore('features', () => {
 
   return { featuresRequest, setFeaturesRequest }
 })
+
+export const useActiveMenuIndexStore = defineStore('activeMenuIndex', () => {
+  const activeMenuIndex = ref('')
+
+  function setActiveMenuIndex(index) {
+    activeMenuIndex.value = index
+  }
+
+  return { activeMenuIndex, setActiveMenuIndex }
+})
