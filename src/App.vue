@@ -8,10 +8,12 @@ import router from '@/router'
 import useableFeatures from '@/config/useable_features'
 import modeSettings from '@/config/mode_settings'
 import { useSettingsStore } from '@/stores/settings_store'
+import { useActiveMenuIndexStore } from '@/stores/features_store'
 
 const title = ref('')
 const breadcrumbs = ref([])
 const { setModeActive } = useSettingsStore()
+const { setActiveMenuIndex } = useActiveMenuIndexStore()
 
 watch(() => router.currentRoute.value.path, (newFullPath, oldFullPath) => {
   const name = newFullPath.slice(1)
@@ -24,8 +26,10 @@ watch(() => router.currentRoute.value.path, (newFullPath, oldFullPath) => {
         path: newFullPath,
         name: label
       })
+      setActiveMenuIndex(name)
     }
   } else {
+    setActiveMenuIndex('')
     title.value = ''
   }
   if (name === 'welcome') {
