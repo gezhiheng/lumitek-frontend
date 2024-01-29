@@ -46,8 +46,8 @@
     </div>
     <el-popover placement="top" :width="180" trigger="hover">
       <template #reference>
-        <el-button class="settings_btn" circle size="60">
-          <el-icon size="40">
+        <el-button class="settings_btn" circle :size="'large'">
+          <el-icon size="30">
             <Setting />
           </el-icon>
         </el-button>
