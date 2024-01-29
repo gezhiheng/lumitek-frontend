@@ -26,6 +26,11 @@ const router = createRouter({
           component: () => import('@/views/mf/mfb/mfb02/MFB02.vue'),
         },
         {
+          path: '/mfb04',
+          name: 'mfb04',
+          component: () => import('@/views/mf/mfb/mfb04/MFB04.vue'),
+        },
+        {
           path: '/empty',
           name: 'empty',
           component: () => import('@/views/Empty.vue'),
@@ -41,6 +46,11 @@ const router = createRouter({
       path: '/welcome',
       name: 'welcome',
       component: () => import('@/views/Welcome.vue'),
+    },
+    {
+      path: '/pdf',
+      name: 'pdf',
+      component: () => import('@/views/PDFViewer.vue')
     },
   ]
 })
