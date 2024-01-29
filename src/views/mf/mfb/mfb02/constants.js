@@ -30,12 +30,12 @@ const formTableColumns = [
     width: 90
   },
   {
-    prop: 'StageNo',
+    prop: 'stageNo',
     label: '站別',
     width: 90
   },
   {
-    prop: 'StepNo',
+    prop: 'stepNo',
     label: '子站別',
     width: 90
   },
