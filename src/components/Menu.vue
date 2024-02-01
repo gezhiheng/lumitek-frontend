@@ -2,7 +2,7 @@
   <!-- default-active的默认选中菜单绑定为透传的title 是因为app组件透传时，是把index设置为title -->
   <el-menu mode="horizontal" 
     class="el-menu el-menu-demo" 
-    :ellipsis="false" 
+    :ellipsis="screenWidth <= 1340" 
     :default-active="activeMenuIndex" 
     @Select="handleSelect" 
     router="true"
@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import { onMounted, inject } from 'vue'
+import { onMounted, inject, ref } from 'vue'
 import { useDark } from "@vueuse/core"
 import { getFeatures }  from '@/service/user'
 import { useFeaturesStore, useActiveMenuIndexStore } from '@/stores/features_store'
@@ -47,6 +47,7 @@ const title = inject('title')
 const staffNo = window.sessionStorage.getItem('staffNo')
 const { featuresRequest, setFeaturesRequest } = useFeaturesStore()
 const { activeMenuIndex, setActiveMenuIndex } = useActiveMenuIndexStore()
+const screenWidth = ref(0)
 
 onMounted(async () => {
   if (!featuresRequest.requested) {
@@ -55,6 +56,7 @@ onMounted(async () => {
     })
     setFeaturesRequest(featuresRequested)
   }
+  screenWidth.value = window.innerWidth
 })
 
 const handleSelect = (index) => {
