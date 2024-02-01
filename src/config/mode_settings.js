@@ -15,6 +15,10 @@ const modeSettings = {
     darkMode: true,
     verticalMode: false,
   },
+  qca02: {
+    darkMode: true,
+    verticalMode: false,
+  }
 }
 
 export default modeSettings

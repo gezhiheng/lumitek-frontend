@@ -108,6 +108,22 @@
       ]
     },
     {
+      "index": "qc",
+      "label": "QC-品保相關",
+      "children": [
+        {
+          "index": "qca",
+          "label": "QCA-進貨檢驗作業",
+          "children": [
+            {
+              "index": "qca02",
+              "label": "QCA02-進貨檢驗過站"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "index": "hr",
       "label": "HR-人力資源",
       "children": [
