@@ -47,6 +47,7 @@
       <el-button
         type="primary"
         @click="brushInBtnOnClick"
+        v-loading.fullscreen.lock="fullscreenLoading"
       >製程過站</el-button>
     </div>
     <div class="descriptions-area">
@@ -77,6 +78,7 @@ const data = reactive({
   ],
 })
 const lotNoInputRef = ref(null)
+const fullscreenLoading = ref(false)
 
 const focusLotNoInput = () => {
   nextTick(() => { lotNoInputRef.value.focus() })
@@ -97,20 +99,26 @@ const lotNoInputOnEnter = async () => {
 
 const brushInBtnOnClick = async () => {
   const staffNo = window.sessionStorage.getItem('staffNo')
-  await passStation(
-    {
-      staffNo: staffNo,
-      lotNo: data.lotNo,
-      tableData: data.brushInTable,
-      total: data.total,
-      brushed: data.brushed,
-    }
-  ).then(resolve => {
-    console.log('🚀 ~ brushInBtnOnClick ~ resolve:', resolve)
-    resolve?.data?.errMsg?.forEach(msg => {
-      data.messageTable.push({ message: msg })
+  try {
+    fullscreenLoading.value = true
+    await passStation(
+      {
+        staffNo: staffNo,
+        lotNo: data.lotNo,
+        tableData: data.brushInTable,
+        total: data.total,
+        brushed: data.brushed,
+      }
+    ).then(resolve => {
+      console.log('🚀 ~ brushInBtnOnClick ~ resolve:', resolve)
+      data.messageTable = []
+      resolve?.data?.errMsg?.forEach(msg => {
+        data.messageTable.push({ message: msg })
+      })
     })
-  })
+  } finally {
+    fullscreenLoading.value = false
+  }
 }
 
 const clearBtnOnClick = () => {
