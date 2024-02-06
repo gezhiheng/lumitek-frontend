@@ -110,7 +110,6 @@ const brushInBtnOnClick = async () => {
         brushed: data.brushed,
       }
     ).then(resolve => {
-      console.log('🚀 ~ brushInBtnOnClick ~ resolve:', resolve)
       data.messageTable = []
       resolve?.data?.errMsg?.forEach(msg => {
         data.messageTable.push({ message: msg })
