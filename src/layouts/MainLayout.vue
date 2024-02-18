@@ -160,6 +160,7 @@ h2 {
   position: fixed;
   bottom: 100px;
   right: 100px;
+  box-shadow: var(--shawdow)
 }
 
 .header {
