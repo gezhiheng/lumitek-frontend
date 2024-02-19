@@ -5,7 +5,7 @@
       style="width: 100%" 
       lazy="true"
       :data="tableData" 
-      :height="showMoreData ? 600 : 500" 
+      :height="(showMoreData || refresh) ? 600 : 500" 
       empty-text="沒有數據"
       @row-click="onTableClick"
     >
@@ -32,13 +32,15 @@ const props = defineProps({
   showMoreData: false
 })
 const tableData = ref([])
+const refresh = ref(false)
 const emits = defineEmits(['updateSharedData'])
 
 watch(() => props.sharedData.changeTableData, async () => {
   await initTable().then(resolve => {
-    resolve?.data?.form?.forEach(item => {
-      tableData.value.push(item)
-    })
+    if (resolve.data.form) {
+      tableData.value = resolve.data.form
+      refresh.value = true
+    }
   })
 })
 
