@@ -21,7 +21,7 @@
     <el-form-item label="批單位數量">
       <el-input v-model="formTabData.form.batchQty" />
     </el-form-item>
-    <el-form-item label="客戶内部料號" >
+    <el-form-item label="客戶內部料號" >
       <el-input v-model="formTabData.form.custProductPartName" />
     </el-form-item>
     <el-form-item label="製程別" >
