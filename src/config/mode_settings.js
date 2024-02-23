@@ -5,7 +5,6 @@ const modeSettings = {
   },
   mfa01: {
     darkMode: true,
-    verticalMode: false,
   },
   mfb02: {
     darkMode: true,
@@ -13,12 +12,13 @@ const modeSettings = {
   },
   mfb04: {
     darkMode: true,
-    verticalMode: false,
   },
   qca02: {
     darkMode: true,
-    verticalMode: false,
-  }
+  },
+  mfd01: {
+    darkMode: true,
+  },
 }
 
 export default modeSettings

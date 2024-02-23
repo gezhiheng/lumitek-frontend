@@ -104,6 +104,16 @@
               "label": "MFB04-RunCard列印"
             }
           ]
+        },
+        {
+          "index": "mfd",
+          "label": "MFD-晶圓制程作業",
+          "children": [
+            {
+              "index": "mfd01",
+              "label": "MFD01-扣留處理作業"
+            }
+          ]
         }
       ]
     },

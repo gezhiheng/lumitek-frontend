@@ -36,6 +36,11 @@ const router = createRouter({
           component: () => import('@/views/qc/qca/QCA02.vue'),
         },
         {
+          path: '/mfd01',
+          name: 'mfd01',
+          component: () => import('@/views/mf/mfd/mfd01/MFD01.vue'),
+        },
+        {
           path: '/empty',
           name: 'empty',
           component: () => import('@/views/Empty.vue'),
