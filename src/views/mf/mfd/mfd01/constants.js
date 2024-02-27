@@ -14,27 +14,27 @@ const unholdParams = [
 ]
 
 const formAttributes = {
-  applyNo: 'WPH2402110001',
-  productSeqNo: 'B2420061',
-  holdOn: '2024-02-19T15:00:09.887',
-  holdDepNo: '製造部',
-  holdBy: 'LC0006',
-  stageNo: 'O000',
-  stepNo: '7677',
+  applyNo: '',
+  productSeqNo: '',
+  holdOn: '',
+  holdDepNo: '',
+  holdBy: '',
+  stageNo: '',
+  stepNo: '',
   holdType: '',
-  holdCode: '123',
-  holdCommand: 'aaa',
+  holdCode: '',
+  holdCommand: '',
   unholdBy: '',
   unholdDepNo: '',
   unholdOn: '',
   unholdCommand: '',
-  depNo: '生管',
-  status: '待處理'
+  depNo: '',
+  status: ''
 }
 
 const queryFormAttributes =  {
   dataIndex: 0,
-  F_INP_STAT: '待處理',
+  F_INP_STAT: '',
   ST_WIPID: '',
   applyNo: '',
   productSeqNo: '',

@@ -51,7 +51,7 @@
       </el-form-item>
       <el-form-item class="btn-group">
         <el-button type="primary" @click="queryBtnOnClick" v-loading.fullscreen.lock="fullscreenLoading">查詢</el-button>
-        <el-button @click="dialogFormVisible = false">取消</el-button>
+        <el-button @click="dialogVisible = false">取消</el-button>
         <el-button @click="clearQueryCondition">清空</el-button>
       </el-form-item>
     </el-form>
@@ -60,33 +60,27 @@
 
 <script setup>
 import { reactive, ref, toRaw } from 'vue'
+import swal from 'sweetalert'
+import { queryFormAttributes } from '../constants'
 import { query } from '@/service/mf/mfd/mfd01'
 
 const dialogVisible = defineModel({ default: false })
 
 const fullscreenLoading = ref(false)
 
-const emits = defineEmits(['getData'])
+const emits = defineEmits(['getQueryData'])
 
-const form = reactive({
-  dataIndex: 0,
-  F_INP_STAT: '待處理',
-  ST_WIPID: '',
-  applyNo: '',
-  productSeqNo: '',
-  holdstartTime: '',
-  holdendTime: '',
-  holdBy: '',
-  unholdstartTime: '',
-  unholdendTime: '',
-  unholdBy: ''
-})
+const form = reactive(Object.assign({}, queryFormAttributes))
 
 const queryBtnOnClick = async () => {
   try {
     fullscreenLoading.value = true
     await query(form).then(res => {
-      emits('getData', {
+      if (res.data.dataSize === 0) {
+        swal('注意', '沒有查詢到結果', 'warning')
+        return
+      }
+      emits('getQueryData', {
         conditions: toRaw(form),
         res: res.data,
         dataSize: res.data.dataSize
@@ -96,6 +90,10 @@ const queryBtnOnClick = async () => {
     fullscreenLoading.value = false
     dialogVisible.value = false
   }
+}
+
+const clearQueryCondition = () => {
+  Object.assign(form, queryFormAttributes)
 }
 </script>
 
