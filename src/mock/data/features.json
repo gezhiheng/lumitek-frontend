@@ -112,6 +112,10 @@
             {
               "index": "mfd01",
               "label": "MFD01-扣留處理作業"
+            },
+            {
+              "index": "mfd02",
+              "label": "MFD02-站別處理作業"
             }
           ]
         }
