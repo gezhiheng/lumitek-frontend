@@ -3,12 +3,13 @@
     <div class="brush-area">
       <el-form
         label-position="left"
+        @submit.prevent
       >
         <el-form-item label="子批號">
-          <el-input v-model="data.waferNo" @keydown.enter="focusLotNoInput" placeholder="請刷入子批號"></el-input>
+          <el-input v-model="data.productSeqNo" @keydown.enter="productSeqNoInputOnEnter" placeholder="請刷入子批號"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-radio-group v-model="data.status">
+          <el-radio-group v-model="data.processType">
             <el-radio label="normal">一般處理作業</el-radio>
             <el-radio label="cancel">一般取消終止</el-radio>
           </el-radio-group>
@@ -21,7 +22,7 @@
       >
         <el-table-column width="150" prop="productSeqNo" label="子批號"/>
         <el-table-column width="150" prop="waferNo" label="製程"/>
-        <el-table-column width="150" prop="waferN1o" label="工序"/>
+        <el-table-column width="150" prop="stepNo" label="工序"/>
       </el-table>
     </div>
     <div class="message-area">
@@ -48,15 +49,19 @@
         @click="clearBtnOnClick"
       >清空</el-button>
       <el-button
+        :disabled="data.processType !== 'normal'"
         @click="clearBtnOnClick"
       >終止製程</el-button>
       <el-button
+        :disabled="data.processType !== 'normal'"
         @click="clearBtnOnClick"
       >跳過製程</el-button>
       <el-button
+        :disabled="data.processType !== 'normal'"
         @click="clearBtnOnClick"
       >製程回推</el-button>
       <el-button
+        :disabled="data.processType === 'normal'"
         @click="clearBtnOnClick"
       >取消終止</el-button> 
     </div>
@@ -65,10 +70,11 @@
 
 <script setup>
 import { ref, reactive, nextTick } from 'vue'
-import { brushInData, passStation } from '@/service/qc/qca/qca02'
+import { brushInData } from '@/service/mf/mfd/mfd02'
 
 const data = reactive({
-  status: 'normal',
+  processType: 'normal',
+  productSeqNo: '',
   lotNo: '',
   waferNo: '',
   total: '0',
@@ -78,47 +84,18 @@ const data = reactive({
     { message: '測試資料' }
   ],
 })
-const lotNoInputRef = ref(null)
 const fullscreenLoading = ref(false)
 
-const focusLotNoInput = () => {
-  nextTick(() => { lotNoInputRef.value.focus() })
-}
-
-const lotNoInputOnEnter = async () => {
+const productSeqNoInputOnEnter = async () => {
   await brushInData({
-    lotNo: data.lotNo,
-    waferNo: data.waferNo,
-    tableData: data.brushInTable
-  }).then(resolve => {
-    console.log('🚀 ~ lotNoInputOnEnter ~ resolve:', resolve)
-    data.brushInTable = resolve.data.tableData
-    data.total = resolve.data.total
-    data.brushed = resolve.data.brushed
+    productSeqNo: data.productSeqNo,
+    processType: data.processType,
+    tableData: data.brushInTable,
   })
-}
-
-const brushInBtnOnClick = async () => {
-  const staffNo = window.sessionStorage.getItem('staffNo')
-  try {
-    fullscreenLoading.value = true
-    await passStation(
-      {
-        staffNo: staffNo,
-        lotNo: data.lotNo,
-        tableData: data.brushInTable,
-        total: data.total,
-        brushed: data.brushed,
-      }
-    ).then(resolve => {
-      data.messageTable = []
-      resolve?.data?.errMsg?.forEach(msg => {
-        data.messageTable.push({ message: msg })
-      })
-    })
-  } finally {
-    fullscreenLoading.value = false
-  }
+  .then(resolve => {
+    data.brushInTable = []
+    data.brushInTable = resolve.data.tbData
+  })
 }
 
 const clearBtnOnClick = () => {
