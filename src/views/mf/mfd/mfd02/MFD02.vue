@@ -44,17 +44,18 @@
   </div>
   <div class="btn-descriptions-area">
     <div class="btn-area">
+      <el-button style="display: none;" v-loading.fullscreen.lock="state.fullscreenLoading"></el-button>
       <el-button
         type="danger"
         @click="clearBtnOnClick"
       >清空</el-button>
       <el-button
         :disabled="data.processType !== 'normal'"
-        @click="clearBtnOnClick"
+        @click="state.dialogVisible = true"
       >終止製程</el-button>
       <el-button
         :disabled="data.processType !== 'normal'"
-        @click="clearBtnOnClick"
+        @click="skipStationBtnOnclick"
       >跳過製程</el-button>
       <el-button
         :disabled="data.processType !== 'normal'"
@@ -66,36 +67,115 @@
       >取消終止</el-button> 
     </div>
   </div>
+  <el-dialog
+    v-model="state.dialogVisible"
+    title="終止製程"
+    width="270"
+    @open="dialogOnOpen"
+  >
+    <el-select
+      v-model="data.cmdSelected"
+      style="width: 240px"
+    >
+    <el-option
+      v-for="item in data.cmd"
+      :key="item.cmdCode"
+      :label="item.cmdDesc"
+      :value="item"
+    />
+    </el-select>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">
+          確定
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
 </template>
 
 <script setup>
-import { ref, reactive, nextTick } from 'vue'
-import { brushInData } from '@/service/mf/mfd/mfd02'
+import { reactive } from 'vue'
+import { brushInData, skipStation, cancelStation, getCancelStationCauses } from '@/service/mf/mfd/mfd02'
 
 const data = reactive({
   processType: 'normal',
   productSeqNo: '',
-  lotNo: '',
-  waferNo: '',
-  total: '0',
-  brushed: '0',
+  cmd: [],
+  cmdSelected: {},
   brushInTable: [],
   messageTable: [
     { message: '測試資料' }
   ],
 })
-const fullscreenLoading = ref(false)
+const state = reactive({
+  fullscreenLoading: false,
+  dialogVisible: false,
+})
+const staffNo = window.sessionStorage.getItem('staffNo')
 
 const productSeqNoInputOnEnter = async () => {
-  await brushInData({
-    productSeqNo: data.productSeqNo,
-    processType: data.processType,
-    tableData: data.brushInTable,
-  })
+  state.fullscreenLoading = true
+  try {
+    await brushInData({
+      productSeqNo: data.productSeqNo,
+      processType: data.processType,
+      tableData: data.brushInTable,
+    })
+    .then(resolve => {
+      data.brushInTable = []
+      data.brushInTable = resolve.data.tbData
+    })
+  } finally {
+    state.fullscreenLoading = false
+  }
+}
+
+const skipStationBtnOnclick = async () => {
+  state.fullscreenLoading = true
+  try {
+    await skipStation({
+      staffNo: staffNo,
+      tableData: data.brushInTable,
+    })
+    .then(resolve => {
+      data.messageTable = []
+      data.messageTable = resolve.data.errMsg
+    })
+  } finally {
+    state.fullscreenLoading = false
+  }
+}
+
+const dialogOnOpen = async () => {
+  if (data.cmd.length > 0) {
+    return
+  }
+  await getCancelStationCauses()
   .then(resolve => {
-    data.brushInTable = []
-    data.brushInTable = resolve.data.tbData
+    data.cmd = []
+    resolve?.data?.cancelCauses?.forEach(item => {
+      data.cmd.push(item)
+    })
   })
+}
+
+const doCancelStation = async () => {
+  state.dialogVisible = true
+  state.fullscreenLoading = true
+  try {
+    await cancelStation({
+      staffNo: staffNo,
+      tableData: data.brushInTable,
+    })
+    .then(resolve => {
+      data.messageTable = []
+      data.messageTable = resolve.data.errMsg
+    })
+  } finally {
+    state.fullscreenLoading = false
+  }
 }
 
 const clearBtnOnClick = () => {
