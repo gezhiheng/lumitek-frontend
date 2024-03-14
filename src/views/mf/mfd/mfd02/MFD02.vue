@@ -9,7 +9,7 @@
           <el-input v-model="data.productSeqNo" @keydown.enter="productSeqNoInputOnEnter" placeholder="請刷入子批號"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-radio-group v-model="data.processType">
+          <el-radio-group v-model="data.processType" @change="data.brushInTable = []">
             <el-radio label="normal">一般處理作業</el-radio>
             <el-radio label="cancel">一般取消終止</el-radio>
           </el-radio-group>
@@ -44,27 +44,23 @@
   </div>
   <div class="btn-descriptions-area">
     <div class="btn-area">
-      <el-button style="display: none;" v-loading.fullscreen.lock="state.fullscreenLoading"></el-button>
       <el-button
-        type="danger"
-        @click="clearBtnOnClick"
-      >清空</el-button>
-      <el-button
-        :disabled="data.processType !== 'normal'"
-        @click="state.dialogVisible = true"
+      :disabled="data.processType !== 'normal'"
+      @click="state.dialogVisible = true"
       >終止製程</el-button>
       <el-button
-        :disabled="data.processType !== 'normal'"
-        @click="skipStationBtnOnclick"
+      :disabled="data.processType !== 'normal'"
+      @click="skipStationBtnOnclick"
       >跳過製程</el-button>
       <el-button
-        :disabled="data.processType !== 'normal'"
-        @click="clearBtnOnClick"
+      :disabled="data.processType !== 'normal'"
+      @click="rollBackStationBtnOnclick"
       >製程回推</el-button>
       <el-button
-        :disabled="data.processType === 'normal'"
-        @click="clearBtnOnClick"
+      :disabled="data.processType === 'normal'"
+      @click="unCancelStationBtnOnclick"
       >取消終止</el-button> 
+      <el-button style="display: none;" v-loading.fullscreen.lock="state.fullscreenLoading"></el-button>
     </div>
   </div>
   <el-dialog
@@ -76,18 +72,19 @@
     <el-select
       v-model="data.cmdSelected"
       style="width: 240px"
+      value-key="cmdCode"
     >
-    <el-option
-      v-for="item in data.cmd"
-      :key="item.cmdCode"
-      :label="item.cmdDesc"
-      :value="item"
-    />
+      <el-option
+        v-for="item in data.cmd"
+        :key="item.cmdCode"
+        :label="item.cmdDesc"
+        :value="item"
+      />
     </el-select>
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">
+        <el-button @click="state.dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="doCancelStationBtnOnclick">
           確定
         </el-button>
       </div>
@@ -97,7 +94,14 @@
 
 <script setup>
 import { reactive } from 'vue'
-import { brushInData, skipStation, cancelStation, getCancelStationCauses } from '@/service/mf/mfd/mfd02'
+import { 
+  brushInData, 
+  skipStation, 
+  cancelStation, 
+  getCancelStationCauses, 
+  rollBackStation,
+  unCancelStation 
+} from '@/service/mf/mfd/mfd02'
 
 const data = reactive({
   processType: 'normal',
@@ -133,19 +137,7 @@ const productSeqNoInputOnEnter = async () => {
 }
 
 const skipStationBtnOnclick = async () => {
-  state.fullscreenLoading = true
-  try {
-    await skipStation({
-      staffNo: staffNo,
-      tableData: data.brushInTable,
-    })
-    .then(resolve => {
-      data.messageTable = []
-      data.messageTable = resolve.data.errMsg
-    })
-  } finally {
-    state.fullscreenLoading = false
-  }
+  doFn(skipStation)
 }
 
 const dialogOnOpen = async () => {
@@ -161,29 +153,56 @@ const dialogOnOpen = async () => {
   })
 }
 
-const doCancelStation = async () => {
-  state.dialogVisible = true
+const doCancelStationBtnOnclick = async () => {
   state.fullscreenLoading = true
   try {
     await cancelStation({
       staffNo: staffNo,
       tableData: data.brushInTable,
+      cmdCode: data.cmdSelected.cmdCode,
+      cmdDesc: data.cmdSelected.cmdDesc,
     })
     .then(resolve => {
       data.messageTable = []
-      data.messageTable = resolve.data.errMsg
+      resolve?.data?.errMsg?.forEach(item => {
+        data.messageTable.push({
+          message: item,
+        })
+      })
+    })
+  } finally {
+    state.fullscreenLoading = false
+    state.dialogVisible = false
+  }
+}
+
+const rollBackStationBtnOnclick = async () => {
+  doFn(rollBackStation)
+}
+
+const unCancelStationBtnOnclick = async () => {
+  doFn(unCancelStation)
+}
+
+const doFn = async (fn) => {
+  state.fullscreenLoading = true
+  try {
+    await fn({
+      staffNo: staffNo,
+      tableData: data.brushInTable,
+    })
+    .then(resolve => {
+      data.messageTable = []
+      data.messageTable = []
+      resolve?.data?.errMsg?.forEach(item => {
+        data.messageTable.push({
+          message: item,
+        })
+      })
     })
   } finally {
     state.fullscreenLoading = false
   }
-}
-
-const clearBtnOnClick = () => {
-  data.lotNo = ''
-  data.waferNo = ''
-  data.total = '0'
-  data.brushed = '0'
-  data.brushInTable = []
 }
 
 const clearMessageBtnOnclick = () => {
@@ -235,10 +254,5 @@ const clearMessageBtnOnclick = () => {
 .descriptions-area {
   display: flex;
   align-items: center;
-}
-
-.description {
-  color: var(--el-text-color-regular);
-  margin-right: 16px;
 }
 </style>

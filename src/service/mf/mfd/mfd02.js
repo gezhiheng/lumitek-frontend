@@ -26,3 +26,15 @@ export async function getCancelStationCauses() {
     handleApiError('mfd02/getCancelStationCauses', error)
   })
 }
+
+export async function rollBackStation(params) {
+  return await axios.post(`${apiBaseUrl}mfd02/rollback-station/`, params).catch(error => {
+    handleApiError('mfd02/rollBackStation', error)
+  })
+}
+
+export async function unCancelStation(params) {
+  return await axios.post(`${apiBaseUrl}mfd02/uncancel-station/`, params).catch(error => {
+    handleApiError('mfd02/unCancelStation', error)
+  })
+}
