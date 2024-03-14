@@ -45,20 +45,20 @@
   <div class="btn-descriptions-area">
     <div class="btn-area">
       <el-button
-      :disabled="data.processType !== 'normal'"
-      @click="state.dialogVisible = true"
+        :disabled="data.processType !== 'normal'"
+        @click="state.dialogVisible = true"
       >終止製程</el-button>
       <el-button
-      :disabled="data.processType !== 'normal'"
-      @click="skipStationBtnOnclick"
+        :disabled="data.processType !== 'normal'"
+        @click="skipStationBtnOnclick"
       >跳過製程</el-button>
       <el-button
-      :disabled="data.processType !== 'normal'"
-      @click="rollBackStationBtnOnclick"
+        :disabled="data.processType !== 'normal'"
+        @click="rollBackStationBtnOnclick"
       >製程回推</el-button>
       <el-button
-      :disabled="data.processType === 'normal'"
-      @click="unCancelStationBtnOnclick"
+        :disabled="data.processType === 'normal'"
+        @click="unCancelStationBtnOnclick"
       >取消終止</el-button> 
       <el-button style="display: none;" v-loading.fullscreen.lock="state.fullscreenLoading"></el-button>
     </div>
@@ -192,7 +192,6 @@ const doFn = async (fn) => {
       tableData: data.brushInTable,
     })
     .then(resolve => {
-      data.messageTable = []
       data.messageTable = []
       resolve?.data?.errMsg?.forEach(item => {
         data.messageTable.push({
