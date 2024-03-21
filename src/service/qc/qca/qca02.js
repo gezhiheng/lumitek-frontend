@@ -1,16 +1,13 @@
-import axios from "axios"
-import { handleApiError } from '@/utils/handle_api_error'
+import BaseRequest from '@/service/base_request'
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+export default class QCA02Request extends BaseRequest {
+  async brushInData(params) {
+    const res = await this.POST('qca02/brushInData/', params)
+    return res
+  }
 
-export async function brushInData(params) {
-  return await axios.post(`${apiBaseUrl}qca02/brushInData/`, params).catch(error => {
-    handleApiError('mfb01/brushInData', error)
-  })
-}
-
-export async function passStation(params) {
-  return await axios.post(`${apiBaseUrl}qca02/overStation/`, params).catch(error => {
-    handleApiError('mfb01/passStation', error)
-  })
+  async passStation(params) {
+    const res = await this.POST('qca02/overStation/', params)
+    return res
+  }
 }

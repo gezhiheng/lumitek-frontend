@@ -37,7 +37,7 @@
 <script setup>
 import { onMounted, inject, ref } from 'vue'
 import { useDark } from "@vueuse/core"
-import { getFeatures }  from '@/service/user'
+import UserRequest  from '@/service/user'
 import { useFeaturesStore, useActiveMenuIndexStore } from '@/stores/features_store'
 import router from '@/router'
 import useableFeatures from '@/config/useable_features'
@@ -48,11 +48,12 @@ const staffNo = window.sessionStorage.getItem('staffNo')
 const { featuresRequest, setFeaturesRequest } = useFeaturesStore()
 const { activeMenuIndex, setActiveMenuIndex } = useActiveMenuIndexStore()
 const screenWidth = ref(0)
+const request = new UserRequest()
 
 onMounted(async () => {
   if (!featuresRequest.requested) {
-    const featuresRequested = await getFeatures(staffNo).then((resolve, reject) => {
-      return resolve.data
+    const featuresRequested = await request.getFeatures(staffNo).then(resolve => {
+      return resolve
     })
     setFeaturesRequest(featuresRequested)
   }

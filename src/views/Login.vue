@@ -47,9 +47,10 @@
 import { reactive, ref, nextTick } from 'vue'
 import { UserFilled, Lock } from '@element-plus/icons-vue'
 import swal from 'sweetalert'
-import { login }  from '@/service/user'
+import UserRequest  from '@/service/user'
 import router from '@/router'
 
+const request = new UserRequest()
 const passwordInputRef = ref()
 const focusPassword = () => { nextTick(() => { passwordInputRef.value.focus() }) }
 
@@ -70,13 +71,13 @@ const submit = async (formEl) => {
   if (!formEl) return
   await formEl.validate(async (valid, fields) => {
     if (valid) {   
-      const data = await login({
+      const data = await request.login({
         staffNo: ruleForm.staffNo,
         password: ruleForm.password
-      }).then((resolve, reject) => {
+      }).then(resolve => {
         return {
-          staffNo: resolve.data.staffNo,
-          username: resolve.data.username
+          staffNo: resolve.staffNo,
+          username: resolve.username
         }
       })
       if(data.username) {

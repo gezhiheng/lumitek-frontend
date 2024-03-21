@@ -65,8 +65,9 @@
 
 <script setup>
 import { ref, reactive, nextTick } from 'vue'
-import { brushInData, passStation } from '@/service/qc/qca/qca02'
+import QCA02Request from '@/service/qc/qca/qca02'
 
+const request = new QCA02Request()
 const data = reactive({
   lotNo: 'IVH-CC230729002',
   waferNo: 'JN307080900',
@@ -85,15 +86,14 @@ const focusLotNoInput = () => {
 }
 
 const lotNoInputOnEnter = async () => {
-  await brushInData({
+  await request.brushInData({
     lotNo: data.lotNo,
     waferNo: data.waferNo,
     tableData: data.brushInTable
   }).then(resolve => {
-    console.log('🚀 ~ lotNoInputOnEnter ~ resolve:', resolve)
-    data.brushInTable = resolve.data.tableData
-    data.total = resolve.data.total
-    data.brushed = resolve.data.brushed
+    data.brushInTable = resolve.tableData
+    data.total = resolve.total
+    data.brushed = resolve.brushed
   })
 }
 
@@ -101,7 +101,7 @@ const brushInBtnOnClick = async () => {
   const staffNo = window.sessionStorage.getItem('staffNo')
   try {
     fullscreenLoading.value = true
-    await passStation(
+    await request.passStation(
       {
         staffNo: staffNo,
         lotNo: data.lotNo,
@@ -111,7 +111,7 @@ const brushInBtnOnClick = async () => {
       }
     ).then(resolve => {
       data.messageTable = []
-      resolve?.data?.errMsg?.forEach(msg => {
+      resolve?.errMsg?.forEach(msg => {
         data.messageTable.push({ message: msg })
       })
     })
