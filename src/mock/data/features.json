@@ -84,6 +84,10 @@
             {
               "index": "mfa01",
               "label": "MFA01-產品資料維護"
+            },
+            {
+              "index": "mfa09",
+              "label": "MFA09-HOLD類別維護"
             }
           ]
         },
