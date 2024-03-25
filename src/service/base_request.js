@@ -15,7 +15,12 @@ class BaseRequest {
   }
 
   async GET(url, params) {
-    return await this.request('GET', url, params)
+    if (params) {
+      for (const [key, value] of Object.entries(params)) {
+        url += `?${key}=${value}`
+      }
+    }
+    return await this.request('GET', url)
   }
 
   async POST(url, params) {
