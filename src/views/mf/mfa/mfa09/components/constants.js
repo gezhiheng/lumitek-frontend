@@ -1,5 +1,10 @@
 const holdTypeTableColumns = [
   {
+    prop: 'seqNo',
+    label: 'No',
+    width: 50
+  },
+  {
     prop: 'holdCode',
     label: '扣留代碼',
     width: 180
@@ -41,4 +46,13 @@ const holdTypeTableColumns = [
   },
 ]
 
-export { holdTypeTableColumns }
+const holdTypeDialog = {
+  seqNo: '',
+  isEnable: '0',
+  isWafer: '0',
+  holdCodeOriginal: '',
+  holdCodeModified: '',
+  holdCommand: ''
+}
+
+export { holdTypeTableColumns, holdTypeDialog }
