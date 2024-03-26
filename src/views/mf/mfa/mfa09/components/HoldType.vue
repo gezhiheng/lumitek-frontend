@@ -64,7 +64,7 @@
       </el-form-item>
     </el-form>
   </el-dialog>
-  <el-dialog v-model="state.confirmDialogVisible" title="確認是否刪除" width="500" top="30vh">
+  <el-dialog v-model="state.confirmDialogVisible" title="確認是否刪除" width="195" top="30vh">
     <el-button @click="state.confirmDialogVisible = false">取消</el-button>
     <el-button type="danger" @click="confirmDelBtnOnclick">確認刪除</el-button>
   </el-dialog>
@@ -179,7 +179,3 @@ const refreshTable = async () => {
   })
 }
 </script>
-
-<style scoped>
-
-</style>
