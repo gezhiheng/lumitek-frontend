@@ -55,4 +55,39 @@ const holdTypeDialog = {
   holdCommand: ''
 }
 
-export { holdTypeTableColumns, holdTypeDialog }
+// 表格的列不多不需要指定宽度，自撑开就行
+const cancelTableColmuns = [
+  {
+    prop: 'command',
+    label: 'command',
+  },
+  {
+    prop: 'createdBy',
+    label: '建立人員',
+  },
+  {
+    prop: 'createdOn',
+    label: '建立日期',
+  },
+  {
+    prop: 'modifiedBy',
+    label: '修改人員',
+  },
+  {
+    prop: 'modifiedOn',
+    label: '修改日期',
+  },
+]
+
+const cancelDialog = {
+  seqNo: '',
+  commandOriginal: '',
+  commandModified: ''
+}
+
+export { 
+  holdTypeTableColumns, 
+  holdTypeDialog, 
+  cancelTableColmuns, 
+  cancelDialog
+}

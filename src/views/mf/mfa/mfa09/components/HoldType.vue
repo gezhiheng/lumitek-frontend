@@ -7,6 +7,7 @@
       style="margin-bottom: 15px; padding: 0;"
       empty-text="沒有數據"
       highlight-current-row
+      :height="data.table.length >= 16 ? 700 : 500"
       :data="data.table"
       @cell-click="tableOnclick"
     >
@@ -68,24 +69,22 @@
     <el-button @click="state.confirmDialogVisible = false">取消</el-button>
     <el-button type="danger" @click="confirmDelBtnOnclick">確認刪除</el-button>
   </el-dialog>
-  <div class="btn-group">
-    <el-button
-      type="primary"
-      @click="addBtnOnclick"
-    >
-      新增一行
-    </el-button>
-  </div>
+  <el-button
+    type="primary"
+    @click="addBtnOnclick"
+  >
+    新增一行
+  </el-button>
 </template>
 
 <script setup>
 import { reactive, onMounted } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import { holdTypeTableColumns, holdTypeDialog } from './constants'
-import MFA09Request from '@/service/mf/mfa/mfa09'
+import { holdTypeRequest } from '@/service/mf/mfa/mfa09'
 import ral from '@/utils/response_alert'
 
-const request = new MFA09Request()
+const request = new holdTypeRequest()
 const staffNo = window.sessionStorage.getItem('staffNo')
 
 const data = reactive({

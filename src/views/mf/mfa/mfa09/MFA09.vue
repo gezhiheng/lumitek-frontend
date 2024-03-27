@@ -1,5 +1,5 @@
 <template>
-  <el-tabs tab-position="top" style="height: 500px;" type="border-card">
+  <el-tabs tab-position="top" style="min-height: 500px;" type="border-card">
     <el-tab-pane label="HOLD類別維護"><HoldType></HoldType></el-tab-pane>
     <el-tab-pane label="終止Command"><Cancel></Cancel></el-tab-pane>
     <el-tab-pane label="解扣Command"><UnHold></UnHold></el-tab-pane>
