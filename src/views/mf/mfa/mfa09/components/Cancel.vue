@@ -57,13 +57,18 @@
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue'
+import { reactive, watch } from 'vue'
 import { cancelTableColmuns, cancelDialog } from './constants'
 import { CancelRequest } from '@/service/mf/mfa/mfa09'
 import ral from '@/utils/response_alert'
 
 const request = new CancelRequest()
 const staffNo = window.sessionStorage.getItem('staffNo')
+const getTableDataFlag = defineModel({ default: false })
+
+watch(getTableDataFlag, async () => {
+  await refreshTable()
+})
 
 const data = reactive({
   table: [],
@@ -74,10 +79,6 @@ const state = reactive({
   dialogVisible: false,
   confirmDialogVisible: false,
   update: true
-})
-
-onMounted(async () => {
-  await refreshTable()
 })
 
 const tableOnclick = (row, column, cell, event) => {

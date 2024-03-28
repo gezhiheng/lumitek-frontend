@@ -78,7 +78,7 @@
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue'
+import { reactive, defineModel, watch } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import { holdTypeTableColumns, holdTypeDialog } from './constants'
 import { HoldTypeRequest } from '@/service/mf/mfa/mfa09'
@@ -86,6 +86,11 @@ import ral from '@/utils/response_alert'
 
 const request = new HoldTypeRequest()
 const staffNo = window.sessionStorage.getItem('staffNo')
+const getTableDataFlag = defineModel({ default: false })
+
+watch(getTableDataFlag, async () => {
+  await refreshTable()
+})
 
 const data = reactive({
   depName: '',
@@ -97,10 +102,6 @@ const state = reactive({
   dialogVisible: false,
   confirmDialogVisible: false,
   update: true
-})
-
-onMounted(async () => {
-  await refreshTable()
 })
 
 const tableOnclick = (row, column, cell, event) => {
