@@ -80,9 +80,45 @@ const cancelDialog = {
   commandModified: ''
 }
 
+const unHoldTableColmuns = [
+  {
+    prop: 'command',
+    label: 'command',
+  },
+  {
+    prop: 'isJ',
+    label: '站點',
+  },
+  {
+    prop: 'createdBy',
+    label: '建立人員',
+  },
+  {
+    prop: 'createdOn',
+    label: '建立日期',
+  },
+  {
+    prop: 'modifiedBy',
+    label: '修改人員',
+  },
+  {
+    prop: 'modifiedOn',
+    label: '修改日期',
+  },
+]
+
+const unHoldDialog = {
+  seqNo: '',
+  isJ: '',
+  commandOriginal: '',
+  commandModified: ''
+}
+
 export { 
   holdTypeTableColumns, 
   holdTypeDialog, 
   cancelTableColmuns, 
-  cancelDialog
+  cancelDialog,
+  unHoldTableColmuns,
+  unHoldDialog
 }

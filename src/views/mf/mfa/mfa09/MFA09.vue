@@ -1,5 +1,4 @@
 <template>
-    <el-tab-pane label="解扣Command"><UnHold></UnHold></el-tab-pane>
   <el-tabs 
     tab-position="top"
     style="min-height: 500px;"
@@ -21,6 +20,7 @@ import UnHold from './components/UnHold.vue'
 const data = reactive({
   getHoldTypeDataFlag: false,
   getCancelDataFlag: false,
+  getUnHoldDataFlag: false
 })
 
 const tabOnchange = (pane) => {
@@ -30,6 +30,9 @@ const tabOnchange = (pane) => {
     }, 
     () => {
       data.getCancelDataFlag = !data.getCancelDataFlag
+    }, 
+    () => {
+      data.getUnHoldDataFlag = !data.getUnHoldDataFlag
     }, 
   ][pane]()
 }

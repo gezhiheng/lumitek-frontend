@@ -52,3 +52,32 @@ export class CancelRequest extends BaseRequest {
     return res
   }
 }
+
+export class UnHoldRequest extends BaseRequest {
+  async init(staffNo) {
+    const res = await this.GET('mfa09/unhold-info/init', {
+      staffNo: staffNo
+    })
+    return res
+  }
+
+  async add(params) {
+    const res = await this.POST('mfa09/unhold-info/', params)
+    return res
+  }
+
+  async update(params) {
+    const res = await this.PUT('mfa09/unhold-info/', params)
+    return res
+  }
+
+  async delete(params) {
+    const res = await this.DELETE('mfa09/unhold-info/', params)
+    return res
+  }
+
+  async saveOrder(params) {
+    const res = await this.PUT('mfa09/unhold-info/order/', params)
+    return res
+  }
+}
