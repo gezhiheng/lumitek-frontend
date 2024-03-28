@@ -81,10 +81,10 @@
 import { reactive, onMounted } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import { holdTypeTableColumns, holdTypeDialog } from './constants'
-import { holdTypeRequest } from '@/service/mf/mfa/mfa09'
+import { HoldTypeRequest } from '@/service/mf/mfa/mfa09'
 import ral from '@/utils/response_alert'
 
-const request = new holdTypeRequest()
+const request = new HoldTypeRequest()
 const staffNo = window.sessionStorage.getItem('staffNo')
 
 const data = reactive({

@@ -1,6 +1,6 @@
 import BaseRequest from '@/service/base_request'
 
-export class holdTypeRequest extends BaseRequest {
+export class HoldTypeRequest extends BaseRequest {
   async init(staffNo) {
     const res = await this.GET('mfa09/hold-info/init', {
       staffNo: staffNo
@@ -29,7 +29,7 @@ export class holdTypeRequest extends BaseRequest {
   }
 }
 
-export class cancelRequest extends BaseRequest {
+export class CancelRequest extends BaseRequest {
   async init(staffNo) {
     const res = await this.GET('mfa09/cancel-info/init', {
       staffNo: staffNo

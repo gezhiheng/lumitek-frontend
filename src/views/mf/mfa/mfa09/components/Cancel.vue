@@ -59,10 +59,10 @@
 <script setup>
 import { reactive, onMounted } from 'vue'
 import { cancelTableColmuns, cancelDialog } from './constants'
-import { cancelRequest } from '@/service/mf/mfa/mfa09'
+import { CancelRequest } from '@/service/mf/mfa/mfa09'
 import ral from '@/utils/response_alert'
 
-const request = new cancelRequest()
+const request = new CancelRequest()
 const staffNo = window.sessionStorage.getItem('staffNo')
 
 const data = reactive({
