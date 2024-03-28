@@ -1,10 +1,5 @@
 const holdTypeTableColumns = [
   {
-    prop: 'seqNo',
-    label: 'No',
-    width: 50
-  },
-  {
     prop: 'holdCode',
     label: '扣留代碼',
     width: 180
