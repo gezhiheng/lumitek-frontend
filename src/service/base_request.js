@@ -45,7 +45,7 @@ class BaseRequest {
       const result = response.data
       return result
     } catch (error) {
-      console.log('🚀 ~ request ~ error:', error)
+      console.error(`❌ ~ ${url} ~ ${method} ~ request ~ error:`, error)
       swal('錯誤', error?.response?.data?.message || error?.message, 'error')
     }
   }
