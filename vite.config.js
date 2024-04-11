@@ -6,17 +6,14 @@ import { fileURLToPath, URL } from 'node:url'
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
-  plugins: [
-    vue(),
-    svgBuilder('./src/assets/icons/')
-  ],
+  plugins: [vue(), svgBuilder('./src/assets/icons/')],
   server: {
     host: '0.0.0.0',
     port: 8080,
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
 })

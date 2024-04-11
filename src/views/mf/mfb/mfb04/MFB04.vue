@@ -1,32 +1,41 @@
 <template>
   <el-card class="card --el-box-shadow-dark">
     <template #header>
-      <el-button plain type="primary" @click="queryBtnOnClick" v-loading.fullscreen.lock="state.fullscreenLoading">
+      <el-button
+        plain
+        type="primary"
+        @click="queryBtnOnClick"
+        v-loading.fullscreen.lock="state.fullscreenLoading"
+      >
         <el-icon><Search /></el-icon>
         <span>查询</span>
       </el-button>
       <el-button plain type="primary" @click="printBtnOnClick">
-          <el-icon><Printer /></el-icon>
+        <el-icon><Printer /></el-icon>
         <span>列印</span>
       </el-button>
     </template>
-    <el-form 
-      :inline="true" 
+    <el-form
+      :inline="true"
       label-width="140px"
       class="form"
       label-position="left"
     >
       <el-form-item label="客戶簡碼">
         <el-select v-model="data.form.custNo" placeholder="請選擇">
-          <el-option v-for="option in custNoOptions" :label="option" :value="option" />
+          <el-option
+            v-for="option in custNoOptions"
+            :label="option"
+            :value="option"
+          />
         </el-select>
       </el-form-item>
       <el-form-item label="派工日期">
-        <el-date-picker 
-          v-model="data.form.applyDate" 
-          type="date" 
-          placeholder="Pick a date" 
-          style="width: 100%" 
+        <el-date-picker
+          v-model="data.form.applyDate"
+          type="date"
+          placeholder="Pick a date"
+          style="width: 100%"
           value-format="YYYYMMDD"
         />
       </el-form-item>
@@ -37,15 +46,20 @@
         <el-switch v-model="data.form.printMK" />
       </el-form-item>
     </el-form>
-    <el-table 
-      max-height="600px" 
-      :data="data.table" 
-      empty-text="沒有數據" 
+    <el-table
+      max-height="600px"
+      :data="data.table"
+      empty-text="沒有數據"
       stripe
       @selection-change="selectionChange"
     >
       <el-table-column type="selection" width="55" />
-      <el-table-column v-for="item in tableColumns" :prop="item.prop" :label="item.label" :width="item.width"/>
+      <el-table-column
+        v-for="item in tableColumns"
+        :prop="item.prop"
+        :label="item.label"
+        :width="item.width"
+      />
     </el-table>
   </el-card>
 </template>
@@ -69,16 +83,16 @@ const data = reactive({
   table: [],
 })
 const state = reactive({
-  fullscreenLoading: false
+  fullscreenLoading: false,
 })
 const { setPDFUrls } = usePDFUrlsStore()
 
 const queryBtnOnClick = async () => {
   try {
     state.fullscreenLoading = true
-    await query(data.form).then(resolve => {
+    await query(data.form).then((resolve) => {
       data.table = []
-      resolve.data.table.forEach(item => {
+      resolve.data.table.forEach((item) => {
         data.table.push(item)
       })
     })
@@ -89,7 +103,7 @@ const queryBtnOnClick = async () => {
 
 let printParams = []
 const selectionChange = (items) => {
-  printParams = items.map(item => toRaw(item))
+  printParams = items.map((item) => toRaw(item))
 }
 
 const printBtnOnClick = async () => {
@@ -98,7 +112,7 @@ const printBtnOnClick = async () => {
       state.fullscreenLoading = true
       await getPdfUrls({
         printDataList: printParams,
-      }).then(resolve => {
+      }).then((resolve) => {
         setPDFUrls(resolve.data.urls)
         router.push({ name: 'pdf' })
       })

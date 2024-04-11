@@ -15,35 +15,38 @@ const breadcrumbs = ref([])
 const { setModeActive } = useSettingsStore()
 const { setActiveMenuIndex } = useActiveMenuIndexStore()
 
-watch(() => router.currentRoute.value.path, (newFullPath, oldFullPath) => {
-  const name = newFullPath.slice(1)
-  const label = useableFeatures[name]
-  if (label) {
-    title.value = label
-    const pushFlag = !breadcrumbs.value.some(item => item.name === label)
-    if(pushFlag) {
-      breadcrumbs.value.push({
-        path: newFullPath,
-        name: label
-      })
-      setActiveMenuIndex(name)
+watch(
+  () => router.currentRoute.value.path,
+  (newFullPath, oldFullPath) => {
+    const name = newFullPath.slice(1)
+    const label = useableFeatures[name]
+    if (label) {
+      title.value = label
+      const pushFlag = !breadcrumbs.value.some((item) => item.name === label)
+      if (pushFlag) {
+        breadcrumbs.value.push({
+          path: newFullPath,
+          name: label,
+        })
+        setActiveMenuIndex(name)
+      }
+    } else {
+      setActiveMenuIndex('')
+      title.value = ''
     }
-  } else {
-    setActiveMenuIndex('')
-    title.value = ''
-  }
-  if (name === 'welcome') {
-    breadcrumbs.value = []
-  }
-  setSettings(name)
-})
+    if (name === 'welcome') {
+      breadcrumbs.value = []
+    }
+    setSettings(name)
+  },
+)
 
 const setSettings = (name) => {
   const settingsObj = modeSettings[name]
   if (!settingsObj) {
     return
   }
-  Object.keys(settingsObj).forEach(key => {
+  Object.keys(settingsObj).forEach((key) => {
     setModeActive(key, settingsObj[key])
   })
 }

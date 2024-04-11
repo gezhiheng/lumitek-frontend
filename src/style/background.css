@@ -1,12 +1,15 @@
 .main-background {
   background-color: #409eff;
-  background-image: 
-    radial-gradient(closest-side, #3456ED, rgba(78, 225, 235, 0)),
-    radial-gradient(closest-side, #8A34ED, rgba(78, 120, 235, 0)),
-    radial-gradient(closest-side, #4D34ED, rgba(254, 234, 131, 0)),
-    radial-gradient(closest-side, #409EFF, rgba(0, 238, 255, 0)),
-    radial-gradient(closest-side, #C634ED, rgba(78, 225, 235, 0));
-  background-size: 
+  background-image: radial-gradient(
+      closest-side,
+      #3456ed,
+      rgba(78, 225, 235, 0)
+    ),
+    radial-gradient(closest-side, #8a34ed, rgba(78, 120, 235, 0)),
+    radial-gradient(closest-side, #4d34ed, rgba(254, 234, 131, 0)),
+    radial-gradient(closest-side, #409eff, rgba(0, 238, 255, 0)),
+    radial-gradient(closest-side, #c634ed, rgba(78, 225, 235, 0));
+  background-size:
     130vmax 130vmax,
     80vmax 80vmax,
     90vmax 90vmax,
@@ -23,7 +26,6 @@
 }
 
 @keyframes movement {
-
   0%,
   100% {
     background-size:

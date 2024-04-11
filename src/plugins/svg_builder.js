@@ -11,7 +11,7 @@ const clearReturn = /(\r)|(\n)/g
 function findSvgFile(dir) {
   const svgRes = []
   const dirents = readdirSync(dir, {
-    withFileTypes: true
+    withFileTypes: true,
   })
   for (const dirent of dirents) {
     if (dirent.isDirectory()) {
@@ -23,23 +23,20 @@ function findSvgFile(dir) {
         .replace(svgTitle, ($1, $2) => {
           let width = 0
           let height = 0
-          let content = $2.replace(
-            clearHeightWidth,
-            (s1, s2, s3) => {
-              if (s2 === 'width') {
-                width = s3
-              } else if (s2 === 'height') {
-                height = s3
-              }
-              return ''
+          let content = $2.replace(clearHeightWidth, (s1, s2, s3) => {
+            if (s2 === 'width') {
+              width = s3
+            } else if (s2 === 'height') {
+              height = s3
             }
-          )
+            return ''
+          })
           if (!hasViewBox.test($2)) {
             content += `viewBox="0 0 ${width} ${height}"`
           }
           return `<symbol id="${idPerfix}-${dirent.name.replace(
             '.svg',
-            ''
+            '',
           )}" ${content}>`
         })
         .replace('</svg>', '</symbol>')
@@ -63,8 +60,8 @@ export const svgBuilder = (path, perfix = 'icon') => {
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position: absolute; width: 0; height: 0">
               ${res.join('')}
             </svg>
-        `
+        `,
       )
-    }
+    },
   }
 }

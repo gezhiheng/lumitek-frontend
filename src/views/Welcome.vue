@@ -1,30 +1,20 @@
-<template >
+<template>
   <div class="container main-background">
-    <h1 
-      v-if="state.showDelayedElements" 
+    <h1 v-if="state.showDelayedElements" class="animate__bounceIn">Lumitek</h1>
+    <h2 v-if="state.showDelayedElements" class="animate__bounceIn">琉明光電</h2>
+    <span
+      v-if="state.showDelayedElements"
       class="animate__bounceIn"
-    >
-      Lumitek
-    </h1>
-    <h2 
-      v-if="state.showDelayedElements" 
-      class="animate__bounceIn"
-    >
-      琉明光電
-    </h2>
-    <span 
-      v-if="state.showDelayedElements" 
-      class="animate__bounceIn" 
-      @mousemove="state.drawer=true"
+      @mousemove="state.drawer = true"
     >
       選擇功能 >
     </span>
-    <el-drawer 
-      v-model="state.drawer" 
-      direction="ttb" 
-      class="feats-drawer" 
-      :show-close="false" 
-      :with-header="false" 
+    <el-drawer
+      v-model="state.drawer"
+      direction="ttb"
+      class="feats-drawer"
+      :show-close="false"
+      :with-header="false"
       :size="60"
     >
       <template #default>
@@ -43,12 +33,12 @@ import Footer from '@/components/Footer.vue'
 
 const state = reactive({
   showDelayedElements: false,
-  drawer: false
+  drawer: false,
 })
 
 onMounted(() => {
   setTimeout(() => {
-    state.showDelayedElements = true  
+    state.showDelayedElements = true
   }, 300)
 })
 </script>
@@ -70,8 +60,8 @@ h1 {
   line-height: 60%;
   color: #fff;
   text-shadow:
-    0px 0px 5px rgba(255, 255, 255, .6),
-    0px 4px 4px rgba(0, 0, 0, .05);
+    0px 0px 5px rgba(255, 255, 255, 0.6),
+    0px 4px 4px rgba(0, 0, 0, 0.05);
 }
 
 h2 {
@@ -79,8 +69,8 @@ h2 {
   letter-spacing: -2px;
   color: #fff;
   text-shadow:
-    0px 0px 5px rgba(255, 255, 255, .6),
-    0px 4px 4px rgba(0, 0, 0, .05);
+    0px 0px 5px rgba(255, 255, 255, 0.6),
+    0px 4px 4px rgba(0, 0, 0, 0.05);
 }
 
 span {
@@ -88,9 +78,9 @@ span {
   font-size: larger;
   font-weight: 350;
   text-shadow:
-    0px 0px 5px rgba(255, 255, 255, .6),
-    0px 4px 4px rgba(0, 0, 0, .05);
-    margin-bottom: 20vh;
+    0px 0px 5px rgba(255, 255, 255, 0.6),
+    0px 4px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20vh;
 }
 
 :deep(.feats-drawer .el-drawer__body) {

@@ -4,7 +4,7 @@ import { ref } from 'vue'
 export const useFeaturesStore = defineStore('features', () => {
   const featuresRequest = ref({
     requested: false,
-    features: {}
+    features: {},
   })
 
   function setFeaturesRequest(featuresRequested) {

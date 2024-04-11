@@ -23,6 +23,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
     "mockjs": "^1.1.0",
+    "prettier": "3.2.5",
     "vite": "^5.0.11"
   }
 }

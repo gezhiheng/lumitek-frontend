@@ -24,7 +24,7 @@ const modeSettings = {
   },
   mfa09: {
     darkMode: true,
-  }
+  },
 }
 
 export default modeSettings

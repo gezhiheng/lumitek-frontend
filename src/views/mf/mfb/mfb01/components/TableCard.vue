@@ -1,12 +1,9 @@
 <template>
   <el-card type="border-card">
-    <el-tabs style="margin-top: 10px;" model-value="first">
-
+    <el-tabs style="margin-top: 10px" model-value="first">
       <el-tab-pane label="總表" name="first">
-        <el-table 
-          style="width: 100%; 
-          margin-bottom: 15px;
-          padding: 0;" 
+        <el-table
+          style="width: 100%; margin-bottom: 15px; padding: 0"
           :data="formTableData.tbDetail"
           :max-height="verticalLayoutFlag ? 750 : 500"
           empty-text="沒有數據"
@@ -18,7 +15,7 @@
             v-for="(item, index) in tbDetailColumns"
             :fixed="verticalLayoutFlag && index < 4"
             :prop="item[1]"
-            :label="item[0]" 
+            :label="item[0]"
             :width="item[0].length > 4 ? 150 : 80"
           />
         </el-table>
@@ -36,39 +33,49 @@
       </el-tab-pane>
 
       <el-tab-pane label="明細" name="second">
-        <el-table 
-          :data="formTableData.tbDetailDetail" 
+        <el-table
+          :data="formTableData.tbDetailDetail"
           :max-height="verticalLayoutFlag ? 750 : 500"
           style="width: 100%"
           empty-text="沒有數據"
         >
-          <el-table-column 
+          <el-table-column
             v-for="item in tbDetailDetailColumns"
-            :prop="item[1]" 
-            :label="item[0]" 
+            :prop="item[1]"
+            :label="item[0]"
             :width="item[0].length > 4 ? 150 : 100"
           />
         </el-table>
       </el-tab-pane>
 
       <el-tab-pane label="附件" name="third">
-        <el-table 
+        <el-table
           :data="formTableData.tbAttachment"
-          style="width: 100%; margin-bottom: 15px;" 
+          style="width: 100%; margin-bottom: 15px"
           :max-height="verticalLayoutFlag ? 750 : 500"
           empty-text="沒有數據"
           @selection-change="handleTBAttachmentSelectionChange"
         >
           <el-table-column type="selection" width="55" />
-          <el-table-column label="檔案名稱" prop="fileName" width="200"/>
+          <el-table-column label="檔案名稱" prop="fileName" width="200" />
         </el-table>
-        
+
         <span>
-          <el-button v-if="queryMode || insertMode" type="success" @click="btnAddAttachment" plain>
+          <el-button
+            v-if="queryMode || insertMode"
+            type="success"
+            @click="btnAddAttachment"
+            plain
+          >
             <el-icon><CirclePlusFilled /></el-icon>
             <span>新增</span>
           </el-button>
-          <el-button v-if="queryMode || insertMode" type="danger" @click="delAttachment" plain>
+          <el-button
+            v-if="queryMode || insertMode"
+            type="danger"
+            @click="delAttachment"
+            plain
+          >
             <el-icon><RemoveFilled /></el-icon>
             <span>刪除</span>
           </el-button>
@@ -76,7 +83,13 @@
             <el-icon><UploadFilled /></el-icon>
             <span>下載</span>
           </el-button>
-          <input type="file" ref="selectFile" style="display: none;" @change="uploadAttachment" multiple>
+          <input
+            type="file"
+            ref="selectFile"
+            style="display: none"
+            @change="uploadAttachment"
+            multiple
+          />
         </span>
       </el-tab-pane>
     </el-tabs>
@@ -85,9 +98,21 @@
 
 <script setup>
 import { toRaw, ref } from 'vue'
-import { Check, Close, CirclePlusFilled, RemoveFilled, UploadFilled } from '@element-plus/icons-vue'
+import {
+  Check,
+  Close,
+  CirclePlusFilled,
+  RemoveFilled,
+  UploadFilled,
+} from '@element-plus/icons-vue'
 import swal from 'sweetalert'
-import { mfb01LotRepeal, mfb01LotReduction, downloadAttachment, addAttachment, deleteAttachment } from '@/service/mf/mfb/mfb01'
+import {
+  mfb01LotRepeal,
+  mfb01LotReduction,
+  downloadAttachment,
+  addAttachment,
+  deleteAttachment,
+} from '@/service/mf/mfb/mfb01'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { resolveAlert } from '@/utils/reslove_alert'
 import { tbDetailColumns, tbDetailDetailColumns } from '../constants'
@@ -98,7 +123,7 @@ const selectFile = ref(null)
 let lotNos = []
 const handleTBDetailSelectionChange = (items) => {
   const tempLotNos = []
-  items.forEach(item => {
+  items.forEach((item) => {
     tempLotNos.push(toRaw(item).lotNo)
   })
   lotNos = tempLotNos
@@ -107,7 +132,7 @@ const handleTBDetailSelectionChange = (items) => {
 let selectedFileNames = []
 const handleTBAttachmentSelectionChange = (items) => {
   const tempFileNames = []
-  items.forEach(item => {
+  items.forEach((item) => {
     tempFileNames.push(toRaw(item).fileName)
   })
   selectedFileNames = tempFileNames
@@ -118,7 +143,7 @@ const lotRepeal = () => {
   mfb01LotRepeal({
     user: staffNo,
     applyNo: formTableData.form.applyNo,
-    lotNos: lotNos
+    lotNos: lotNos,
   }).then((resolve, reject) => {
     resolveAlert(resolve)
   })
@@ -129,7 +154,7 @@ const lotReduction = () => {
     user: staffNo,
     applyNo: formTableData.form.applyNo,
     lotNos: lotNos,
-    custNo: formTableData.form.custNo
+    custNo: formTableData.form.custNo,
   }).then((resolve, reject) => {
     resolveAlert(resolve)
   })
@@ -141,39 +166,43 @@ const download = () => {
     return
   }
   const downloadLinks = []
-  selectedFileNames.forEach(fileName => {
-    downloadAttachment(formTableData.form.applyNo, fileName).then(response => {
-      const blob = new Blob([response.data], { type: 'application/octet-stream' });
-      const url = URL.createObjectURL(blob)
-      const link = document.createElement('a')
-      link.href = url
-      link.download = fileName
-      link.click()
-      downloadLinks.push(link)
-    })
+  selectedFileNames.forEach((fileName) => {
+    downloadAttachment(formTableData.form.applyNo, fileName).then(
+      (response) => {
+        const blob = new Blob([response.data], {
+          type: 'application/octet-stream',
+        })
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = url
+        link.download = fileName
+        link.click()
+        downloadLinks.push(link)
+      },
+    )
   })
   // 下载完成后删除所有的a标签
   setTimeout(() => {
-   downloadLinks.forEach(link => {
-     link.remove()
-   })
+    downloadLinks.forEach((link) => {
+      link.remove()
+    })
   }, 5000)
 }
 
 const uploadAttachment = (event) => {
   const files = event.target.files
   if (!files) {
-    swal("注意", "請選擇正确的文件", "warning")
+    swal('注意', '請選擇正确的文件', 'warning')
     return
   }
   addAttachment(
     formTableData.form.applyNo,
     formTableData.form.orderNo,
     staffNo,
-    files
-  ).then(resolve => {
+    files,
+  ).then((resolve) => {
     const attachmentsAdded = resolve.data.attachmentsAdded
-    attachmentsAdded.forEach(attachmentAdded => {
+    attachmentsAdded.forEach((attachmentAdded) => {
       formTableData.tbAttachment.push(attachmentAdded)
     })
   })
@@ -181,13 +210,13 @@ const uploadAttachment = (event) => {
 
 const delAttachment = () => {
   if (selectedFileNames.length === 0) {
-    swal("注意", "請選擇附件刪除", "warning")
+    swal('注意', '請選擇附件刪除', 'warning')
     return
   }
   const fileNames = []
   const sourceFile = []
-  Array.from(formTableData.tbAttachment).forEach(item => {
-    selectedFileNames.forEach(selectedFileName => {
+  Array.from(formTableData.tbAttachment).forEach((item) => {
+    selectedFileNames.forEach((selectedFileName) => {
       if (item.fileName === selectedFileName) {
         fileNames.push(item.fileName)
         sourceFile.push(item.sourceFile)
@@ -198,12 +227,13 @@ const delAttachment = () => {
     formTableData.form.applyNo,
     staffNo,
     fileNames,
-    sourceFile
-  ).then(resolve => {
+    sourceFile,
+  ).then((resolve) => {
     const result = resolve.status
     if (result === 200) {
-      formTableData.tbAttachment = formTableData.tbAttachment.filter(item => 
-        !selectedFileNames.includes(item.fileName))
+      formTableData.tbAttachment = formTableData.tbAttachment.filter(
+        (item) => !selectedFileNames.includes(item.fileName),
+      )
     }
   })
 }
@@ -215,6 +245,6 @@ const btnAddAttachment = () => {
 const props = defineProps({
   verticalLayoutFlag: Boolean,
   queryMode: Boolean,
-  insertMode: Boolean
+  insertMode: Boolean,
 })
 </script>

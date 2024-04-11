@@ -5,7 +5,7 @@ const { pdfUrls } = usePDFUrlsStore()
 </script>
 
 <template>
-  <VuePdf v-for="url in pdfUrls" :src="url"/>
+  <VuePdf v-for="url in pdfUrls" :src="url" />
 </template>
 
 <style scoped>

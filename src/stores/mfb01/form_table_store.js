@@ -4,7 +4,7 @@ import { queryMFB01, importData, importDataAuto } from '@/service/mf/mfb/mfb01'
 import swal from 'sweetalert'
 
 export const useFormTableStore = defineStore('formTable', () => {
-  const formTableData =  ref({
+  const formTableData = ref({
     dataSize: 0,
     form: {
       custNo: '',
@@ -24,12 +24,11 @@ export const useFormTableStore = defineStore('formTable', () => {
     },
     tbDetail: [],
     tbDetailDetail: [],
-    tbAttachment: []
+    tbAttachment: [],
   })
 
   async function setFormTable(params) {
-    const queryData = await queryMFB01(params)
-    .then((reslove, reject) => {
+    const queryData = await queryMFB01(params).then((reslove, reject) => {
       return reslove.data
     })
     formTableData.value.dataSize = queryData.dataSize
@@ -41,8 +40,7 @@ export const useFormTableStore = defineStore('formTable', () => {
   }
 
   async function importFormTableAuto(params) {
-    const data = await importDataAuto(params)
-    .then((reslove, reject) => {
+    const data = await importDataAuto(params).then((reslove, reject) => {
       return reslove.data
     })
     if (data.err) {
@@ -53,9 +51,11 @@ export const useFormTableStore = defineStore('formTable', () => {
   }
 
   async function importFormTable(custNo, file) {
-    const data = await importData(custNo, file)
-    .then((reslove, reject) => {
-      console.log("🚀 ~ file: form_table_store.js:64 ~ .then ~ reslove.data:", reslove.data)
+    const data = await importData(custNo, file).then((reslove, reject) => {
+      console.log(
+        '🚀 ~ file: form_table_store.js:64 ~ .then ~ reslove.data:',
+        reslove.data,
+      )
       return reslove.data
     })
     setFormTableData(data)
@@ -73,16 +73,21 @@ export const useFormTableStore = defineStore('formTable', () => {
     formTableData.value.tbAttachment = data.tbAttachment
   }
 
-  function resetFormTable () {
+  function resetFormTable() {
     Object.entries(formTableData.value.form).forEach(([key, value]) => {
-        formTableData.value.form[key] = ''
-      }
-    )
+      formTableData.value.form[key] = ''
+    })
     formTableData.value.dataSize = 0
     formTableData.value.tbDetail = []
     formTableData.value.tbDetailDetail = []
     formTableData.value.tbAttachment = []
   }
 
-  return { formTableData, setFormTable, resetFormTable, importFormTable, importFormTableAuto }
+  return {
+    formTableData,
+    setFormTable,
+    resetFormTable,
+    importFormTable,
+    importFormTableAuto,
+  }
 })

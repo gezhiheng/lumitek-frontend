@@ -1,6 +1,6 @@
 const custNoOptions = [11, 12, 16, 18]
 
-const tableColumns= [
+const tableColumns = [
   {
     label: '製令單號',
     prop: 'applyNo',

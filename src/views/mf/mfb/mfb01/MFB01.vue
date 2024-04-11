@@ -1,10 +1,12 @@
 <template>
   <div :class="{ 'container-horizontal': !settings.verticalMode.isEnabled }">
     <form-card
-      :class="{ 'form-card-horizontal': !settings.verticalMode.isEnabled, 
-        'form-card-vertical': settings.verticalMode.isEnabled }"
-      :vertical-layout-flag="settings.verticalMode.isEnabled" 
-      :slider="slider" 
+      :class="{
+        'form-card-horizontal': !settings.verticalMode.isEnabled,
+        'form-card-vertical': settings.verticalMode.isEnabled,
+      }"
+      :vertical-layout-flag="settings.verticalMode.isEnabled"
+      :slider="slider"
       @changeSlider="changeSlider"
       @setSliderVisible="setSliderVisible"
       @setQueryMode="setQueryMode"
@@ -12,21 +14,23 @@
       @setInsertMode="setInsertMode"
     ></form-card>
     <table-card
-      :class="{ 'table-card-horizontal': !settings.verticalMode.isEnabled, 
-        'table-card-vertical': settings.verticalMode.isEnabled}"
-      :vertical-layout-flag="settings.verticalMode.isEnabled" 
+      :class="{
+        'table-card-horizontal': !settings.verticalMode.isEnabled,
+        'table-card-vertical': settings.verticalMode.isEnabled,
+      }"
+      :vertical-layout-flag="settings.verticalMode.isEnabled"
       :queryMode="queryMode"
       :insertMode="insertMode"
     ></table-card>
   </div>
 
-  <div style="display: flex; align-items: center; margin: 20px 0 50px 0;">
+  <div style="display: flex; align-items: center; margin: 20px 0 50px 0">
     <suspense>
       <el-slider
         v-if="sliderVisible"
-        v-model="slider" 
+        v-model="slider"
         show-input
-        style="padding-left: 12px;"
+        style="padding-left: 12px"
         :min="1"
         :max="formTableData.dataSize"
         :disabled="formTableData.dataSize <= 1"
@@ -56,7 +60,7 @@ const insertMode = ref(false)
 
 const { formTableData, setFormTable } = useFormTableStore()
 
-const change = async function(index) {
+const change = async function (index) {
   sliderIndex.value = index
   if (formTableData.dataSize < 1) {
     return
@@ -84,7 +88,7 @@ const setQueryMode = (mode) => {
 }
 
 const setSliderMarks = (dataSize) => {
-  Object.keys(marks).forEach(key => {
+  Object.keys(marks).forEach((key) => {
     delete marks[key]
   })
   marks[dataSize] = '' + dataSize

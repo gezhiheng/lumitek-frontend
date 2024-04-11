@@ -1,44 +1,39 @@
 <template>
   <div class="container">
     <div class="brush-area">
-      <el-form
-        label-position="left"
-        @submit.prevent
-      >
+      <el-form label-position="left" @submit.prevent>
         <el-form-item label="子批號">
-          <el-input v-model="data.productSeqNo" @keydown.enter="productSeqNoInputOnEnter" placeholder="請刷入子批號"></el-input>
+          <el-input
+            v-model="data.productSeqNo"
+            @keydown.enter="productSeqNoInputOnEnter"
+            placeholder="請刷入子批號"
+          ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-radio-group v-model="data.processType" @change="data.brushInTable = []">
+          <el-radio-group
+            v-model="data.processType"
+            @change="data.brushInTable = []"
+          >
             <el-radio label="normal">一般處理作業</el-radio>
             <el-radio label="cancel">一般取消終止</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
-      <el-table
-        height="520px"
-        empty-text="沒有數據"
-        :data="data.brushInTable"
-      >
-        <el-table-column width="150" prop="productSeqNo" label="子批號"/>
-        <el-table-column width="150" prop="waferNo" label="製程"/>
-        <el-table-column width="150" prop="stepNo" label="工序"/>
+      <el-table height="520px" empty-text="沒有數據" :data="data.brushInTable">
+        <el-table-column width="150" prop="productSeqNo" label="子批號" />
+        <el-table-column width="150" prop="waferNo" label="製程" />
+        <el-table-column width="150" prop="stepNo" label="工序" />
       </el-table>
     </div>
     <div class="message-area">
       <div class="title">
         <span>檢查/執行錯誤訊息</span>
-        <el-button
-          type="danger"
-          @click="clearMessageBtnOnclick"
-        >清空訊息</el-button>
+        <el-button type="danger" @click="clearMessageBtnOnclick"
+          >清空訊息</el-button
+        >
       </div>
-      <el-table
-        height="520px"
-        empty-text="沒有數據"
-        :data="data.messageTable"
-      >
-        <el-table-column prop="message" label="訊息"/>
+      <el-table height="520px" empty-text="沒有數據" :data="data.messageTable">
+        <el-table-column prop="message" label="訊息" />
       </el-table>
     </div>
   </div>
@@ -47,20 +42,27 @@
       <el-button
         :disabled="data.processType !== 'normal'"
         @click="state.dialogVisible = true"
-      >終止製程</el-button>
+        >終止製程</el-button
+      >
       <el-button
         :disabled="data.processType !== 'normal'"
         @click="skipStationBtnOnclick"
-      >跳過製程</el-button>
+        >跳過製程</el-button
+      >
       <el-button
         :disabled="data.processType !== 'normal'"
         @click="rollBackStationBtnOnclick"
-      >製程回推</el-button>
+        >製程回推</el-button
+      >
       <el-button
         :disabled="data.processType === 'normal'"
         @click="unCancelStationBtnOnclick"
-      >取消終止</el-button> 
-      <el-button style="display: none;" v-loading.fullscreen.lock="state.fullscreenLoading"></el-button>
+        >取消終止</el-button
+      >
+      <el-button
+        style="display: none"
+        v-loading.fullscreen.lock="state.fullscreenLoading"
+      ></el-button>
     </div>
   </div>
   <el-dialog
@@ -94,13 +96,13 @@
 
 <script setup>
 import { reactive } from 'vue'
-import { 
-  brushInData, 
-  skipStation, 
-  cancelStation, 
-  getCancelStationCauses, 
+import {
+  brushInData,
+  skipStation,
+  cancelStation,
+  getCancelStationCauses,
   rollBackStation,
-  unCancelStation 
+  unCancelStation,
 } from '@/service/mf/mfd/mfd02'
 
 const data = reactive({
@@ -109,9 +111,7 @@ const data = reactive({
   cmd: [],
   cmdSelected: {},
   brushInTable: [],
-  messageTable: [
-    { message: '測試資料' }
-  ],
+  messageTable: [{ message: '測試資料' }],
 })
 const state = reactive({
   fullscreenLoading: false,
@@ -126,8 +126,7 @@ const productSeqNoInputOnEnter = async () => {
       productSeqNo: data.productSeqNo,
       processType: data.processType,
       tableData: data.brushInTable,
-    })
-    .then(resolve => {
+    }).then((resolve) => {
       data.brushInTable = []
       data.brushInTable = resolve.data.tbData
     })
@@ -144,10 +143,9 @@ const dialogOnOpen = async () => {
   if (data.cmd.length > 0) {
     return
   }
-  await getCancelStationCauses()
-  .then(resolve => {
+  await getCancelStationCauses().then((resolve) => {
     data.cmd = []
-    resolve?.data?.cancelCauses?.forEach(item => {
+    resolve?.data?.cancelCauses?.forEach((item) => {
       data.cmd.push(item)
     })
   })
@@ -161,10 +159,9 @@ const doCancelStationBtnOnclick = async () => {
       tableData: data.brushInTable,
       cmdCode: data.cmdSelected.cmdCode,
       cmdDesc: data.cmdSelected.cmdDesc,
-    })
-    .then(resolve => {
+    }).then((resolve) => {
       data.messageTable = []
-      resolve?.data?.errMsg?.forEach(item => {
+      resolve?.data?.errMsg?.forEach((item) => {
         data.messageTable.push({
           message: item,
         })
@@ -190,10 +187,9 @@ const doFn = async (fn) => {
     await fn({
       staffNo: staffNo,
       tableData: data.brushInTable,
-    })
-    .then(resolve => {
+    }).then((resolve) => {
       data.messageTable = []
-      resolve?.data?.errMsg?.forEach(item => {
+      resolve?.data?.errMsg?.forEach((item) => {
         data.messageTable.push({
           message: item,
         })

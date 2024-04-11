@@ -25,7 +25,6 @@
 
 <script setup>
 import svgIcon from './SvgIcon.vue'
-
 </script>
 
 <style scoped>

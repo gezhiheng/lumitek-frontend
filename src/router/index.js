@@ -1,12 +1,12 @@
-import { createRouter, createWebHistory } from "vue-router"
-import { MainLayout } from "@/layouts"
-import resetStores from "@/utils/reset_stores"
+import { createRouter, createWebHistory } from 'vue-router'
+import { MainLayout } from '@/layouts'
+import resetStores from '@/utils/reset_stores'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { 
-      path: '/', 
+    {
+      path: '/',
       name: 'main',
       component: MainLayout,
       children: [
@@ -55,7 +55,7 @@ const router = createRouter({
           name: 'empty',
           component: () => import('@/views/Empty.vue'),
         },
-      ] 
+      ],
     },
     {
       path: '/login',
@@ -70,15 +70,15 @@ const router = createRouter({
     {
       path: '/pdf',
       name: 'pdf',
-      component: () => import('@/views/PDFViewer.vue')
+      component: () => import('@/views/PDFViewer.vue'),
     },
-  ]
+  ],
 })
 
 router.beforeEach((to, from, next) => {
   const token = window.sessionStorage.getItem('username')
   const path = to.path
-  if(path !== '/login' && !token) {
+  if (path !== '/login' && !token) {
     return next('/login')
   } else {
     resetStores(path)

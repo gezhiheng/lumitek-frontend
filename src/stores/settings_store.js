@@ -5,12 +5,12 @@ export const useSettingsStore = defineStore('settings', () => {
   const settings = ref({
     darkMode: {
       isActive: true,
-      isEnabled: false
+      isEnabled: false,
     },
     verticalMode: {
       isActive: false,
-      isEnabled: false
-    }
+      isEnabled: false,
+    },
   })
 
   function setModeActive(mode, isActive) {

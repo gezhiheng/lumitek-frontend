@@ -1,20 +1,20 @@
 <template>
   <el-card>
-    <el-table 
-      stripe 
-      style="width: 100%" 
+    <el-table
+      stripe
+      style="width: 100%"
       lazy="true"
-      :data="tableData" 
-      :height="(showMoreData || refresh) ? 600 : 500" 
+      :data="tableData"
+      :height="showMoreData || refresh ? 600 : 500"
       empty-text="沒有數據"
       @row-click="onTableClick"
     >
-      <el-table-column type="index" width="50" align="center"/>
-      <el-table-column 
-        v-for="(colum, index) in tableTableColumns" 
-        :prop="colum.prop" 
-        :label="colum.label" 
-        :width="colum.width" 
+      <el-table-column type="index" width="50" align="center" />
+      <el-table-column
+        v-for="(colum, index) in tableTableColumns"
+        :prop="colum.prop"
+        :label="colum.label"
+        :width="colum.width"
         align="center"
       />
     </el-table>
@@ -29,24 +29,27 @@ import { tableTableColumns } from '../constants'
 
 const props = defineProps({
   sharedData: Object,
-  showMoreData: false
+  showMoreData: false,
 })
 const tableData = ref([])
 const refresh = ref(false)
 const emits = defineEmits(['updateSharedData'])
 
-watch(() => props.sharedData.changeTableData, async () => {
-  await initTable().then(resolve => {
-    if (resolve.data.form) {
-      tableData.value = resolve.data.form
-      refresh.value = true
-    }
-  })
-})
+watch(
+  () => props.sharedData.changeTableData,
+  async () => {
+    await initTable().then((resolve) => {
+      if (resolve.data.form) {
+        tableData.value = resolve.data.form
+        refresh.value = true
+      }
+    })
+  },
+)
 
 onMounted(async () => {
-  await initTable().then(resolve => {
-    resolve?.data?.form?.forEach(item => {
+  await initTable().then((resolve) => {
+    resolve?.data?.form?.forEach((item) => {
       tableData.value.push(item)
     })
   })
@@ -62,7 +65,7 @@ const onTableClick = async (row, column, event) => {
     custProductNo: onClickObj.custProductNo,
     custProductName: onClickObj.custProductName,
   }
-  await onClickTableQuery(params).then(resolve => {
+  await onClickTableQuery(params).then((resolve) => {
     if (resolve?.status === 200 && resolve?.statusText === 'OK') {
       emits('updateSharedData', {
         queryMode: false,

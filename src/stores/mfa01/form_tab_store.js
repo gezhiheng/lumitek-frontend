@@ -18,29 +18,29 @@ export const useFormTabStore = defineStore('formTab', () => {
       productUnit: '', // 單位
       batchQty: '', // 批單位數量
       processType: '', //製程別
-      waferSize: '',  //晶圓尺寸
+      waferSize: '', //晶圓尺寸
       grossQty: '', //毛晶粒數
-      proberQty: '',//點測晶粒數
-      sorterQty: '',//挑揀晶粒數
-      fullBINQty: '',//滿BIN數
-      WipStdNo: '',//晶圓製程
-      proberYield: '',//點測良率
-      AOI_KPI: '',//AOI的kpi值
-      sorterWarningYield: '',//挑揀良率警戒值
-      sorterYield: '' //挑揀良率>=入Bin率
+      proberQty: '', //點測晶粒數
+      sorterQty: '', //挑揀晶粒數
+      fullBINQty: '', //滿BIN數
+      WipStdNo: '', //晶圓製程
+      proberYield: '', //點測良率
+      AOI_KPI: '', //AOI的kpi值
+      sorterWarningYield: '', //挑揀良率警戒值
+      sorterYield: '', //挑揀良率>=入Bin率
     },
     wipStations: [],
-    productStations: []
+    productStations: [],
   })
 
   async function setFormTab(params) {
     let size = 0
-    await queryMFA01(params).then(resolve => {
+    await queryMFA01(params).then((resolve) => {
       size = resolve.data.dataSize
       formTabData.dataSize = size
       if (size > 0) {
         const form = resolve.data.form
-        Object.keys(form).forEach(key => {
+        Object.keys(form).forEach((key) => {
           if (formTabData.form.hasOwnProperty(key)) {
             formTabData.form[key] = form[key]
           }
@@ -54,7 +54,7 @@ export const useFormTabStore = defineStore('formTab', () => {
 
   function resetFormTab() {
     formTabData.dataSize = 0
-    Object.keys(formTabData.form).forEach(key => {
+    Object.keys(formTabData.form).forEach((key) => {
       formTabData.form[key] = ''
     })
     formTabData.form.isEnable = true

@@ -1,7 +1,12 @@
 <template>
   <el-card>
     <template #header>
-      <el-button v-if="state.queryMode" plain type="primary" @click="state.queryMode = false">
+      <el-button
+        v-if="state.queryMode"
+        plain
+        type="primary"
+        @click="state.queryMode = false"
+      >
         <el-icon>
           <DocumentAdd />
         </el-icon>
@@ -10,7 +15,7 @@
       <el-button v-else="!state.queryMode" plain type="primary">
         <el-icon>
           <DocumentAdd />
-         </el-icon>
+        </el-icon>
         <span>新增</span>
       </el-button>
       <el-button plain type="primary" @click="state.QueryFormVisable = true">
@@ -19,7 +24,7 @@
         </el-icon>
         <span>查询</span>
       </el-button>
-      <el-badge :value="data.pendingNum" style="margin-left: 12px;">
+      <el-badge :value="data.pendingNum" style="margin-left: 12px">
         <el-button plain type="primary" @click="state.dialogVisable = true">
           <span>扣留放行&nbsp;</span>
           <el-icon>
@@ -29,25 +34,20 @@
       </el-badge>
       <el-dialog v-model="state.dialogVisable" title="扣留放行" width="38%">
         <Form :isUnholdPage="true" v-model="data.unHoldForm"></Form>
-        <el-slider
-          show-input
-          style="padding-left: 12px;"
-          :min="1"
-          :max="100"
-        />
+        <el-slider show-input style="padding-left: 12px" :min="1" :max="100" />
       </el-dialog>
-      <QueryForm v-model="state.QueryFormVisable" @getQueryData="onGetQueryData"/>
+      <QueryForm
+        v-model="state.QueryFormVisable"
+        @getQueryData="onGetQueryData"
+      />
     </template>
     <div class="container">
       <div class="form">
         <Form v-model="data.form"></Form>
       </div>
       <div class="hold-history">
-        <el-table
-          height="520px"
-          empty-text="沒有數據"
-        >
-          <el-table-column prop="message" label="扣留歷程"/>
+        <el-table height="520px" empty-text="沒有數據">
+          <el-table-column prop="message" label="扣留歷程" />
         </el-table>
       </div>
     </div>
@@ -56,11 +56,12 @@
     <el-slider
       v-if="state.queryMode"
       show-input
-      style="padding: 12px; width: 99%;"
+      style="padding: 12px; width: 99%"
       v-model="data.sliderValue"
       :min="1"
       :max="data.dataSize"
-      @change="onSliderChange"/>
+      @change="onSliderChange"
+    />
   </suspense>
 </template>
 
@@ -90,23 +91,19 @@ const data = reactive({
 
 onMounted(async () => {
   await queryDepartment({
-    staffNo: staffNo
-  }).then(res => {
+    staffNo: staffNo,
+  }).then((res) => {
     data.form.holdBy = res?.data?.holdBy
     data.form.holdDepNo = res?.data?.holdDepNo
   })
   await getPendingNum({
-    staffNo: staffNo
-  }).then(res => {
+    staffNo: staffNo,
+  }).then((res) => {
     data.pendingNum = res?.data?.dataSize
   })
 })
 
-const onGetQueryData = ({
-  conditions,
-  res,
-  dataSize
-}) => {
+const onGetQueryData = ({ conditions, res, dataSize }) => {
   data.form = Object.assign({}, res.form)
   data.queryForm = Object.assign({}, conditions)
   data.dataSize = dataSize
@@ -115,7 +112,7 @@ const onGetQueryData = ({
 
 const onSliderChange = async (index) => {
   data.queryForm.dataIndex = index - 1
-  await query(data.queryForm).then(res => {
+  await query(data.queryForm).then((res) => {
     data.form = Object.assign({}, res.data.form)
   })
 }

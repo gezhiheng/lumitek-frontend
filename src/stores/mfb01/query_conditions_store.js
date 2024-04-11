@@ -11,7 +11,7 @@ export const useQueryStore = defineStore('queryCondition', () => {
     processType: '',
     lotNo: '',
     WIPID: '',
-    orderNo: ''
+    orderNo: '',
   })
 
   function setQueryConditions(params) {
@@ -23,8 +23,8 @@ export const useQueryStore = defineStore('queryCondition', () => {
     queryConditions.value.custNo = ''
     queryConditions.value.applyNo = ''
     queryConditions.value.startTime = ''
-    queryConditions.value.endTime  = ''
-    queryConditions.value.processType =  ''
+    queryConditions.value.endTime = ''
+    queryConditions.value.processType = ''
     queryConditions.value.lotNo = ''
     queryConditions.value.WIPID = ''
     queryConditions.value.orderNo = ''

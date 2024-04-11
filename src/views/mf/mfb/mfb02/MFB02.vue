@@ -2,8 +2,8 @@
   <div :class="{ 'container-horizontal': !settings.verticalMode.isEnabled }">
     <FormCard
       :class="{
-        'form-card-horizontal': !settings.verticalMode.isEnabled, 
-        'form-card-vertical': settings.verticalMode.isEnabled 
+        'form-card-horizontal': !settings.verticalMode.isEnabled,
+        'form-card-vertical': settings.verticalMode.isEnabled,
       }"
       :slider="data.onChangeIndex"
       :sharedData="sharedData"
@@ -12,19 +12,19 @@
     ></FormCard>
     <TableCard
       :class="{
-        'table-card-horizontal': !settings.verticalMode.isEnabled, 
-        'table-card-vertical': settings.verticalMode.isEnabled
+        'table-card-horizontal': !settings.verticalMode.isEnabled,
+        'table-card-vertical': settings.verticalMode.isEnabled,
       }"
       :sharedData="sharedData"
       :showMoreData="sharedData.showMoreData"
       @updateSharedData="updateSharedData"
     ></TableCard>
   </div>
-  <div style="display: flex; align-items: center; margin: 20px 0 50px 0;">
+  <div style="display: flex; align-items: center; margin: 20px 0 50px 0">
     <suspense>
       <el-slider
         show-input
-        style="padding: 0 12px;"
+        style="padding: 0 12px"
         v-show="sharedData.queryMode && sharedData.dataSize > 1"
         v-model="data.slider"
         :min="sharedData.queryMode ? 1 : 0"
@@ -46,7 +46,7 @@ const { settings } = useSettingsStore()
 const data = reactive({
   slider: 0,
   marks: {},
-  onChangeIndex: 0
+  onChangeIndex: 0,
 })
 const sharedData = reactive({
   change: false,
@@ -61,17 +61,24 @@ const sharedData = reactive({
     productNo: '',
     dueDate: '',
     qty: '',
-    status: ''
+    status: '',
   },
-  formDetail: []
+  formDetail: [],
 })
 
 const updateSharedData = (data) => {
   sharedData.change = !sharedData.change
 
-  sharedData.changeTableData = data.changeTableData !== undefined ? !sharedData.changeTableData : sharedData.changeTableData
-  sharedData.showMoreData = data.showMoreData !== undefined ? data.showMoreData : sharedData.showMoreData
-  sharedData.queryMode = data.queryMode !== undefined ? data.queryMode : sharedData.queryMode
+  sharedData.changeTableData =
+    data.changeTableData !== undefined
+      ? !sharedData.changeTableData
+      : sharedData.changeTableData
+  sharedData.showMoreData =
+    data.showMoreData !== undefined
+      ? data.showMoreData
+      : sharedData.showMoreData
+  sharedData.queryMode =
+    data.queryMode !== undefined ? data.queryMode : sharedData.queryMode
 
   if (data.dataSize) {
     sharedData.dataSize = data.dataSize
@@ -82,20 +89,20 @@ const updateSharedData = (data) => {
   }
   if (data.formDetail) {
     sharedData.formDetail.length = 0
-    data.formDetail.forEach(item => {
+    data.formDetail.forEach((item) => {
       sharedData.formDetail.push(item)
     })
   }
 }
 
 const updateMarks = (dataSize) => {
-  Object.keys(data.marks).forEach(key => {
+  Object.keys(data.marks).forEach((key) => {
     delete data.marks[key]
   })
   data.marks[dataSize] = '' + dataSize
 }
 
-const change = async function(index) {
+const change = async function (index) {
   data.onChangeIndex = index
 }
 </script>

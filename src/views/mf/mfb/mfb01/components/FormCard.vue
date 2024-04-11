@@ -3,7 +3,12 @@
     <template #header>
       <div class="card-header">
         <span>
-          <el-button v-if="queryMode" plain type="primary" @click="backToInsertMode">
+          <el-button
+            v-if="queryMode"
+            plain
+            type="primary"
+            @click="backToInsertMode"
+          >
             <el-icon>
               <DocumentAdd />
             </el-icon>
@@ -15,27 +20,50 @@
             </el-icon>
             <span>新增</span>
           </el-button>
-          <el-button plain type="primary" @click="dialogFormVisible = !dialogFormVisible">
+          <el-button
+            plain
+            type="primary"
+            @click="dialogFormVisible = !dialogFormVisible"
+          >
             <el-icon>
               <Search />
             </el-icon>
             <span>查询</span>
           </el-button>
-          <el-button v-if="!(queryMode || insertMode)" plain type="primary" @click="importData">
+          <el-button
+            v-if="!(queryMode || insertMode)"
+            plain
+            type="primary"
+            @click="importData"
+          >
             <el-icon>
               <FolderOpened />
             </el-icon>
             <span>資料匯入</span>
           </el-button>
-          <input type="file" ref="selectFile" @change="uploadFile" style="display: none;" webkitdirectory>
+          <input
+            type="file"
+            ref="selectFile"
+            @change="uploadFile"
+            style="display: none"
+            webkitdirectory
+          />
         </span>
 
-        <el-dialog v-model="dialogFormVisible" title="請輸入查詢條件" class="dialog">
+        <el-dialog
+          v-model="dialogFormVisible"
+          title="請輸入查詢條件"
+          class="dialog"
+        >
           <el-form :model="queryForm" label-width="120px">
             <el-form-item label="客戶">
               <el-select v-model="queryForm.custNo" placeholder="請選擇">
                 <div v-for="custNo in custNos">
-                  <el-option v-if="custNo !== '-'" :label="custNo" :value="custNo"/>
+                  <el-option
+                    v-if="custNo !== '-'"
+                    :label="custNo"
+                    :value="custNo"
+                  />
                   <el-tooltip
                     v-else
                     effect="light"
@@ -43,7 +71,7 @@
                     content="取消選擇客戶"
                     placement="right-start"
                   >
-                    <el-option :label="custNo" :value="custNo"/>
+                    <el-option :label="custNo" :value="custNo" />
                   </el-tooltip>
                 </div>
               </el-select>
@@ -53,13 +81,25 @@
             </el-form-item>
             <el-form-item label="日期">
               <el-col :span="11">
-                <el-date-picker v-model="queryForm.startTime" type="date" placeholder="Pick a date" style="width: 100%" value-format="YYYY-MM-DD"/>
+                <el-date-picker
+                  v-model="queryForm.startTime"
+                  type="date"
+                  placeholder="Pick a date"
+                  style="width: 100%"
+                  value-format="YYYY-MM-DD"
+                />
               </el-col>
-              <el-col :span="2" style="text-align: center;">
+              <el-col :span="2" style="text-align: center">
                 <span class="text-gray-500">~</span>
               </el-col>
               <el-col :span="11">
-                <el-date-picker v-model="queryForm.endTime" type="date" placeholder="Pick a date" style="width: 100%" value-format="YYYY-MM-DD"/>
+                <el-date-picker
+                  v-model="queryForm.endTime"
+                  type="date"
+                  placeholder="Pick a date"
+                  style="width: 100%"
+                  value-format="YYYY-MM-DD"
+                />
               </el-col>
             </el-form-item>
             <el-form-item label="製程別">
@@ -75,7 +115,12 @@
               <el-input v-model="queryForm.orderNo" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="querySubmit" v-loading.fullscreen.lock="fullscreenLoading">查詢</el-button>
+              <el-button
+                type="primary"
+                @click="querySubmit"
+                v-loading.fullscreen.lock="fullscreenLoading"
+                >查詢</el-button
+              >
               <el-button @click="dialogFormVisible = false">取消</el-button>
               <el-button @click="clearQueryCondition">清空</el-button>
             </el-form-item>
@@ -94,20 +139,38 @@
     </template>
     <div :class="{ formContainer: verticalLayoutFlag }">
       <el-form label-width="120px" label-position="left">
-        <el-text size="large" style="float: right; font-size: 30px;" class="mx-1" type="primary">{{ formTableData.form.status }}</el-text>
+        <el-text
+          size="large"
+          style="float: right; font-size: 30px"
+          class="mx-1"
+          type="primary"
+          >{{ formTableData.form.status }}</el-text
+        >
         <el-form-item label="客戶碼">
           <el-select v-model="formTableData.form.custNo" placeholder="請選擇">
-            <el-option v-for="custNo in custNos.slice(1)"  :label="custNo" :value="custNo" :disabled="queryMode" />
+            <el-option
+              v-for="custNo in custNos.slice(1)"
+              :label="custNo"
+              :value="custNo"
+              :disabled="queryMode"
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="客戶訂單編號">
-          <el-input v-model="formTableData.form.orderNo"  :disabled="queryMode || insertMode" />
+          <el-input
+            v-model="formTableData.form.orderNo"
+            :disabled="queryMode || insertMode"
+          />
         </el-form-item>
         <el-form-item label="單號">
-          <el-input v-model="formTableData.form.applyNo"  placeholder="系統產生" disabled />
+          <el-input
+            v-model="formTableData.form.applyNo"
+            placeholder="系統產生"
+            disabled
+          />
         </el-form-item>
         <el-form-item label="進貨日期">
-          <el-input v-model="formTableData.form.issueDate"  disabled />
+          <el-input v-model="formTableData.form.issueDate" disabled />
         </el-form-item>
         <el-form-item label="製程別">
           <el-input v-model="formTableData.form.processType" disabled />
@@ -122,18 +185,26 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="備註">
-          <el-input v-model="formTableData.form.remark" type="textarea" :disabled="queryMode" />
+          <el-input
+            v-model="formTableData.form.remark"
+            type="textarea"
+            :disabled="queryMode"
+          />
         </el-form-item>
       </el-form>
     </div>
-    
   </el-card>
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue'
 import swal from 'sweetalert'
-import { DocumentAdd, Search, FolderOpened, Close } from '@element-plus/icons-vue'
+import {
+  DocumentAdd,
+  Search,
+  FolderOpened,
+  Close,
+} from '@element-plus/icons-vue'
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { useQueryStore } from '@/stores/mfb01/query_conditions_store'
 import { mfb01Add, mfb01Repeal } from '@/service/mf/mfb/mfb01'
@@ -141,10 +212,16 @@ import { resolveAlert } from '@/utils/reslove_alert'
 import { custNos } from '../constants'
 
 const props = defineProps({
-  verticalLayoutFlag: Boolean
+  verticalLayoutFlag: Boolean,
 })
 
-const emits = defineEmits(['changeSlider', 'setSliderVisible', 'setQueryMode', 'setSliderMarks', 'setInsertMode'])
+const emits = defineEmits([
+  'changeSlider',
+  'setSliderVisible',
+  'setQueryMode',
+  'setSliderMarks',
+  'setInsertMode',
+])
 
 const fullscreenLoading = ref(false)
 const dialogFormVisible = ref(false)
@@ -160,10 +237,16 @@ const queryForm = reactive({
   processType: '',
   lotNo: '',
   WIPID: '',
-  orderNo: ''
+  orderNo: '',
 })
 
-const { formTableData, setFormTable, resetFormTable, importFormTable, importFormTableAuto } = useFormTableStore()
+const {
+  formTableData,
+  setFormTable,
+  resetFormTable,
+  importFormTable,
+  importFormTableAuto,
+} = useFormTableStore()
 const { setQueryConditions, resetQueryConditions } = useQueryStore()
 const querySubmit = async () => {
   handleQueryForm()
@@ -180,8 +263,8 @@ const querySubmit = async () => {
     }
     addFlag.value = false
   } catch (err) {
-    console.log("🚀 ~ file: FormCard.vue:174 ~ querySubmit ~ err:", err)
-    swal("錯誤", "查詢出現錯誤", "error")
+    console.log('🚀 ~ file: FormCard.vue:174 ~ querySubmit ~ err:', err)
+    swal('錯誤', '查詢出現錯誤', 'error')
   } finally {
     dialogFormVisible.value = false
     fullscreenLoading.value = false
@@ -208,8 +291,8 @@ const clearQueryCondition = () => {
   queryForm.custNo = ''
   queryForm.applyNo = ''
   queryForm.startTime = ''
-  queryForm.endTime  = ''
-  queryForm.processType =  ''
+  queryForm.endTime = ''
+  queryForm.processType = ''
   queryForm.lotNo = ''
   queryForm.WIPID = ''
   queryForm.orderNo = ''
@@ -219,7 +302,7 @@ const selectFile = ref(null)
 const uploadFile = (event) => {
   const files = event.target.files
   if (!files) {
-    swal("注意", "請選擇正确的文件夹", "warning")
+    swal('注意', '請選擇正确的文件夹', 'warning')
     return
   }
   importFormTable(formTableData.form.custNo, files)
@@ -227,17 +310,17 @@ const uploadFile = (event) => {
 
 const importData = () => {
   if (!formTableData.form.custNo) {
-    swal("注意", "請選擇客戶編號", "warning")
+    swal('注意', '請選擇客戶編號', 'warning')
     return
   }
   addFlag.value = true
   if (formTableData.form.orderNo) {
     importFormTableAuto({
-      "custNo": formTableData.form.custNo,
-      "orderNo": formTableData.form.orderNo
+      custNo: formTableData.form.custNo,
+      orderNo: formTableData.form.orderNo,
     })
   } else {
-    selectFile.value.click()  
+    selectFile.value.click()
   }
   insertMode.value = true
   emits('setInsertMode', true)
@@ -246,8 +329,8 @@ const importData = () => {
 const addFlag = ref(false)
 const staffNo = window.sessionStorage.getItem('staffNo')
 const add = () => {
-  if(!addFlag.value) {
-    swal("注意", "請匯入資料后再新增", "warning")
+  if (!addFlag.value) {
+    swal('注意', '請匯入資料后再新增', 'warning')
     return
   }
   mfb01Add({
@@ -255,12 +338,14 @@ const add = () => {
     form: formTableData.form,
     tbDetail: formTableData.tbDetail,
     tbDetailDetail: formTableData.tbDetailDetail,
-    tbAttachment: formTableData.tbAttachment
-  }).then((resolve, reject) => {
-    resolveAlert(resolve)
-  }).catch(err => {
-    console.log("🚀 ~ file: FormCard.vue:256 ~ add ~ err:", err)
+    tbAttachment: formTableData.tbAttachment,
   })
+    .then((resolve, reject) => {
+      resolveAlert(resolve)
+    })
+    .catch((err) => {
+      console.log('🚀 ~ file: FormCard.vue:256 ~ add ~ err:', err)
+    })
   resetFormTable()
   insertMode.value = false
 }
@@ -268,7 +353,7 @@ const add = () => {
 const repeal = () => {
   mfb01Repeal({
     user: staffNo,
-    applyNo: formTableData.form.applyNo
+    applyNo: formTableData.form.applyNo,
   }).then((resolve, reject) => {
     resolveAlert(resolve)
   })

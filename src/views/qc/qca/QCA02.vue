@@ -1,54 +1,47 @@
 <template>
   <div class="container">
     <div class="brush-area">
-      <el-form
-        label-width="80px"
-        label-position="left"
-      >
+      <el-form label-width="80px" label-position="left">
         <el-form-item label="晶片刻號">
-          <el-input v-model="data.waferNo" @keydown.enter="focusLotNoInput"></el-input>
+          <el-input
+            v-model="data.waferNo"
+            @keydown.enter="focusLotNoInput"
+          ></el-input>
         </el-form-item>
         <el-form-item label="委工單號">
-          <el-input v-model="data.lotNo" ref="lotNoInputRef" @keydown.enter="lotNoInputOnEnter"></el-input>
+          <el-input
+            v-model="data.lotNo"
+            ref="lotNoInputRef"
+            @keydown.enter="lotNoInputOnEnter"
+          ></el-input>
         </el-form-item>
       </el-form>
-      <el-table
-        height="520px"
-        empty-text="沒有數據"
-        :data="data.brushInTable"
-      >
-        <el-table-column width="200" prop="productSeqNo" label="子批號"/>
-        <el-table-column width="200" prop="waferNo" label="晶片刻號"/>
+      <el-table height="520px" empty-text="沒有數據" :data="data.brushInTable">
+        <el-table-column width="200" prop="productSeqNo" label="子批號" />
+        <el-table-column width="200" prop="waferNo" label="晶片刻號" />
       </el-table>
     </div>
     <div class="message-area">
       <div class="title">
         <span>檢查/執行錯誤訊息</span>
-        <el-button
-          type="danger"
-          @click="clearMessageBtnOnclick"
-        >清空訊息</el-button>
+        <el-button type="danger" @click="clearMessageBtnOnclick"
+          >清空訊息</el-button
+        >
       </div>
-      <el-table
-        height="520px"
-        empty-text="沒有數據"
-        :data="data.messageTable"
-      >
-        <el-table-column prop="message" label="訊息"/>
+      <el-table height="520px" empty-text="沒有數據" :data="data.messageTable">
+        <el-table-column prop="message" label="訊息" />
       </el-table>
     </div>
   </div>
   <div class="btn-descriptions-area">
     <div class="btn-area">
-      <el-button
-        type="danger"
-        @click="clearBtnOnClick"
-      >清空</el-button>
+      <el-button type="danger" @click="clearBtnOnClick">清空</el-button>
       <el-button
         type="primary"
         @click="brushInBtnOnClick"
         v-loading.fullscreen.lock="fullscreenLoading"
-      >製程過站</el-button>
+        >製程過站</el-button
+      >
     </div>
     <div class="descriptions-area">
       <div class="description">
@@ -74,47 +67,49 @@ const data = reactive({
   total: '0',
   brushed: '0',
   brushInTable: [],
-  messageTable: [
-    { message: '測試資料' }
-  ],
+  messageTable: [{ message: '測試資料' }],
 })
 const lotNoInputRef = ref(null)
 const fullscreenLoading = ref(false)
 
 const focusLotNoInput = () => {
-  nextTick(() => { lotNoInputRef.value.focus() })
+  nextTick(() => {
+    lotNoInputRef.value.focus()
+  })
 }
 
 const lotNoInputOnEnter = async () => {
-  await request.brushInData({
-    lotNo: data.lotNo,
-    waferNo: data.waferNo,
-    tableData: data.brushInTable
-  }).then(resolve => {
-    data.brushInTable = resolve.tableData
-    data.total = resolve.total
-    data.brushed = resolve.brushed
-  })
+  await request
+    .brushInData({
+      lotNo: data.lotNo,
+      waferNo: data.waferNo,
+      tableData: data.brushInTable,
+    })
+    .then((resolve) => {
+      data.brushInTable = resolve.tableData
+      data.total = resolve.total
+      data.brushed = resolve.brushed
+    })
 }
 
 const brushInBtnOnClick = async () => {
   const staffNo = window.sessionStorage.getItem('staffNo')
   try {
     fullscreenLoading.value = true
-    await request.passStation(
-      {
+    await request
+      .passStation({
         staffNo: staffNo,
         lotNo: data.lotNo,
         tableData: data.brushInTable,
         total: data.total,
         brushed: data.brushed,
-      }
-    ).then(resolve => {
-      data.messageTable = []
-      resolve?.errMsg?.forEach(msg => {
-        data.messageTable.push({ message: msg })
       })
-    })
+      .then((resolve) => {
+        data.messageTable = []
+        resolve?.errMsg?.forEach((msg) => {
+          data.messageTable.push({ message: msg })
+        })
+      })
   } finally {
     fullscreenLoading.value = false
   }

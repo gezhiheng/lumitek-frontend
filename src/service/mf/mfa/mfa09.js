@@ -3,7 +3,7 @@ import BaseRequest from '@/service/base_request'
 export class HoldTypeRequest extends BaseRequest {
   async init(staffNo) {
     const res = await this.GET('mfa09/hold-info/init', {
-      staffNo: staffNo
+      staffNo: staffNo,
     })
     return res
   }
@@ -32,7 +32,7 @@ export class HoldTypeRequest extends BaseRequest {
 export class CancelRequest extends BaseRequest {
   async init(staffNo) {
     const res = await this.GET('mfa09/cancel-info/init', {
-      staffNo: staffNo
+      staffNo: staffNo,
     })
     return res
   }
@@ -56,7 +56,7 @@ export class CancelRequest extends BaseRequest {
 export class UnHoldRequest extends BaseRequest {
   async init(staffNo) {
     const res = await this.GET('mfa09/unhold-info/init', {
-      staffNo: staffNo
+      staffNo: staffNo,
     })
     return res
   }

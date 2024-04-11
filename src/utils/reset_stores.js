@@ -1,7 +1,6 @@
 import { useFormTableStore } from '@/stores/mfb01/form_table_store'
 import { useFormTabStore } from '@/stores/mfa01/form_tab_store'
 
-
 const resetStores = (path) => {
   const storeReset = [
     {
@@ -9,17 +8,17 @@ const resetStores = (path) => {
       reset: () => {
         const { resetFormTable } = useFormTableStore()
         resetFormTable()
-      }
+      },
     },
     {
       path: '/mfa01',
       reset: () => {
         const { resetFormTab } = useFormTabStore()
         resetFormTab()
-      }
-    }
+      },
+    },
   ]
-  storeReset.forEach(item => {
+  storeReset.forEach((item) => {
     if (item.path === path) {
       item.reset()
       return
