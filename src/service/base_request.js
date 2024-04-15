@@ -1,5 +1,6 @@
 import axios from 'axios'
 import swal from 'sweetalert'
+import { debounce } from 'lodash-es'
 
 const baseURL = import.meta.env.VITE_API_BASE_URL
 
@@ -20,19 +21,41 @@ class BaseRequest {
         url += `?${key}=${value}`
       }
     }
-    return await this.request('GET', url)
+    return await this.debouncedRequest('GET', url)
   }
 
   async POST(url, params) {
-    return await this.request('POST', url, params)
+    return await this.debouncedRequest('POST', url, params)
   }
 
   async PUT(url, params) {
-    return await this.request('PUT', url, params)
+    return await this.debouncedRequest('PUT', url, params)
   }
 
   async DELETE(url, params) {
-    return await this.request('DELETE', url, params)
+    return await this.debouncedRequest('DELETE', url, params)
+  }
+
+  async debouncedRequest(method, url, params) {
+    return new Promise((resolve, reject) => {
+      const debouncedFunc = debounce(
+        async () => {
+          try {
+            const result = await this.request(method, url, params)
+            resolve(result)
+          } catch (error) {
+            reject(error)
+          }
+        },
+        500,
+        {
+          leading: true,
+          maxWait: 1000,
+        },
+      )
+
+      debouncedFunc()
+    })
   }
 
   async request(method, url, params) {
