@@ -1,5 +1,9 @@
 <template>
-  <router-view></router-view>
+  <router-view v-slot="{ Component, route }">
+    <transition name="fade">
+      <component :is="Component" :key="route.path"/>
+    </transition>
+  </router-view>
 </template>
 
 <script setup>
@@ -56,3 +60,22 @@ onMounted(() => {
   provide('breadcrumbs', breadcrumbs)
 })
 </script>
+
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  /* 为了让组件不影响body的结构，从而不会产生滚动条 */
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
